@@ -1,0 +1,57 @@
+p {
+    color: #62676E;
+}
+
+.main_top_bar {
+    width: 100%;
+    height: 4rem;
+    background-color: #282B32;
+    position: absolute;
+    top: 0;
+}
+
+.main_vertical_layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 0 15rem;
+}
+
+.main_horizontal_layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    /*margin: 0 15rem;*/
+}
+
+.main_grid {
+    margin: 3rem 0 0;
+}
+
+.main_grid div {
+    margin-top: 3rem;
+    height: 10rem;
+    text-align: center;
+}
+
+.main_grid .main_horizontal_layout {
+    width: 100%
+}
+
+.main_font {
+    position: relative;
+}
+
+.main_title {
+    margin-top: 6rem;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+}
+
+.main_description {
+    font-size: 1.2rem;
+}
+
+
+
+
