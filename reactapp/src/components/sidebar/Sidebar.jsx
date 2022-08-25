@@ -6,32 +6,32 @@ const sidebarNavItems = [
     {
         display: 'Study Information',
         icon: <i className='bx bx-home'></i>,
-        to: '/',
-        section: ''
+        to: '/study_information',
+        section: 'study_information'
     },
     {
         display: 'Questions',
         icon: <i className='bx bx-star'></i>,
-        to: '/',
-        section: 'started'
+        to: '/questions',
+        section: 'questions'
     },
     {
         display: 'Schedule configuration',
         icon: <i className='bx bx-calendar'></i>,
-        to: '/',
-        section: 'calendar'
+        to: '/schedule_configuration',
+        section: 'schedule_configuration'
     },
     {
         display: 'Sensor data',
         icon: <i className='bx bx-user'></i>,
-        to: '/',
-        section: 'user'
+        to: '/sensor_data',
+        section: 'sensor_data'
     },
     {
         display: 'Overview',
         icon: <i className='bx bx-receipt'></i>,
-        to: '/',
-        section: 'order'
+        to: '/overview',
+        section: 'overview'
     },
 ]
 
