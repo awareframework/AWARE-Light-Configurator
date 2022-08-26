@@ -18,7 +18,6 @@ Initializing Environment Guide:
 
 Developing Frontend Code Guide:
 1. `cd reactapp` 
-2. `npm i sass --save-dev`
-3. `npm run build`
-4. `serve -s build` start server
-5. `npm start` (run this if step3 not works)
+2. `npm run build`
+3. `serve -s build` start server
+4. `npm start` (run this if step3 not works)
