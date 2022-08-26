@@ -2,14 +2,6 @@ p {
     color: #62676E;
 }
 
-.main_top_bar {
-    width: 100%;
-    height: 4rem;
-    background-color: #282B32;
-    position: absolute;
-    top: 0;
-}
-
 .main_vertical_layout {
     display: flex;
     flex-direction: column;
@@ -36,10 +28,6 @@ p {
 
 .main_grid .main_horizontal_layout {
     width: 100%
-}
-
-.main_font {
-    position: relative;
 }
 
 .main_title {
