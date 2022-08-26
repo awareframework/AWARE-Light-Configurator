@@ -13,6 +13,5 @@ module.exports = {
   rules: {
     "react/no-array-index-key": 1,
     "react/no-unescaped-entities": 1,
-    "no-undef": 1,
   },
 };
