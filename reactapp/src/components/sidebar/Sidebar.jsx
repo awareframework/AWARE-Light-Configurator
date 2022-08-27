@@ -54,7 +54,9 @@ function Sidebar() {
 
   // change active index
   useEffect(() => {
-    const curPath = window.location.pathname.split("/")[1];
+    const parts = window.location.pathname.split("/");
+    let curPath = "study_information";
+    if (parts.length === 3) [, , curPath] = parts;
     const activeItem = sidebarNavItems.findIndex(
       (item) => item.section === curPath
     );
@@ -71,7 +73,7 @@ function Sidebar() {
           style={{
             transform: `translateX(-50%) translateY(${
               activeIndex * stepHeight
-            }px + 4rem)`,
+            }px)`,
           }}
         />
         {sidebarNavItems.map((item, index) => {
