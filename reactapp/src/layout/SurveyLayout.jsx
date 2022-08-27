@@ -6,7 +6,6 @@ import PageHeader from "../components/PageHeader/PageHeader";
 function SurveyLayout() {
   return (
     <div>
-      rdliny
       <PageHeader />
       <div
         style={{

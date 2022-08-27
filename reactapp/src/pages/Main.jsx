@@ -1,5 +1,6 @@
 import "./Main.css";
 import { Button, Divider, ThemeProvider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { createTheme } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -11,9 +12,15 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Grid from "@mui/material/Unstable_Grid2";
 import React from "react";
+import { useRecoilState } from "recoil";
 import PageHeader from "../components/PageHeader/PageHeader";
+import { studyFormStudyInformationState } from "../functions/atom";
 
 export default function Main() {
+  const navigateTo = useNavigate();
+  const [studyInformation, setStudyInformation] = useRecoilState(
+    studyFormStudyInformationState
+  );
   const testTheme = createTheme({
     palette: {
       main: {
@@ -40,6 +47,10 @@ export default function Main() {
               variant="contained"
               style={{ marginRight: "1rem" }}
               color="main"
+              onClick={() => {
+                setStudyInformation({});
+                navigateTo("/study");
+              }}
             >
               <AddIcon />
               Design your own study

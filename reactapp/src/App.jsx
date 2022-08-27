@@ -2,6 +2,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Main from "./pages/Main";
+import SurveyLayout from "./layout/SurveyLayout";
+import StudyInformation from "./pages/StudyInformation";
+import StudyQuestions from "./pages/StudyQuestions";
 
 // import {StudyInformation} from "./pages/StudyInformation";
 
@@ -10,14 +13,20 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        {/* <Route path='/' element={<SurveyLayout/>}> */}
-        {/*  <Route index element={<StudyInformation />} /> */}
-        {/*  <Route path='/study_information' element={<StudyInformation />} /> */}
-        {/*  <Route path='/questions' element={<StudyInformation />} /> */}
-        {/*  <Route path='/schedule_configuration' element={<StudyInformation />} /> */}
-        {/*  <Route path='/sensor_data' element={<StudyInformation />} /> */}
-        {/*  <Route path='/overview' element={<StudyInformation />} /> */}
-        {/* </Route> */}
+        <Route path="/study" element={<SurveyLayout />}>
+          <Route index element={<StudyInformation />} />
+          <Route
+            path="/study/study_information"
+            element={<StudyInformation />}
+          />
+          <Route path="/study/questions" element={<StudyQuestions />} />
+          <Route
+            path="/study/schedule_configuration"
+            element={<StudyInformation />}
+          />
+          <Route path="/study/sensor_data" element={<StudyInformation />} />
+          <Route path="/study/overview" element={<StudyInformation />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

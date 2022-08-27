@@ -9,8 +9,9 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["prettier", "react"],
+  plugins: ["react", "prettier"],
   rules: {
+    "no-unused-vars": 1,
     "react/no-array-index-key": 1,
     "react/no-unescaped-entities": 1,
   },

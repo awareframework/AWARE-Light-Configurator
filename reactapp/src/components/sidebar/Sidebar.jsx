@@ -1,36 +1,36 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./sidebar.scss";
+import "./Sidebar.scss";
 
 const sidebarNavItems = [
   {
     display: "Study Information",
     icon: <i className="bx bx-home" />,
-    to: "/study_information",
+    to: "/study/study_information",
     section: "study_information",
   },
   {
     display: "Questions",
     icon: <i className="bx bx-star" />,
-    to: "/questions",
+    to: "/study/questions",
     section: "questions",
   },
   {
     display: "Schedule configuration",
     icon: <i className="bx bx-calendar" />,
-    to: "/schedule_configuration",
+    to: "/study/schedule_configuration",
     section: "schedule_configuration",
   },
   {
     display: "Sensor data",
     icon: <i className="bx bx-user" />,
-    to: "/sensor_data",
+    to: "/study/sensor_data",
     section: "sensor_data",
   },
   {
     display: "Overview",
     icon: <i className="bx bx-receipt" />,
-    to: "/overview",
+    to: "/study/overview",
     section: "overview",
   },
 ];
@@ -71,7 +71,7 @@ function Sidebar() {
           style={{
             transform: `translateX(-50%) translateY(${
               activeIndex * stepHeight
-            }px)`,
+            }px + 4rem)`,
           }}
         />
         {sidebarNavItems.map((item, index) => {
