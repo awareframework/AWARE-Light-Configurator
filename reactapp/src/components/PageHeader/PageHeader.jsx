@@ -5,7 +5,7 @@ export default function PageHeader() {
   return (
     <div>
       <div className="top_bar" />
-      <p className="page-header">AWARE-Light Configuration Page</p>
+      <p className="page_header">AWARE-Light Configuration Page</p>
     </div>
   );
 }

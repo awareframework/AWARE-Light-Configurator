@@ -15,20 +15,13 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import PageHeader from "../components/PageHeader/PageHeader";
 import { studyFormStudyInformationState } from "../functions/atom";
+import customisedTheme from "../functions/theme";
 
 export default function Main() {
   const navigateTo = useNavigate();
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
   );
-  const testTheme = createTheme({
-    palette: {
-      main: {
-        main: "#1FB3DF",
-        contrastText: "white",
-      },
-    },
-  });
 
   return (
     <div>
@@ -41,7 +34,7 @@ export default function Main() {
           Sampling, and to collect sensor data.
         </p>
 
-        <ThemeProvider theme={testTheme}>
+        <ThemeProvider theme={customisedTheme}>
           <div className="main_horizontal_layout">
             <Button
               variant="contained"
@@ -49,7 +42,7 @@ export default function Main() {
               color="main"
               onClick={() => {
                 setStudyInformation({});
-                navigateTo("/study");
+                navigateTo("/study/study_information");
               }}
             >
               <AddIcon />

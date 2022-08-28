@@ -46,7 +46,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>study title*</p>
+              <p className="field_name">study title*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -70,7 +70,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>description*</p>
+              <p className="field_name">description*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -96,9 +96,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>
-                Researcher's first name*
-              </p>
+              <p className="field_name">Researcher's first name*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -122,9 +120,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>
-                Researcher's last name*
-              </p>
+              <p className="field_name">Researcher's last name*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -148,9 +144,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>
-                Researcher's email*
-              </p>
+              <p className="field_name">Researcher's email*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -176,9 +170,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>
-                Host / Server IP*
-              </p>
+              <p className="field_name">Host / Server IP*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -202,7 +194,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>Port number*</p>
+              <p className="field_name">Port number*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -226,9 +218,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>
-                Database name*
-              </p>
+              <p className="field_name">Database name*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -254,9 +244,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>
-                INSERT-only username*
-              </p>
+              <p className="field_name">INSERT-only username*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -282,9 +270,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>
-                INSERT-only password*
-              </p>
+              <p className="field_name">INSERT-only password*</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -340,7 +326,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>Root username</p>
+              <p className="field_name">Root username</p>
             </Grid>
             <Grid width={300}>
               <TextField
@@ -366,7 +352,7 @@ export default function StudyInformation() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width={250}>
-              <p style={{ fontSize: "1 rem", color: "black" }}>Root password</p>
+              <p className="field_name">Root password</p>
             </Grid>
             <Grid width={300}>
               <TextField

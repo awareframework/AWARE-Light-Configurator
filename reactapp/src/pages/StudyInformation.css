@@ -2,8 +2,14 @@
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
-    color: #000000;
+    color: black;
 }
+
 .explanation {
     font-size: 1rem;
+}
+
+.field_name {
+    font-size: 1rem;
+    color: black;
 }
