@@ -5,6 +5,7 @@ import Main from "./pages/Main";
 import SurveyLayout from "./layout/SurveyLayout";
 import StudyInformation from "./pages/StudyInformation";
 import StudyQuestions from "./pages/StudyQuestions";
+import Overview from "./pages/Overview";
 
 // import {StudyInformation} from "./pages/StudyInformation";
 
@@ -25,7 +26,7 @@ function App() {
             element={<StudyInformation />}
           />
           <Route path="/study/sensor_data" element={<StudyInformation />} />
-          <Route path="/study/overview" element={<StudyInformation />} />
+          <Route path="/study/overview" element={<Overview />} />
         </Route>
       </Routes>
     </BrowserRouter>

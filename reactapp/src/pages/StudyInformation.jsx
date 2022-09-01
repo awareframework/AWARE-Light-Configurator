@@ -1,13 +1,15 @@
 import "./StudyInformation.css";
-import React from "react";
-import { Button, TextField } from "@mui/material";
+import React, { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 import { studyFormStudyInformationState } from "../functions/atom";
+import InputField from "../components/InputField/InputField";
+import Field from "../components/Field/Field";
 
 const TITLE1 = "Study Information";
 const EXPLANATION1 =
@@ -33,262 +35,121 @@ export default function StudyInformation() {
     });
   };
 
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
+  function emailNotification() {
+    if (studyInformation.email == null) {
+      return <p />;
+    }
+    if (!isValidEmail(studyInformation.email)) {
+      // email not valid
+      return (
+        <p
+          className="validity"
+          style={{ color: "red" }}
+          // marginTop={5}
+          // marginLeft={10}
+        >
+          Invalid email
+        </p>
+      );
+    }
+    return (
+      <p className="validity" style={{ color: "green" }}>
+        Email is valid.
+      </p>
+    );
+  }
+
   return (
     <div>
       <div className="main_vertical_layout">
         <p className="title">{TITLE1}</p>
         <p className="explanation">{EXPLANATION1}</p>
 
-        <Box sx={{ width: "100%" }}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">study title*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="The title of your study"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.studyTitle ? studyInformation.studyTitle : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("studyTitle", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
+        <Box
+          sx={{ width: "120%" }}
+          mt={1}
+          marginBottom={5}
+          ml={-1}
+          boxShadow="1px 2px 9px #F4AAB9"
+        >
+          <Field
+            fieldName="study title*"
+            studyInfoField={studyInformation.studyTitle}
+            inputLabel="Study title"
+            field="studyTitle"
+          />
+          <Field
+            fieldName="description*"
+            studyInfoField={studyInformation.description}
+            inputLabel="Description"
+            field="description"
+          />
+          <Field
+            fieldName="Researcher's first name*"
+            studyInfoField={studyInformation.firstName}
+            inputLabel="First name"
+            field="firstName"
+          />
+          <Field
+            fieldName="Researcher's last name*"
+            studyInfoField={studyInformation.lastName}
+            inputLabel="Last name"
+            field="lastName"
+          />
+          <Field
+            fieldName="Researcher's email*"
+            studyInfoField={studyInformation.email}
+            inputLabel="Email"
+            field="email"
+          />
 
           <Grid
             container
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            <Grid width={250}>
-              <p className="field_name">description*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="A short description of your study"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.description
-                    ? studyInformation.description
-                    : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("description", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Researcher's first name*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="First name"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.firstName ? studyInformation.firstName : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("firstName", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Researcher's last name*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="Last name"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.lastName ? studyInformation.lastName : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("lastName", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Researcher's email*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="example@email.com"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={studyInformation.email ? studyInformation.email : ""}
-                onChange={(event) => {
-                  updateFormByField("email", event.target.value);
-                }}
-              />
-            </Grid>
+            <Grid width={250} />
+            <Grid width={300}>{emailNotification()}</Grid>
           </Grid>
         </Box>
 
         <p className="title">{TITLE2}</p>
         <p className="explanation">{EXPLANATION2}</p>
         <Box sx={{ width: "100%" }}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Host / Server IP*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="e.g. 139.130.4.5"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.ipAddress ? studyInformation.ipAddress : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("ipAddress", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Port number*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="e.g. 3306"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.portNumber ? studyInformation.portNumber : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("portNumber", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Database name*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="Database name"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.databaseName
-                    ? studyInformation.databaseName
-                    : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("databaseName", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">INSERT-only username*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="Username"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.databaseUserName
-                    ? studyInformation.databaseUserName
-                    : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("databaseUserName", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">INSERT-only password*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="Password"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.databasePassword
-                    ? studyInformation.databasePassword
-                    : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("databasePassword", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
+          <Field
+            fieldName="Host / Server IP*"
+            studyInfoField={studyInformation.host}
+            inputLabel="Host"
+            field="host"
+          />
+          <Field
+            fieldName="Port number*"
+            studyInfoField={studyInformation.portNumber}
+            inputLabel="Port number"
+            field="portNumber"
+          />
+          <Field
+            fieldName="Database name*"
+            studyInfoField={studyInformation.databaseName}
+            inputLabel="Database name"
+            field="databaseName"
+          />
+          <Field
+            fieldName="INSERT-only username*"
+            studyInfoField={studyInformation.insertOnlyUsername}
+            inputLabel="Insert only username"
+            field="insertOnlyUsername"
+          />
+          <Field
+            fieldName="INSERT-only password*"
+            studyInfoField={studyInformation.insertOnlyPassword}
+            inputLabel="Insert only password"
+            field="insertOnlyPassword"
+          />
 
           <Grid
             container
@@ -320,57 +181,18 @@ export default function StudyInformation() {
 
         <p className="explanation">{EXPLANATION3}</p>
         <Box sx={{ width: "100%" }}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Root username</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="Root username"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.rootUserName
-                    ? studyInformation.rootUserName
-                    : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("rootUserName", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="field_name">Root password</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="Root password"
-                variant="outlined"
-                style={{ width: 600 }}
-                value={
-                  studyInformation.rootPassword
-                    ? studyInformation.rootPassword
-                    : ""
-                }
-                onChange={(event) => {
-                  updateFormByField("rootPassword", event.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
+          <Field
+            fieldName="Root username"
+            studyInfoField={studyInformation.rootUsername}
+            inputLabel="Root username"
+            field="rootUsername"
+          />
+          <Field
+            fieldName="Root password"
+            studyInfoField={studyInformation.rootPassword}
+            inputLabel="Root password"
+            field="rootPassword"
+          />
         </Box>
 
         <Box sx={{ width: "100%" }} mt={2}>
@@ -396,16 +218,13 @@ export default function StudyInformation() {
             <Button
               variant="contained"
               onClick={() => {
+                // console.log(studyInformation);
+                navigateTo("/study/overview");
                 console.log(studyInformation);
-                navigateTo("/study/questions");
               }}
             >
               NEXT STEP: QUESTIONS
             </Button>
-            {/* <Grid width={500}></Grid> */}
-            {/* <Grid width={500}> */}
-            {/*    */}
-            {/* </Grid> */}
           </Grid>
         </Box>
       </div>
