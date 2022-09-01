@@ -7,11 +7,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import "./QuestionComponent.css";
 import DeleteIcon from "@mui/icons-material/Delete";
+import InputField from "../InputField/InputField";
+import Field from "../Field/Field";
 
 export default function QuestionComponent({ questionNumber }) {
   return (
@@ -33,55 +34,18 @@ export default function QuestionComponent({ questionNumber }) {
           </Button>
         </div>
         <Box sx={{ width: "100%" }}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="question_field_name">Title*</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="The actual question"
-                variant="outlined"
-                style={{ width: 600 }}
-                // value={
-                //   studyInformation.studyTitle ? studyInformation.studyTitle : ""
-                // }
-                // onChange={(event) => {
-                //   updateFormByField("studyTitle", event.target.value);
-                // }}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="question_field_name">Instructions</p>
-            </Grid>
-            <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                label="Any instructions for the participant(s)"
-                variant="outlined"
-                style={{ width: 600 }}
-                // value={
-                //   studyInformation.description
-                //     ? studyInformation.description
-                //     : ""
-                // }
-                // onChange={(event) => {
-                //   updateFormByField("description", event.target.value);
-                // }}
-              />
-            </Grid>
-          </Grid>
+          <Field
+            fieldName="Title*"
+            // studyInfoField={studyInformation.questionTitle}
+            inputLabel="The actual question"
+            // field="questionTitle"
+          />
+          <Field
+            fieldName="Instructions"
+            // studyInfoField={studyInformation.instructions}
+            inputLabel="Any instructions for the participant(s)"
+            // field="instructions"
+          />
 
           <Grid
             container
@@ -127,18 +91,7 @@ export default function QuestionComponent({ questionNumber }) {
               <p className="question_field_name">Notification timeout</p>
             </Grid>
             <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                variant="outlined"
-                style={{ width: 600 }}
-                type="number"
-                // value={
-                //   studyInformation.lastName ? studyInformation.lastName : ""
-                // }
-                // onChange={(event) => {
-                //   updateFormByField("lastName", event.target.value);
-                // }}
-              />
+              <InputField />
               <p className="question-description">
                 Dismiss the notification after the specified time (in seconds).
               </p>
@@ -154,16 +107,7 @@ export default function QuestionComponent({ questionNumber }) {
               <p className="question_field_name">Expiration time</p>
             </Grid>
             <Grid width={300}>
-              <TextField
-                id="outlined-basic"
-                variant="outlined"
-                style={{ width: 600 }}
-                type="number"
-                // value={studyInformation.email ? studyInformation.email : ""}
-                // onChange={(event) => {
-                //   updateFormByField("email", event.target.value);
-                // }}
-              />
+              <InputField />
               <p className="question-description">
                 Specify the maximum time the participant has to answer the
                 question (in seconds), use 0 for unlimited answer time. If an
