@@ -37,9 +37,9 @@ export default function ScheduleComponent({ ScheduleNumber }) {
 
   return (
     <div>
-      <div className="question_vertical_layout question_border">
-        <div className="question_horizontal_layout">
-          <p className="question_title">Schedule {ScheduleNumber}</p>
+      <div className="schedule_vertical_layout question_border">
+        <div className="schedule_horizontal_layout">
+          <p className="schedule_title">Schedule {ScheduleNumber}</p>
           <Button>
             <DeleteIcon
               color="error"
@@ -54,7 +54,7 @@ export default function ScheduleComponent({ ScheduleNumber }) {
           </Button>
         </div>
 
-        <p className="explanation">
+        <p className="schedule-description">
           If desired, create multiple schedules and assign different questions
           to each schedule.
         </p>
@@ -68,10 +68,10 @@ export default function ScheduleComponent({ ScheduleNumber }) {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width="30%">
-              <p className="question_field_name">Included questions*</p>
+              <p className="schedule_field_name">Included questions*</p>
             </Grid>
             <Grid width="50%">
-              <div className="question_vertical_layout">
+              <div className="schedule_vertical_layout">
                 {/* ToDo: Display all the questions here */}
                 <FormControlLabel
                   control={
@@ -98,7 +98,7 @@ export default function ScheduleComponent({ ScheduleNumber }) {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width="30%">
-              <p className="question_field_name">Schedule type</p>
+              <p className="schedule_field_name">Schedule type</p>
             </Grid>
             <Grid width="50%">
               <RadioGroup row>
@@ -127,7 +127,7 @@ export default function ScheduleComponent({ ScheduleNumber }) {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width="30%">
-              <p className="question_field_name">Repeat interval</p>
+              <p className="schedule_field_name">Repeat interval</p>
             </Grid>
             <Grid width="50%">
               <TextField
@@ -139,7 +139,7 @@ export default function ScheduleComponent({ ScheduleNumber }) {
                 }}
                 style={{ width: "140%" }}
               />
-              <p className="explanation">
+              <p className="schedule-description">
                 Schedule is triggered repeatedly in accordance with the
                 specified interval (in minutes).
               </p>

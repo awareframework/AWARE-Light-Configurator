@@ -4,14 +4,14 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { Button, Link, ThemeProvider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ScheduleComponent from "../components/ScheduleComponent/ScheduleComponent";
-import "./StudyQuestions.css";
+import "./ScheduleConfiguration.css";
 import customisedTheme from "../functions/theme";
 
 export default function ScheduleConfiguration() {
   const navigateTo = useNavigate();
   return (
     <ThemeProvider theme={customisedTheme}>
-      <div className="study_question_vertical_layout">
+      <div className="study_schedule_vertical_layout">
         <ScheduleComponent scheduleNumber={1} />
         <ScheduleComponent scheduleNumber={2} />
 

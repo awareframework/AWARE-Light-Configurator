@@ -7,6 +7,7 @@ import StudyInformation from "./pages/StudyInformation";
 import StudyQuestions from "./pages/StudyQuestions";
 import Overview from "./pages/Overview";
 import ScheduleConfiguration from "./pages/ScheduleConfiguration";
+import SensorData from "./pages/SensorData";
 
 // import {StudyInformation} from "./pages/StudyInformation";
 
@@ -26,7 +27,7 @@ function App() {
             path="/study/schedule_configuration"
             element={<ScheduleConfiguration />}
           />
-          <Route path="/study/sensor_data" element={<StudyInformation />} />
+          <Route path="/study/sensor_data" element={<SensorData />} />
           <Route path="/study/overview" element={<Overview />} />
         </Route>
       </Routes>
