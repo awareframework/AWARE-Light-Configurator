@@ -16,7 +16,7 @@ const sidebarNavItems = [
     section: "questions",
   },
   {
-    display: "Schedule configuration",
+    display: "Schedule Configuration",
     icon: <i className="bx bx-calendar" />,
     to: "/study/schedule_configuration",
     section: "schedule_configuration",

@@ -23,7 +23,7 @@ function InputField(inputs) {
       id="outlined-basic"
       label={inputLabel}
       variant="outlined"
-      style={{ width: "180%" }}
+      style={{ width: "140%" }}
       // value={{ fieldname } ? { fieldname } : ""}
       value={studyInfoField || ""}
       onChange={(event) => {

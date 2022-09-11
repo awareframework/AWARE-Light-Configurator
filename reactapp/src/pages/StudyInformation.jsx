@@ -6,10 +6,11 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import { studyFormStudyInformationState } from "../functions/atom";
 import InputField from "../components/InputField/InputField";
 import Field from "../components/Field/Field";
+import customisedTheme from "../functions/theme";
 
 const TITLE1 = "Study Information";
 const EXPLANATION1 =
@@ -65,169 +66,192 @@ export default function StudyInformation() {
 
   return (
     <div>
-      <div className="main_vertical_layout">
-        <p className="title">{TITLE1}</p>
-        <p className="explanation">{EXPLANATION1}</p>
-
-        <Box
-          sx={{ width: "120%" }}
-          mt={1}
-          marginBottom={5}
-          ml={-1}
-          boxShadow="1px 2px 9px #F4AAB9"
-        >
-          <Field
-            fieldName="study title*"
-            studyInfoField={studyInformation.studyTitle}
-            inputLabel="Study title"
-            field="studyTitle"
-          />
-          <Field
-            fieldName="description*"
-            studyInfoField={studyInformation.description}
-            inputLabel="Description"
-            field="description"
-          />
-          <Field
-            fieldName="Researcher's first name*"
-            studyInfoField={studyInformation.firstName}
-            inputLabel="First name"
-            field="firstName"
-          />
-          <Field
-            fieldName="Researcher's last name*"
-            studyInfoField={studyInformation.lastName}
-            inputLabel="Last name"
-            field="lastName"
-          />
-          <Field
-            fieldName="Researcher's email*"
-            studyInfoField={studyInformation.email}
-            inputLabel="Email"
-            field="email"
-          />
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      <Box
+        sx={{ width: "80%" }}
+        boxShadow="1px 2px 9px #000000"
+        marginLeft="15%"
+      >
+        <div className="main_vertical_layout">
+          <Box
+            sx={{ width: "150%" }}
+            marginTop="10%"
+            marginBottom=""
+            marginLeft="-30%"
+            marginRight="-30%"
           >
-            <Grid width={250} />
-            <Grid width={300}>{emailNotification()}</Grid>
-          </Grid>
-        </Box>
+            <p className="title">{TITLE1}</p>
+            <p className="explanation">{EXPLANATION1}</p>
+            <Field
+              fieldName="study title*"
+              studyInfoField={studyInformation.studyTitle}
+              inputLabel="Study title"
+              field="studyTitle"
+            />
+            <Field
+              fieldName="description*"
+              studyInfoField={studyInformation.description}
+              inputLabel="Description"
+              field="description"
+            />
+            <Field
+              fieldName="Researcher's first name*"
+              studyInfoField={studyInformation.firstName}
+              inputLabel="First name"
+              field="firstName"
+            />
+            <Field
+              fieldName="Researcher's last name*"
+              studyInfoField={studyInformation.lastName}
+              inputLabel="Last name"
+              field="lastName"
+            />
+            <Field
+              fieldName="Researcher's email*"
+              studyInfoField={studyInformation.email}
+              inputLabel="Email"
+              field="email"
+            />
 
-        <p className="title">{TITLE2}</p>
-        <p className="explanation">{EXPLANATION2}</p>
-        <Box sx={{ width: "100%" }}>
-          <Field
-            fieldName="Host / Server IP*"
-            studyInfoField={studyInformation.host}
-            inputLabel="Host"
-            field="host"
-          />
-          <Field
-            fieldName="Port number*"
-            studyInfoField={studyInformation.portNumber}
-            inputLabel="Port number"
-            field="portNumber"
-          />
-          <Field
-            fieldName="Database name*"
-            studyInfoField={studyInformation.databaseName}
-            inputLabel="Database name"
-            field="databaseName"
-          />
-          <Field
-            fieldName="INSERT-only username*"
-            studyInfoField={studyInformation.insertOnlyUsername}
-            inputLabel="Insert only username"
-            field="insertOnlyUsername"
-          />
-          <Field
-            fieldName="INSERT-only password*"
-            studyInfoField={studyInformation.insertOnlyPassword}
-            inputLabel="Insert only password"
-            field="insertOnlyPassword"
-          />
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250} />
-            <Grid width={500}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={
-                      studyInformation.NoPasswordInJSONFile
-                        ? studyInformation.NoPasswordInJSONFile
-                        : false
-                    }
-                    onChange={(_, checked) => {
-                      updateFormByField("NoPasswordInJSONFile", checked);
-                    }}
-                  />
-                }
-                label="No password in JSON file"
-              />
-              <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
-            </Grid>
-          </Grid>
-          <Button variant="contained">TEST CONNECTION</Button>
-        </Box>
-
-        <p className="explanation">{EXPLANATION3}</p>
-        <Box sx={{ width: "100%" }}>
-          <Field
-            fieldName="Root username"
-            studyInfoField={studyInformation.rootUsername}
-            inputLabel="Root username"
-            field="rootUsername"
-          />
-          <Field
-            fieldName="Root password"
-            studyInfoField={studyInformation.rootPassword}
-            inputLabel="Root password"
-            field="rootPassword"
-          />
-        </Box>
-
-        <Box sx={{ width: "100%" }} mt={2}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <Button variant="contained">INITIALIZE DATABASE</Button>
-            </Grid>
-            <Grid width={300} />
-          </Grid>
-        </Box>
-
-        <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 23 }}
-            justifyContent="flex-end"
-          >
-            <Button
-              variant="contained"
-              onClick={() => {
-                // console.log(studyInformation);
-                navigateTo("/study/overview");
-                console.log(studyInformation);
-              }}
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              NEXT STEP: QUESTIONS
-            </Button>
-          </Grid>
-        </Box>
-      </div>
+              <Grid width="30%" />
+              <Grid width="40%">{emailNotification()}</Grid>
+            </Grid>
+          </Box>
+
+          <Box
+            sx={{ width: "150%" }}
+            marginTop="10%"
+            marginBottom=""
+            marginLeft="-30%"
+            marginRight="-30%"
+          >
+            <p className="title">{TITLE2}</p>
+            <p className="explanation">{EXPLANATION2}</p>
+            <Field
+              fieldName="Host / Server IP*"
+              studyInfoField={studyInformation.host}
+              inputLabel="Host"
+              field="host"
+            />
+            <Field
+              fieldName="Port number*"
+              studyInfoField={studyInformation.portNumber}
+              inputLabel="Port number"
+              field="portNumber"
+            />
+            <Field
+              fieldName="Database name*"
+              studyInfoField={studyInformation.databaseName}
+              inputLabel="Database name"
+              field="databaseName"
+            />
+            <Field
+              fieldName="INSERT-only username*"
+              studyInfoField={studyInformation.insertOnlyUsername}
+              inputLabel="Insert only username"
+              field="insertOnlyUsername"
+            />
+            <Field
+              fieldName="INSERT-only password*"
+              studyInfoField={studyInformation.insertOnlyPassword}
+              inputLabel="Insert only password"
+              field="insertOnlyPassword"
+            />
+
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid width="30%" />
+              <Grid width="70%">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={
+                        studyInformation.NoPasswordInJSONFile
+                          ? studyInformation.NoPasswordInJSONFile
+                          : false
+                      }
+                      onChange={(_, checked) => {
+                        updateFormByField("NoPasswordInJSONFile", checked);
+                      }}
+                    />
+                  }
+                  label="No password in JSON file"
+                />
+                <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
+              </Grid>
+            </Grid>
+            <Button variant="contained">TEST CONNECTION</Button>
+          </Box>
+
+          <Box
+            sx={{ width: "150%" }}
+            marginTop="10%"
+            marginBottom=""
+            marginLeft="-30%"
+            marginRight="-30%"
+          >
+            <p className="explanation">{EXPLANATION3}</p>
+            <Field
+              fieldName="Root username"
+              studyInfoField={studyInformation.rootUsername}
+              inputLabel="Root username"
+              field="rootUsername"
+            />
+            <Field
+              fieldName="Root password"
+              studyInfoField={studyInformation.rootPassword}
+              inputLabel="Root password"
+              field="rootPassword"
+            />
+          </Box>
+
+          <Box
+            sx={{ width: "100%" }}
+            marginTop="10%"
+            marginBottom=""
+            marginLeft="-30%"
+            marginRight="-30%"
+          >
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid width={250}>
+                <Button variant="contained">INITIALIZE DATABASE</Button>
+              </Grid>
+              <Grid width={300} />
+            </Grid>
+          </Box>
+
+          <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 23 }}
+              justifyContent="flex-end"
+            >
+              <Button
+                variant="contained"
+                onClick={() => {
+                  // console.log(studyInformation);
+                  navigateTo("/study/overview");
+                  console.log(studyInformation);
+                }}
+              >
+                NEXT STEP: QUESTIONS
+              </Button>
+            </Grid>
+          </Box>
+        </div>
+      </Box>
     </div>
 
     // <div>Study Information</div>

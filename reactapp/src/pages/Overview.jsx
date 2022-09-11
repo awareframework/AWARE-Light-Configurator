@@ -19,7 +19,7 @@ export default function Main() {
           mt={1}
           marginBottom={5}
           ml={-1}
-          boxShadow="1px 2px 9px #F4AAB9"
+          boxShadow="1px 2px 9px #000000"
         >
           <Grid width={250} ml={5} mt={3}>
             <p className="title">Study Information</p>
@@ -76,7 +76,7 @@ export default function Main() {
           mt={1}
           marginBottom={5}
           ml={-1}
-          boxShadow="1px 2px 9px #F4AAB9"
+          boxShadow="1px 2px 9px #000000"
         >
           <Grid width={250} ml={5} mt={3}>
             <p className="title">Questions</p>
@@ -147,7 +147,7 @@ export default function Main() {
           mt={1}
           marginBottom={5}
           ml={-1}
-          boxShadow="1px 2px 9px #F4AAB9"
+          boxShadow="1px 2px 9px #000000"
         >
           <Grid width={250} ml={5} mt={3}>
             <p className="title">Schedule configuration</p>
@@ -204,7 +204,7 @@ export default function Main() {
           mt={1}
           marginBottom={5}
           ml={-1}
-          boxShadow="1px 2px 9px #F4AAB9"
+          boxShadow="1px 2px 9px #000000"
         >
           <Grid width={250} ml={5} mt={3}>
             <p className="title">Sensor data</p>
@@ -261,7 +261,7 @@ export default function Main() {
           mt={1}
           marginBottom={5}
           ml={-1}
-          boxShadow="1px 2px 9px #F4AAB9"
+          boxShadow="1px 2px 9px #000000"
         >
           <Grid
             container
