@@ -24,7 +24,6 @@ function InputField(inputs) {
       label={inputLabel}
       variant="outlined"
       style={{ width: "140%" }}
-      // value={{ fieldname } ? { fieldname } : ""}
       value={studyInfoField || ""}
       onChange={(event) => {
         updateFormByField(field.toString(), event.target.value);

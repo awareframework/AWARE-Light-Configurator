@@ -1,11 +1,10 @@
 import React from "react";
-import "./SensorComponent.css";
+import "./FrequencyField.css";
 import { TextField } from "@mui/material";
-
 import { useRecoilState } from "recoil";
 import Grid from "@mui/material/Unstable_Grid2";
-import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import {
   accelerometerState,
   applicationSensorState,
@@ -28,9 +27,8 @@ import {
   timezoneState,
   wifiState,
 } from "../../functions/atom";
-import InputField from "../InputField/InputField";
 
-export default function SensorComponent(inputs) {
+function FrequencyField(inputs) {
   const [sensorData, setsensorData] = useRecoilState(sensorDataState);
   const updateSensorData = (fieldName, value) => {
     setsensorData({
@@ -269,28 +267,33 @@ export default function SensorComponent(inputs) {
     }
   }
 
-  const { sensorName, sensorDescription, stateField, field, modeState } =
+  const { id, title, inputLabel, defaultNum, description, field, modeState } =
     inputs;
 
   return (
     <div className="sensor_vertical_layout">
       <Grid>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={stateField || false}
-              onChange={(_, checked) => {
-                updateStates(field.toString(), checked, modeState);
-                console.log(stateField, modeState);
-              }}
-            />
-          }
-          label={sensorName}
-        />
+        <p className="field_name" mb={10}>
+          {title}
+        </p>
       </Grid>
-      <Grid>
-        <p className="explanation">{sensorDescription}</p>
+      <Grid marginTop={2}>
+        <TextField
+          id={id}
+          label={inputLabel}
+          defaultValue={defaultNum}
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          style={{ width: "100%" }}
+          onChange={(event) => {
+            updateStates(field.toString(), event.target.value, modeState);
+          }}
+        />
+        <p className="schedule-description">{description}</p>
       </Grid>
     </div>
   );
 }
+export default FrequencyField;

@@ -22,6 +22,40 @@ import InputField from "../InputField/InputField";
 import Field from "../Field/Field";
 import { studyFormStudyInformationState } from "../../functions/atom";
 
+function Schedule(scheduleName) {
+  console.log(scheduleName);
+  if (scheduleName === "repeat_intervals") {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="30%">
+          <p className="schedule_field_name">Repeat interval</p>
+        </Grid>
+        <Grid width="50%">
+          <TextField
+            id="outlined-number"
+            label="Triggered every X minutes"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            style={{ width: "140%" }}
+          />
+          <p className="schedule-description">
+            Schedule is triggered repeatedly in accordance with the specified
+            interval (in minutes).
+          </p>
+        </Grid>
+      </Grid>
+    );
+  }
+  if (scheduleName === "set_schedules") {
+    return <p>set schedules</p>;
+  }
+  if (scheduleName === "random_triggers") {
+    return <p>random triggers</p>;
+  }
+}
+
 export default function ScheduleComponent({ ScheduleNumber }) {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
@@ -33,6 +67,11 @@ export default function ScheduleComponent({ ScheduleNumber }) {
       ...studyInformation,
       [fieldName]: value,
     });
+  };
+
+  let scheduleChoice;
+  const changeSchedule = (name) => {
+    scheduleChoice = name;
   };
 
   return (
@@ -61,7 +100,6 @@ export default function ScheduleComponent({ ScheduleNumber }) {
 
         <Box sx={{ width: "100%" }}>
           <Field fieldName="Title*" inputLabel="The schedule title" />
-
           <Grid
             container
             rowSpacing={1}
@@ -91,7 +129,6 @@ export default function ScheduleComponent({ ScheduleNumber }) {
               </div>
             </Grid>
           </Grid>
-
           <Grid
             container
             rowSpacing={1}
@@ -101,51 +138,49 @@ export default function ScheduleComponent({ ScheduleNumber }) {
               <p className="schedule_field_name">Schedule type</p>
             </Grid>
             <Grid width="50%">
-              <RadioGroup row>
+              <RadioGroup
+                aria-labelledby="schedule_type"
+                defaultValue="set_schedules"
+                name="schedule"
+                row
+              >
                 <FormControlLabel
                   value="set_schedules"
                   control={<Radio />}
                   label="Set schedules"
+                  // ToDo: Update values - 存的时候因为存的是const所以应当render出Schedule()
+                  // checked={}
+                  // onClick={(_, checked) => {
+                  //   updateFormByField("NoPasswordInJSONFile", checked);
+                  // }}
                 />
                 <FormControlLabel
                   value="random_triggers"
                   control={<Radio />}
                   label="Random triggers"
+                  // ToDo: Update values
+                  // checked={}
+                  // onClick={(_, checked) => {
+                  //   updateFormByField("NoPasswordInJSONFile", checked);
+                  // }}
                 />
                 <FormControlLabel
                   value="repeat_intervals"
                   control={<Radio />}
                   label="Repeat intervals"
+                  // ToDo: Update values
+                  // checked={}
+                  onClick={(_, checked) => {
+                    changeSchedule("repeat_intervals");
+                    console.log(scheduleChoice);
+                    // updateFormByField("NoPasswordInJSONFile", checked);
+                  }}
                 />
               </RadioGroup>
             </Grid>
           </Grid>
-
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width="30%">
-              <p className="schedule_field_name">Repeat interval</p>
-            </Grid>
-            <Grid width="50%">
-              <TextField
-                id="outlined-number"
-                label="Triggered every X minutes"
-                type="number"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                style={{ width: "140%" }}
-              />
-              <p className="schedule-description">
-                Schedule is triggered repeatedly in accordance with the
-                specified interval (in minutes).
-              </p>
-            </Grid>
-          </Grid>
         </Box>
+        {Schedule(scheduleChoice)}
       </div>
     </div>
   );
