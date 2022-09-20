@@ -15,7 +15,7 @@ export default function Main() {
     <div>
       <div className="main_vertical_layout">
         <Box
-          sx={{ width: "120%" }}
+          sx={{ width: "110%" }}
           mt={1}
           marginBottom={5}
           ml={-1}
@@ -72,7 +72,7 @@ export default function Main() {
         </Box>
 
         <Box
-          sx={{ width: "120%" }}
+          sx={{ width: "110%" }}
           mt={1}
           marginBottom={5}
           ml={-1}
@@ -143,7 +143,7 @@ export default function Main() {
         </Box>
 
         <Box
-          sx={{ width: "120%" }}
+          sx={{ width: "110%" }}
           mt={1}
           marginBottom={5}
           ml={-1}
@@ -200,7 +200,7 @@ export default function Main() {
         </Box>
 
         <Box
-          sx={{ width: "120%" }}
+          sx={{ width: "110%" }}
           mt={1}
           marginBottom={5}
           ml={-1}
@@ -257,7 +257,7 @@ export default function Main() {
         </Box>
 
         <Box
-          sx={{ width: "120%" }}
+          sx={{ width: "110%" }}
           mt={1}
           marginBottom={5}
           ml={-1}

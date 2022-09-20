@@ -65,195 +65,147 @@ export default function StudyInformation() {
   }
 
   return (
-    <div>
-      <Box
-        sx={{ width: "80%" }}
-        boxShadow="1px 2px 9px #000000"
-        marginLeft="15%"
-      >
-        <div className="main_vertical_layout">
-          <Box
-            sx={{ width: "150%" }}
-            marginTop="10%"
-            marginBottom=""
-            marginLeft="-30%"
-            marginRight="-30%"
-          >
-            <p className="title">{TITLE1}</p>
-            <p className="explanation">{EXPLANATION1}</p>
-            <Field
-              fieldName="study title*"
-              studyInfoField={studyInformation.studyTitle}
-              inputLabel="Study title"
-              field="studyTitle"
-            />
-            <Field
-              fieldName="description*"
-              studyInfoField={studyInformation.description}
-              inputLabel="Description"
-              field="description"
-            />
-            <Field
-              fieldName="Researcher's first name*"
-              studyInfoField={studyInformation.firstName}
-              inputLabel="First name"
-              field="firstName"
-            />
-            <Field
-              fieldName="Researcher's last name*"
-              studyInfoField={studyInformation.lastName}
-              inputLabel="Last name"
-              field="lastName"
-            />
-            <Field
-              fieldName="Researcher's email*"
-              studyInfoField={studyInformation.email}
-              inputLabel="Email"
-              field="email"
-            />
+    <div className="main_vertical_layout">
+      <div className="border">
+        <p className="title">{TITLE1}</p>
+        <p className="explanation">{EXPLANATION1}</p>
+        <Field
+          fieldName="study title*"
+          studyInfoField={studyInformation.studyTitle}
+          inputLabel="Study title"
+          field="studyTitle"
+        />
+        <Field
+          fieldName="description*"
+          studyInfoField={studyInformation.description}
+          inputLabel="Description"
+          field="description"
+        />
+        <Field
+          fieldName="Researcher's first name*"
+          studyInfoField={studyInformation.firstName}
+          inputLabel="First name"
+          field="firstName"
+        />
+        <Field
+          fieldName="Researcher's last name*"
+          studyInfoField={studyInformation.lastName}
+          inputLabel="Last name"
+          field="lastName"
+        />
+        <Field
+          fieldName="Researcher's email*"
+          studyInfoField={studyInformation.email}
+          inputLabel="Email"
+          field="email"
+        />
 
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              <Grid width="30%" />
-              <Grid width="40%">{emailNotification()}</Grid>
-            </Grid>
-          </Box>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid width="30%" />
+          <Grid width="40%">{emailNotification()}</Grid>
+        </Grid>
+      </div>
 
-          <Box
-            sx={{ width: "150%" }}
-            marginTop="10%"
-            marginBottom=""
-            marginLeft="-30%"
-            marginRight="-30%"
-          >
-            <p className="title">{TITLE2}</p>
-            <p className="explanation">{EXPLANATION2}</p>
-            <Field
-              fieldName="Host / Server IP*"
-              studyInfoField={studyInformation.host}
-              inputLabel="Host"
-              field="host"
-            />
-            <Field
-              fieldName="Port number*"
-              studyInfoField={studyInformation.portNumber}
-              inputLabel="Port number"
-              field="portNumber"
-            />
-            <Field
-              fieldName="Database name*"
-              studyInfoField={studyInformation.databaseName}
-              inputLabel="Database name"
-              field="databaseName"
-            />
-            <Field
-              fieldName="INSERT-only username*"
-              studyInfoField={studyInformation.insertOnlyUsername}
-              inputLabel="Insert only username"
-              field="insertOnlyUsername"
-            />
-            <Field
-              fieldName="INSERT-only password*"
-              studyInfoField={studyInformation.insertOnlyPassword}
-              inputLabel="Insert only password"
-              field="insertOnlyPassword"
-            />
+      <div className="border">
+        <p className="title">{TITLE2}</p>
+        <p className="explanation">{EXPLANATION2}</p>
+        <Field
+          fieldName="Host / Server IP*"
+          studyInfoField={studyInformation.host}
+          inputLabel="Host"
+          field="host"
+        />
+        <Field
+          fieldName="Port number*"
+          studyInfoField={studyInformation.portNumber}
+          inputLabel="Port number"
+          field="portNumber"
+        />
+        <Field
+          fieldName="Database name*"
+          studyInfoField={studyInformation.databaseName}
+          inputLabel="Database name"
+          field="databaseName"
+        />
+        <Field
+          fieldName="INSERT-only username*"
+          studyInfoField={studyInformation.insertOnlyUsername}
+          inputLabel="Insert only username"
+          field="insertOnlyUsername"
+        />
+        <Field
+          fieldName="INSERT-only password*"
+          studyInfoField={studyInformation.insertOnlyPassword}
+          inputLabel="Insert only password"
+          field="insertOnlyPassword"
+        />
 
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              <Grid width="30%" />
-              <Grid width="70%">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={
-                        studyInformation.NoPasswordInJSONFile
-                          ? studyInformation.NoPasswordInJSONFile
-                          : false
-                      }
-                      onChange={(_, checked) => {
-                        updateFormByField("NoPasswordInJSONFile", checked);
-                      }}
-                    />
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid width="30%" />
+          <Grid width="70%">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={
+                    studyInformation.NoPasswordInJSONFile
+                      ? studyInformation.NoPasswordInJSONFile
+                      : false
                   }
-                  label="No password in JSON file"
+                  onChange={(_, checked) => {
+                    updateFormByField("NoPasswordInJSONFile", checked);
+                  }}
                 />
-                <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
-              </Grid>
-            </Grid>
-            <Button variant="contained">TEST CONNECTION</Button>
-          </Box>
-
-          <Box
-            sx={{ width: "150%" }}
-            marginTop="10%"
-            marginBottom=""
-            marginLeft="-30%"
-            marginRight="-30%"
-          >
-            <p className="explanation">{EXPLANATION3}</p>
-            <Field
-              fieldName="Root username"
-              studyInfoField={studyInformation.rootUsername}
-              inputLabel="Root username"
-              field="rootUsername"
+              }
+              label="No password in JSON file"
             />
-            <Field
-              fieldName="Root password"
-              studyInfoField={studyInformation.rootPassword}
-              inputLabel="Root password"
-              field="rootPassword"
-            />
-          </Box>
+            <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
+          </Grid>
+        </Grid>
+        <Button variant="contained">TEST CONNECTION</Button>
+      </div>
 
-          <Box
-            sx={{ width: "100%" }}
-            marginTop="10%"
-            marginBottom=""
-            marginLeft="-30%"
-            marginRight="-30%"
+      <div className="border">
+        <p className="explanation">{EXPLANATION3}</p>
+        <Field
+          fieldName="Root username"
+          studyInfoField={studyInformation.rootUsername}
+          inputLabel="Root username"
+          field="rootUsername"
+        />
+        <Field
+          fieldName="Root password"
+          studyInfoField={studyInformation.rootPassword}
+          inputLabel="Root password"
+          field="rootPassword"
+        />
+
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid width={250}>
+            <Button variant="contained">INITIALIZE DATABASE</Button>
+          </Grid>
+          <Grid width={300} />
+        </Grid>
+      </div>
+
+      <div>
+        <Grid
+          container
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2, md: 23 }}
+          justifyContent="flex-end"
+        >
+          <Button
+            variant="contained"
+            onClick={() => {
+              // console.log(studyInformation);
+              navigateTo("/study/overview");
+              console.log(studyInformation);
+            }}
           >
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              <Grid width={250}>
-                <Button variant="contained">INITIALIZE DATABASE</Button>
-              </Grid>
-              <Grid width={300} />
-            </Grid>
-          </Box>
-
-          <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 23 }}
-              justifyContent="flex-end"
-            >
-              <Button
-                variant="contained"
-                onClick={() => {
-                  // console.log(studyInformation);
-                  navigateTo("/study/overview");
-                  console.log(studyInformation);
-                }}
-              >
-                NEXT STEP: QUESTIONS
-              </Button>
-            </Grid>
-          </Box>
-        </div>
-      </Box>
+            NEXT STEP: QUESTIONS
+          </Button>
+        </Grid>
+      </div>
     </div>
-
-    // <div>Study Information</div>
   );
 }

@@ -267,8 +267,16 @@ function FrequencyField(inputs) {
     }
   }
 
-  const { id, title, inputLabel, defaultNum, description, field, modeState } =
-    inputs;
+  const {
+    id,
+    title,
+    inputLabel,
+    defaultNum,
+    description,
+    field,
+    studyField,
+    modeState,
+  } = inputs;
 
   return (
     <div className="sensor_vertical_layout">
@@ -281,7 +289,7 @@ function FrequencyField(inputs) {
         <TextField
           id={id}
           label={inputLabel}
-          defaultValue={defaultNum}
+          value={studyField || defaultNum.toString()}
           type="number"
           InputLabelProps={{
             shrink: true,
