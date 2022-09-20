@@ -4,7 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import {
   accelerometerState,
   applicationSensorState,
@@ -29,6 +29,7 @@ import {
 } from "../functions/atom";
 import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
+import customisedTheme from "../functions/theme";
 
 export default function SensorData() {
   const navigateTo = useNavigate();
@@ -801,370 +802,380 @@ export default function SensorData() {
   }
 
   return (
-    <div className="main_vertical_layout">
-      <div className="border">
-        <p className="title">Sensors data</p>
-        <p className="explanation">
-          Collect sensor data from the participants' phone during your study.
-          Some sensors require specific permissions to be enabled on the phone.
-          These are automatically requested when the study is joined. Keep in
-          mind that the collection of multiple sensors at high frequency can
-          decrease battery life of the phone.
-        </p>
-      </div>
+    <ThemeProvider theme={customisedTheme}>
+      <div className="main_vertical_layout">
+        <div className="border">
+          <p className="title">Sensors data</p>
+          <p className="explanation">
+            Collect sensor data from the participants' phone during your study.
+            Some sensors require specific permissions to be enabled on the
+            phone. These are automatically requested when the study is joined.
+            Keep in mind that the collection of multiple sensors at high
+            frequency can decrease battery life of the phone.
+          </p>
+        </div>
 
-      <div className="border">
-        <p className="title">Configuration settings</p>
-        <SensorComponent
-          sensorName="Wifi only"
-          sensorDescription="Upload data only when connected to Wi-Fi."
-          stateField={sensorData.wifi_only}
-          field="wifi_only"
-          modeState="sensor"
-        />
-        <SensorComponent
-          sensorName="Charging only"
-          sensorDescription="Upload only if charging."
-          stateField={sensorData.charging_only}
-          field="charging_only"
-          modeState="sensor"
-        />
+        <div className="border">
+          <p className="title">Configuration settings</p>
+          <SensorComponent
+            sensorName="Wifi only"
+            sensorDescription="Upload data only when connected to Wi-Fi."
+            stateField={sensorData.wifi_only}
+            field="wifi_only"
+            modeState="sensor"
+          />
+          <SensorComponent
+            sensorName="Charging only"
+            sensorDescription="Upload only if charging."
+            stateField={sensorData.charging_only}
+            field="charging_only"
+            modeState="sensor"
+          />
 
-        <FrequencyField
-          id="offload_frequency"
-          title="Offload frequency"
-          inputLabel="sychronised frequency in minutes"
-          defaultNum={30}
-          description="How often the data is synchronised with the webservices (min)?"
-          field="offload_frequency"
-          modeState="sensor"
-        />
+          <FrequencyField
+            id="offload_frequency"
+            title="Offload frequency"
+            inputLabel="sychronised frequency in minutes"
+            defaultNum={30}
+            description="How often the data is synchronised with the webservices (min)?"
+            field="offload_frequency"
+            modeState="sensor"
+          />
 
-        <SensorComponent
-          sensorName="Silent"
-          sensorDescription="Don't show sync notifications."
-          stateField={sensorData.no_sync_notify}
-          field="no_sync_notify"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Silent"
+            sensorDescription="Don't show sync notifications."
+            stateField={sensorData.no_sync_notify}
+            field="no_sync_notify"
+            modeState="sensor"
+          />
 
-        <FrequencyField
-          id="fallback_network"
-          title="Fallback network"
-          inputLabel="maximum number of trying over wifi"
-          defaultNum={30}
-          description="Fallback to 3G syncing after specified number of hours trying over WiFi."
-          field="fallback_network"
-          modeState="sensor"
-        />
+          <FrequencyField
+            id="fallback_network"
+            title="Fallback network"
+            inputLabel="maximum number of trying over wifi"
+            defaultNum={30}
+            description="Fallback to 3G syncing after specified number of hours trying over WiFi."
+            field="fallback_network"
+            modeState="sensor"
+          />
 
-        <SensorComponent
-          sensorName="Remind to charge"
-          sensorDescription="Remind to charge when 15% battery is left."
-          stateField={sensorData.charge_reminder}
-          field="charge_reminder"
-          modeState="sensor"
-        />
-        <SensorComponent
-          sensorName="Foreground priority"
-          sensorDescription="Recommended to keep AWARE running non-stop."
-          stateField={sensorData.foreground_priority}
-          field="foreground_priority"
-          modeState="sensor"
-        />
-        <SensorComponent
-          sensorName="Debug flag"
-          sensorDescription="Show debug messages in logcat."
-          stateField={sensorData.debug_flag}
-          field="debug_flag"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Remind to charge"
+            sensorDescription="Remind to charge when 15% battery is left."
+            stateField={sensorData.charge_reminder}
+            field="charge_reminder"
+            modeState="sensor"
+          />
+          <SensorComponent
+            sensorName="Foreground priority"
+            sensorDescription="Recommended to keep AWARE running non-stop."
+            stateField={sensorData.foreground_priority}
+            field="foreground_priority"
+            modeState="sensor"
+          />
+          <SensorComponent
+            sensorName="Debug flag"
+            sensorDescription="Show debug messages in logcat."
+            stateField={sensorData.debug_flag}
+            field="debug_flag"
+            modeState="sensor"
+          />
 
-        <FrequencyField
-          id="config_update_freq"
-          title="Config update frequency"
-          inputLabel="minutes waiting for checking updates"
-          defaultNum={60}
-          description="How frequently to check for new study config (min)?"
-          field="config_update_freq"
-          modeState="sensor"
-        />
+          <FrequencyField
+            id="config_update_freq"
+            title="Config update frequency"
+            inputLabel="minutes waiting for checking updates"
+            defaultNum={60}
+            description="How frequently to check for new study config (min)?"
+            field="config_update_freq"
+            modeState="sensor"
+          />
 
-        <SensorComponent
-          sensorName="Enable settings update"
-          sensorDescription="Allow participants to modify the study config from the mobile."
-          stateField={sensorData.setting_update}
-          field="setting_update"
-          modeState="sensor"
-        />
-      </div>
+          <SensorComponent
+            sensorName="Enable settings update"
+            sensorDescription="Allow participants to modify the study config from the mobile."
+            stateField={sensorData.setting_update}
+            field="setting_update"
+            modeState="sensor"
+          />
+        </div>
 
-      <div className="border">
-        <p className="title">Software sensors</p>
-        {/* ToDo: Application show options when clicked */}
-        <SensorComponent
-          sensorName="Application"
-          sensorDescription="Application usage and incoming notifications on the device."
-          stateField={sensorData.sensor_application}
-          field="sensor_application"
-          modeState="sensor"
-        />
+        <div className="border">
+          <p className="title">Software sensors</p>
+          {/* ToDo: Application show options when clicked */}
+          <SensorComponent
+            sensorName="Application"
+            sensorDescription="Application usage and incoming notifications on the device."
+            stateField={sensorData.sensor_application}
+            field="sensor_application"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_application ? (
-          SensorApplicationSubContent()
-        ) : (
-          <div />
-        )}
+          {sensorData.sensor_application ? (
+            SensorApplicationSubContent()
+          ) : (
+            <div />
+          )}
 
-        <SensorComponent
-          sensorName="Battery"
-          sensorDescription="Battery information and power related events (phone shutting down, rebooting)."
-          stateField={sensorData.sensor_battery}
-          field="sensor_battery"
-          modeState="sensor"
-        />
-        {/* ToDo: Communication show options when clicked */}
-        <SensorComponent
-          sensorName="Communication"
-          sensorDescription="Communication events such as calls and messages, performed by or received by the user."
-          stateField={sensorData.sensor_communication}
-          field="sensor_communication"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Battery"
+            sensorDescription="Battery information and power related events (phone shutting down, rebooting)."
+            stateField={sensorData.sensor_battery}
+            field="sensor_battery"
+            modeState="sensor"
+          />
+          {/* ToDo: Communication show options when clicked */}
+          <SensorComponent
+            sensorName="Communication"
+            sensorDescription="Communication events such as calls and messages, performed by or received by the user."
+            stateField={sensorData.sensor_communication}
+            field="sensor_communication"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_communication ? (
-          SensorCommunicationSubContent()
-        ) : (
-          <div />
-        )}
+          {sensorData.sensor_communication ? (
+            SensorCommunicationSubContent()
+          ) : (
+            <div />
+          )}
 
-        <SensorComponent
-          sensorName="Installations"
-          sensorDescription="Application installations, removal, and updates."
-          stateField={sensorData.sensor_installation}
-          field="sensor_installation"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Installations"
+            sensorDescription="Application installations, removal, and updates."
+            stateField={sensorData.sensor_installation}
+            field="sensor_installation"
+            modeState="sensor"
+          />
 
-        <SensorComponent
-          sensorName="Screen"
-          sensorDescription="Smartphone screen status; turning on, turning off, lock, and unlock."
-          stateField={sensorData.sensor_screen}
-          field="sensor_screen"
-          modeState="sensor"
-        />
-        {sensorData.sensor_screen ? SensorScreenSubContent() : <div />}
+          <SensorComponent
+            sensorName="Screen"
+            sensorDescription="Smartphone screen status; turning on, turning off, lock, and unlock."
+            stateField={sensorData.sensor_screen}
+            field="sensor_screen"
+            modeState="sensor"
+          />
+          {sensorData.sensor_screen ? SensorScreenSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Telephony"
-          sensorDescription="Information on the mobile phone capabilities of the device, connected cell towers, and neighboring towers."
-          stateField={sensorData.sensor_telephony}
-          field="sensor_telephony"
-          modeState="sensor"
-        />
-        {/* ToDo: Timezone show options when clicked */}
-        <SensorComponent
-          sensorName="Timezone"
-          sensorDescription="Logs user's current timezone."
-          stateField={sensorData.sensor_timezone}
-          field="sensor_timezone"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Telephony"
+            sensorDescription="Information on the mobile phone capabilities of the device, connected cell towers, and neighboring towers."
+            stateField={sensorData.sensor_telephony}
+            field="sensor_telephony"
+            modeState="sensor"
+          />
+          {/* ToDo: Timezone show options when clicked */}
+          <SensorComponent
+            sensorName="Timezone"
+            sensorDescription="Logs user's current timezone."
+            stateField={sensorData.sensor_timezone}
+            field="sensor_timezone"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_timezone ? SensorTimezoneSubContent() : <div />}
-      </div>
+          {sensorData.sensor_timezone ? SensorTimezoneSubContent() : <div />}
+        </div>
 
-      <div className="border">
-        <p className="title">Hardware sensors</p>
-        <SensorComponent
-          sensorName="Accelerometer"
-          sensorDescription="Acceleration applied to the device, including the force of gravity."
-          stateField={sensorData.sensor_accelerometer}
-          field="sensor_accelerometer"
-          modeState="sensor"
-        />
+        <div className="border">
+          <p className="title">Hardware sensors</p>
+          <SensorComponent
+            sensorName="Accelerometer"
+            sensorDescription="Acceleration applied to the device, including the force of gravity."
+            stateField={sensorData.sensor_accelerometer}
+            field="sensor_accelerometer"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_accelerometer ? (
-          SensorAccelerometerSubContent()
-        ) : (
-          <div />
-        )}
+          {sensorData.sensor_accelerometer ? (
+            SensorAccelerometerSubContent()
+          ) : (
+            <div />
+          )}
 
-        <SensorComponent
-          sensorName="Barometer"
-          sensorDescription="Ambient air pressure."
-          stateField={sensorData.sensor_barometer}
-          field="sensor_barometer"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Barometer"
+            sensorDescription="Ambient air pressure."
+            stateField={sensorData.sensor_barometer}
+            field="sensor_barometer"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_barometer ? SensorBarometerSubContent() : <div />}
+          {sensorData.sensor_barometer ? SensorBarometerSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Bluetooth"
-          sensorDescription="Smartphone's Bluetooth sensor and surrounding Bluetooth-enabled and visible devices. Includes respective RSSI dB values."
-          stateField={sensorData.sensor_bluetooth}
-          field="sensor_bluetooth"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Bluetooth"
+            sensorDescription="Smartphone's Bluetooth sensor and surrounding Bluetooth-enabled and visible devices. Includes respective RSSI dB values."
+            stateField={sensorData.sensor_bluetooth}
+            field="sensor_bluetooth"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_bluetooth ? SensorBluetoothSubContent() : <div />}
+          {sensorData.sensor_bluetooth ? SensorBluetoothSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Gravity"
-          sensorDescription="Force of gravity applied to the the device, provides a three dimensional vector indicating the direction and magnitude of gravity."
-          stateField={sensorData.sensor_gravity}
-          field="sensor_gravity"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Gravity"
+            sensorDescription="Force of gravity applied to the the device, provides a three dimensional vector indicating the direction and magnitude of gravity."
+            stateField={sensorData.sensor_gravity}
+            field="sensor_gravity"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_gravity ? SensorGravitySubContent() : <div />}
+          {sensorData.sensor_gravity ? SensorGravitySubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Gyroscope"
-          sensorDescription="Rate or rotation in rad/s around a device’s x-, y-, and z-axis."
-          stateField={sensorData.sensor_gyroscope}
-          field="sensor_gyroscope"
-          modeState="sensor"
-        />
-        {sensorData.sensor_gyroscope ? SensorGyroscopeSubContent() : <div />}
+          <SensorComponent
+            sensorName="Gyroscope"
+            sensorDescription="Rate or rotation in rad/s around a device’s x-, y-, and z-axis."
+            stateField={sensorData.sensor_gyroscope}
+            field="sensor_gyroscope"
+            modeState="sensor"
+          />
+          {sensorData.sensor_gyroscope ? SensorGyroscopeSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Light"
-          sensorDescription="Level of ambient light."
-          stateField={sensorData.sensor_light}
-          field="sensor_light"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Light"
+            sensorDescription="Level of ambient light."
+            stateField={sensorData.sensor_light}
+            field="sensor_light"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_light ? SensorLightSubContent() : <div />}
+          {sensorData.sensor_light ? SensorLightSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Linear accelerometer"
-          sensorDescription="Acceleration applied to the device, excluding the force of gravity."
-          stateField={sensorData.sensor_linear_accelerometer}
-          field="sensor_linear_accelerometer"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Linear accelerometer"
+            sensorDescription="Acceleration applied to the device, excluding the force of gravity."
+            stateField={sensorData.sensor_linear_accelerometer}
+            field="sensor_linear_accelerometer"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_linear_accelerometer ? (
-          SensorLinearAccelerometerSubContent()
-        ) : (
-          <div />
-        )}
+          {sensorData.sensor_linear_accelerometer ? (
+            SensorLinearAccelerometerSubContent()
+          ) : (
+            <div />
+          )}
 
-        <SensorComponent
-          sensorName="Locations"
-          sensorDescription="Best location estimate of the users’ current location, based on an algorithm that results in minimum battery impact."
-          stateField={sensorData.sensor_locations}
-          field="sensor_locations"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Locations"
+            sensorDescription="Best location estimate of the users’ current location, based on an algorithm that results in minimum battery impact."
+            stateField={sensorData.sensor_locations}
+            field="sensor_locations"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_locations ? SensorLocationsSubContent() : <div />}
+          {sensorData.sensor_locations ? SensorLocationsSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Magnetometer"
-          sensorDescription="Geomagnetic field strength around the device."
-          stateField={sensorData.sensor_magnetometer}
-          field="sensor_magnetometer"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Magnetometer"
+            sensorDescription="Geomagnetic field strength around the device."
+            stateField={sensorData.sensor_magnetometer}
+            field="sensor_magnetometer"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_magnetometer ? (
-          SensorMagnetometerSubContent()
-        ) : (
-          <div />
-        )}
+          {sensorData.sensor_magnetometer ? (
+            SensorMagnetometerSubContent()
+          ) : (
+            <div />
+          )}
 
-        <SensorComponent
-          sensorName="Network"
-          sensorDescription="Information on the network sensors availability of the device. These include use of airplane mode, Wi-Fi, Bluetooth, GPS, mobile, and WIMAX status as well as internet availability."
-          stateField={sensorData.sensor_network}
-          field="sensor_network"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Network"
+            sensorDescription="Information on the network sensors availability of the device. These include use of airplane mode, Wi-Fi, Bluetooth, GPS, mobile, and WIMAX status as well as internet availability."
+            stateField={sensorData.sensor_network}
+            field="sensor_network"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_network ? SensorNetworkSubContent() : <div />}
+          {sensorData.sensor_network ? SensorNetworkSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Processor"
-          sensorDescription="Processor load."
-          stateField={sensorData.sensor_processor}
-          field="sensor_processor"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Processor"
+            sensorDescription="Processor load."
+            stateField={sensorData.sensor_processor}
+            field="sensor_processor"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_processor ? SensorProcessorSubContent() : <div />}
+          {sensorData.sensor_processor ? SensorProcessorSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Proximity"
-          sensorDescription="Distance to an object in front of the device."
-          stateField={sensorData.sensor_proximity}
-          field="sensor_proximity"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Proximity"
+            sensorDescription="Distance to an object in front of the device."
+            stateField={sensorData.sensor_proximity}
+            field="sensor_proximity"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_proximity ? SensorProximitySubContent() : <div />}
+          {sensorData.sensor_proximity ? SensorProximitySubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Rotation"
-          sensorDescription="Orientation of the device as a combination of an angle and an axis."
-          stateField={sensorData.sensor_rotation}
-          field="sensor_rotation"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Rotation"
+            sensorDescription="Orientation of the device as a combination of an angle and an axis."
+            stateField={sensorData.sensor_rotation}
+            field="sensor_rotation"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_rotation ? SensorRotationSubContent() : <div />}
+          {sensorData.sensor_rotation ? SensorRotationSubContent() : <div />}
 
-        <SensorComponent
-          sensorName="Temperature"
-          sensorDescription="Ambient air temperature in Celsius (˚C). Not many devices have this sensor available."
-          stateField={sensorData.sensor_temperature}
-          field="sensor_temperature"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Temperature"
+            sensorDescription="Ambient air temperature in Celsius (˚C). Not many devices have this sensor available."
+            stateField={sensorData.sensor_temperature}
+            field="sensor_temperature"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_temperature ? (
-          SensorTemperatureSubContent()
-        ) : (
-          <div />
-        )}
+          {sensorData.sensor_temperature ? (
+            SensorTemperatureSubContent()
+          ) : (
+            <div />
+          )}
 
-        <SensorComponent
-          sensorName="Wi-Fi"
-          sensorDescription="The device’s Wi-Fi sensor, current AP, and surrounding Wi-Fi visible devices with respective RSSI dB values."
-          stateField={sensorData.sensor_wifi}
-          field="sensor_wifi"
-          modeState="sensor"
-        />
+          <SensorComponent
+            sensorName="Wi-Fi"
+            sensorDescription="The device’s Wi-Fi sensor, current AP, and surrounding Wi-Fi visible devices with respective RSSI dB values."
+            stateField={sensorData.sensor_wifi}
+            field="sensor_wifi"
+            modeState="sensor"
+          />
 
-        {sensorData.sensor_wifi ? SensorWifiSubContent() : <div />}
-      </div>
+          {sensorData.sensor_wifi ? SensorWifiSubContent() : <div />}
+        </div>
 
-      <Box sx={{ width: "80%" }} marginLeft="15%">
-        <div className="main_vertical_layout">
-          <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 23 }}
-              justifyContent="flex-end"
-            >
+        <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 23 }}
+          >
+            <Grid xs={6}>
               <Button
+                color="main"
+                variant="contained"
+                onClick={() => {
+                  navigateTo("/study/questions");
+                }}
+              >
+                BACK
+              </Button>
+            </Grid>
+            <Grid xs />
+            <Grid xs="auto">
+              <Button
+                color="main"
                 variant="contained"
                 onClick={() => {
                   navigateTo("/study/overview");
-                  console.log(applicationSensor);
-                  console.log(screenData);
                 }}
               >
-                NEXT STEP: QUESTIONS
+                NEXT STEP: OVERVIEW
               </Button>
             </Grid>
-          </Box>
-        </div>
-      </Box>
-    </div>
+          </Grid>
+        </Box>
+      </div>
+    </ThemeProvider>
   );
 }

@@ -18,3 +18,11 @@
     font-size: 1rem;
     color: black;
 }
+
+.border {
+    border: 2px outset #666464;
+    box-shadow: 3px 3px 5px gray;
+    border-radius: 5px;
+    padding: 0 1rem;
+    margin-top: 1rem;
+}

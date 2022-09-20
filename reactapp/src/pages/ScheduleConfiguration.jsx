@@ -38,7 +38,7 @@ export default function ScheduleConfiguration() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/study_information");
+                  navigateTo("/study/questions");
                 }}
               >
                 BACK
@@ -50,7 +50,7 @@ export default function ScheduleConfiguration() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/schedule_configuration");
+                  navigateTo("/study/sensor_data");
                 }}
               >
                 NEXT STEP: SENSOR DATA

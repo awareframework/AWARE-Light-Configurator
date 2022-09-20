@@ -45,15 +45,17 @@ export default function StudyQuestions() {
               </Button>
             </Grid>
             <Grid xs />
+
             <Grid xs="auto">
               <Button
                 color="main"
+                display="flex"
                 variant="contained"
                 onClick={() => {
                   navigateTo("/study/schedule_configuration");
                 }}
               >
-                NEXT STEP: SCHEDULE CONFIGURATION
+                NEXT STEP:SCHEDULE CONFIGURATION
               </Button>
             </Grid>
           </Grid>

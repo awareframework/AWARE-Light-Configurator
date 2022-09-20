@@ -13,7 +13,7 @@ export default function Field(inputs) {
 
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-      <Grid width="30%">
+      <Grid width="20%">
         {/* <p className="field_name">{fieldName}</p> */}
         <p className="field_name">{fieldName}</p>
       </Grid>

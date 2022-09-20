@@ -52,14 +52,14 @@ export default function QuestionComponent({ questionNumber }) {
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            <Grid width={250}>
+            <Grid width="20%">
               <p className="question_field_name">Question type*</p>
             </Grid>
-            <Grid width={300}>
-              <FormControl>
+            <Grid width="50%">
+              <FormControl fullWidth="100%">
                 <InputLabel id="question-type-select">Select One</InputLabel>
                 <Select
-                  style={{ width: 600 }}
+                  // style={{ width: 600 }}
                   labelId="question-type-select"
                   id="question-type"
                   label="Select One"
