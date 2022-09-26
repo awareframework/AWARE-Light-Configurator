@@ -1,0 +1,6 @@
+.study_schedule_vertical_layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 0 15rem;
+}

@@ -3,17 +3,17 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Button, Link, ThemeProvider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import QuestionComponent from "../components/QuestionComponent/QuestionComponent";
-import "./StudyQuestions.css";
+import ScheduleComponent from "../components/ScheduleComponent/ScheduleComponent";
+import "./ScheduleConfiguration.css";
 import customisedTheme from "../functions/theme";
 
-export default function StudyQuestions() {
+export default function ScheduleConfiguration() {
   const navigateTo = useNavigate();
   return (
     <ThemeProvider theme={customisedTheme}>
-      <div className="study_question_vertical_layout">
-        <QuestionComponent questionNumber={1} />
-        <QuestionComponent questionNumber={2} />
+      <div className="study_schedule_vertical_layout">
+        <ScheduleComponent scheduleNumber={1} />
+        <ScheduleComponent scheduleNumber={2} />
 
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
           <Grid
@@ -30,7 +30,7 @@ export default function StudyQuestions() {
                   alert("add new question has not implemented");
                 }}
               >
-                ADD A NEW QUESTION
+                ADD A NEW SCHEDULE
               </Button>
             </Grid>
             <Grid xs={6}>
@@ -38,24 +38,22 @@ export default function StudyQuestions() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/study_information");
+                  navigateTo("/study/questions");
                 }}
               >
                 BACK
               </Button>
             </Grid>
             <Grid xs />
-
             <Grid xs="auto">
               <Button
                 color="main"
-                display="flex"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/schedule_configuration");
+                  navigateTo("/study/sensor_data");
                 }}
               >
-                NEXT STEP:SCHEDULE CONFIGURATION
+                NEXT STEP: SENSOR DATA
               </Button>
             </Grid>
           </Grid>

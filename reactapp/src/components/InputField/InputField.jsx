@@ -23,8 +23,7 @@ function InputField(inputs) {
       id="outlined-basic"
       label={inputLabel}
       variant="outlined"
-      style={{ width: "180%" }}
-      // value={{ fieldname } ? { fieldname } : ""}
+      style={{ width: "140%" }}
       value={studyInfoField || ""}
       onChange={(event) => {
         updateFormByField(field.toString(), event.target.value);
