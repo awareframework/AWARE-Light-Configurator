@@ -7,7 +7,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { Button, ThemeProvider } from "@mui/material";
-import { studyFormStudyInformationState } from "../functions/atom";
+import {
+  databaseInformationState,
+  studyFormStudyInformationState,
+} from "../functions/atom";
 import Field from "../components/Field/Field";
 import customisedTheme from "../functions/theme";
 
@@ -26,11 +29,14 @@ export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
   );
+  const [dbInformation, setdbInformation] = useRecoilState(
+    databaseInformationState
+  );
   const navigateTo = useNavigate();
 
   const updateFormByField = (fieldName, value) => {
-    setStudyInformation({
-      ...studyInformation,
+    setdbInformation({
+      ...dbInformation,
       [fieldName]: value,
     });
   };
@@ -71,33 +77,33 @@ export default function StudyInformation() {
           <p className="explanation">{EXPLANATION1}</p>
           <Field
             fieldName="study title*"
-            studyInfoField={studyInformation.studyTitle}
+            studyInfoField={studyInformation.study_title}
             inputLabel="Study title"
-            field="studyTitle"
+            field="study_title"
           />
           <Field
             fieldName="description*"
-            studyInfoField={studyInformation.description}
+            studyInfoField={studyInformation.study_description}
             inputLabel="Description"
-            field="description"
+            field="study_description"
           />
           <Field
             fieldName="Researcher's first name*"
-            studyInfoField={studyInformation.firstName}
+            studyInfoField={studyInformation.researcher_first}
             inputLabel="First name"
-            field="firstName"
+            field="researcher_first"
           />
           <Field
             fieldName="Researcher's last name*"
-            studyInfoField={studyInformation.lastName}
+            studyInfoField={studyInformation.researcher_last}
             inputLabel="Last name"
-            field="lastName"
+            field="researcher_last"
           />
           <Field
             fieldName="Researcher's email*"
-            studyInfoField={studyInformation.email}
+            studyInfoField={studyInformation.researcher_contact}
             inputLabel="Email"
-            field="email"
+            field="researcher_contact"
           />
 
           <Grid
@@ -115,33 +121,33 @@ export default function StudyInformation() {
           <p className="explanation">{EXPLANATION2}</p>
           <Field
             fieldName="Host / Server IP*"
-            studyInfoField={studyInformation.host}
+            studyInfoField={dbInformation.database_host}
             inputLabel="Host"
-            field="host"
+            field="database_host"
           />
           <Field
             fieldName="Port number*"
-            studyInfoField={studyInformation.portNumber}
+            studyInfoField={dbInformation.database_port}
             inputLabel="Port number"
-            field="portNumber"
+            field="database_port"
           />
           <Field
             fieldName="Database name*"
-            studyInfoField={studyInformation.databaseName}
+            studyInfoField={dbInformation.database_name}
             inputLabel="Database name"
-            field="databaseName"
+            field="database_name"
           />
           <Field
             fieldName="INSERT-only username*"
-            studyInfoField={studyInformation.insertOnlyUsername}
+            studyInfoField={dbInformation.database_username}
             inputLabel="Insert only username"
-            field="insertOnlyUsername"
+            field="database_username"
           />
           <Field
             fieldName="INSERT-only password*"
-            studyInfoField={studyInformation.insertOnlyPassword}
+            studyInfoField={dbInformation.database_password}
             inputLabel="Insert only password"
-            field="insertOnlyPassword"
+            field="database_password"
           />
 
           <Grid
@@ -155,12 +161,12 @@ export default function StudyInformation() {
                 control={
                   <Checkbox
                     checked={
-                      studyInformation.NoPasswordInJSONFile
-                        ? studyInformation.NoPasswordInJSONFile
+                      dbInformation.config_without_password
+                        ? dbInformation.config_without_password
                         : false
                     }
                     onChange={(_, checked) => {
-                      updateFormByField("NoPasswordInJSONFile", checked);
+                      updateFormByField("config_without_password", checked);
                     }}
                   />
                 }
@@ -195,13 +201,13 @@ export default function StudyInformation() {
           <p className="explanation">{EXPLANATION3}</p>
           <Field
             fieldName="Root username"
-            studyInfoField={studyInformation.rootUsername}
+            studyInfoField={dbInformation.rootUsername}
             inputLabel="Root username"
             field="rootUsername"
           />
           <Field
             fieldName="Root password"
-            studyInfoField={studyInformation.rootPassword}
+            studyInfoField={dbInformation.rootPassword}
             inputLabel="Root password"
             field="rootPassword"
           />

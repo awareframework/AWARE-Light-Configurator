@@ -56,7 +56,7 @@ export default function QuestionComponent({ questionNumber }) {
               <p className="question_field_name">Question type*</p>
             </Grid>
             <Grid width="50%">
-              <FormControl fullWidth="100%">
+              <FormControl>
                 <InputLabel id="question-type-select">Select One</InputLabel>
                 <Select
                   // style={{ width: 600 }}
