@@ -11,7 +11,6 @@ import {
 import Box from "@mui/material/Box";
 import "./QuestionComponent.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import InputField from "../InputField/InputField";
 import Field from "../Field/Field";
 
 export default function QuestionComponent({ questionNumber }) {
@@ -55,11 +54,12 @@ export default function QuestionComponent({ questionNumber }) {
             <Grid width="20%">
               <p className="question_field_name">Question type*</p>
             </Grid>
-            <Grid width="50%">
+            <Grid width="80%">
               <FormControl fullWidth="100%">
-                <InputLabel id="question-type-select">Select One</InputLabel>
+                <InputLabel id="question-type-select">Select One *</InputLabel>
                 <Select
-                  // style={{ width: 600 }}
+                  required
+                  style={{ width: "100%" }}
                   labelId="question-type-select"
                   id="question-type"
                   label="Select One"
@@ -82,41 +82,25 @@ export default function QuestionComponent({ questionNumber }) {
             </Grid>
           </Grid>
 
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="question_field_name">Notification timeout</p>
-            </Grid>
-            <Grid width={300}>
-              <InputField />
-              <p className="question-description">
-                Dismiss the notification after the specified time (in seconds).
-              </p>
-            </Grid>
-          </Grid>
+          <Field
+            fieldName="Notification timeout"
+            // studyInfoField={studyInformation.instructions}
+            // field="instructions"
+            description="Dismiss the notification after the specified time (in seconds)."
+          />
 
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width={250}>
-              <p className="question_field_name">Expiration time</p>
-            </Grid>
-            <Grid width={300}>
-              <InputField />
-              <p className="question-description">
+          <Field
+            fieldName="Expiration time"
+            // studyInfoField={studyInformation.instructions}
+            // field="instructions"
+            description="
                 Specify the maximum time the participant has to answer the
                 question (in seconds), use 0 for unlimited answer time. If an
                 expiration time higher than zero seconds is used, the
                 questionnaire will be shown as a pop-up. If the expiration time
                 is zero, the questionnaire will be delivered as a notification.
-              </p>
-            </Grid>
-          </Grid>
+                "
+          />
         </Box>
       </div>
     </div>

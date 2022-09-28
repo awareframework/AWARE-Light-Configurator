@@ -1,15 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Field.css";
 import { TextField } from "@mui/material";
 
 import { useRecoilState } from "recoil";
 import Grid from "@mui/material/Unstable_Grid2";
-import { studyFormStudyInformationState } from "../../functions/atom";
-import InputField from "../InputField/InputField";
 
-// eslint-disable-next-line camelcase
 export default function Field(inputs) {
-  const { fieldName, studyInfoField, inputLabel, field } = inputs;
+  const {
+    fieldName, // mandatory feature, field's name
+    recoilState, // mandatory feature, recoil state to store current field's value
+    field, // mandatory feature, field's key in storage
+
+    inputLabel, // optional feature, TextInput's inline description
+    description, // optional feature
+    required, // optional feature
+  } = inputs;
+
+  const [isError, setIsError] = useState(false);
+  let information;
+  let setInformation;
+  if (recoilState === undefined) {
+    [information, setInformation] = useState({});
+  } else {
+    [information, setInformation] = useRecoilState(recoilState);
+  }
+
+  const updateFormByField = (curFieldName, curValue) => {
+    setInformation({
+      ...information,
+      [curFieldName]: curValue,
+    });
+  };
+
+  // required validation logic
+  useEffect(() => {
+    if (required) {
+      if (information[field] === "") {
+        setIsError(true);
+      } else {
+        setIsError(false);
+      }
+    }
+  }, [information[field]]);
 
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -17,12 +49,29 @@ export default function Field(inputs) {
         {/* <p className="field_name">{fieldName}</p> */}
         <p className="field_name">{fieldName}</p>
       </Grid>
-      <Grid width="50%">
-        <InputField
-          studyInfoField={studyInfoField}
-          inputLabel={inputLabel}
-          field={field}
+      <Grid width="80%">
+        <TextField
+          error={isError}
+          required={required === undefined ? false : required}
+          id="outlined-basic"
+          label={inputLabel}
+          variant="outlined"
+          style={{ width: "100%" }}
+          value={information[field] || ""}
+          onChange={(event) => {
+            updateFormByField(field.toString(), event.target.value);
+          }}
         />
+        {description === undefined ? "" : <Grid width="20%" />}
+        {description === undefined ? (
+          ""
+        ) : (
+          <Grid width="80%">
+            <p className="description" style={{ width: "100%" }}>
+              {description}
+            </p>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

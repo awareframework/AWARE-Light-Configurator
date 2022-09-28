@@ -70,34 +70,35 @@ export default function StudyInformation() {
           <p className="title">{TITLE1}</p>
           <p className="explanation">{EXPLANATION1}</p>
           <Field
-            fieldName="study title*"
-            studyInfoField={studyInformation.studyTitle}
-            inputLabel="Study title"
+            fieldName="Study title*"
+            recoilState={studyFormStudyInformationState}
             field="studyTitle"
+            inputLabel="Study title"
+            required
           />
           <Field
             fieldName="description*"
-            studyInfoField={studyInformation.description}
-            inputLabel="Description"
+            recoilState={studyFormStudyInformationState}
             field="description"
+            inputLabel="Description"
           />
           <Field
             fieldName="Researcher's first name*"
-            studyInfoField={studyInformation.firstName}
-            inputLabel="First name"
+            recoilState={studyFormStudyInformationState}
             field="firstName"
+            inputLabel="First name"
           />
           <Field
             fieldName="Researcher's last name*"
-            studyInfoField={studyInformation.lastName}
-            inputLabel="Last name"
+            recoilState={studyFormStudyInformationState}
             field="lastName"
+            inputLabel="Last name"
           />
           <Field
             fieldName="Researcher's email*"
-            studyInfoField={studyInformation.email}
-            inputLabel="Email"
+            recoilState={studyFormStudyInformationState}
             field="email"
+            inputLabel="Email"
           />
 
           <Grid
@@ -105,8 +106,8 @@ export default function StudyInformation() {
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            <Grid width="30%" />
-            <Grid width="40%">{emailNotification()}</Grid>
+            <Grid width="20%" />
+            <Grid width="80%">{emailNotification()}</Grid>
           </Grid>
         </div>
 
@@ -115,33 +116,33 @@ export default function StudyInformation() {
           <p className="explanation">{EXPLANATION2}</p>
           <Field
             fieldName="Host / Server IP*"
-            studyInfoField={studyInformation.host}
-            inputLabel="Host"
+            recoilState={studyFormStudyInformationState}
             field="host"
+            inputLabel="Host"
           />
           <Field
             fieldName="Port number*"
-            studyInfoField={studyInformation.portNumber}
-            inputLabel="Port number"
+            recoilState={studyFormStudyInformationState}
             field="portNumber"
+            inputLabel="Port number"
           />
           <Field
             fieldName="Database name*"
-            studyInfoField={studyInformation.databaseName}
-            inputLabel="Database name"
+            recoilState={studyFormStudyInformationState}
             field="databaseName"
+            inputLabel="Database name"
           />
           <Field
             fieldName="INSERT-only username*"
-            studyInfoField={studyInformation.insertOnlyUsername}
-            inputLabel="Insert only username"
+            recoilState={studyFormStudyInformationState}
             field="insertOnlyUsername"
+            inputLabel="Insert only username"
           />
           <Field
             fieldName="INSERT-only password*"
-            studyInfoField={studyInformation.insertOnlyPassword}
-            inputLabel="Insert only password"
+            recoilState={studyFormStudyInformationState}
             field="insertOnlyPassword"
+            inputLabel="Insert only password"
           />
 
           <Grid
@@ -149,8 +150,8 @@ export default function StudyInformation() {
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            <Grid width="30%" />
-            <Grid width="70%">
+            <Grid width="20%" />
+            <Grid width="80%">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -195,15 +196,15 @@ export default function StudyInformation() {
           <p className="explanation">{EXPLANATION3}</p>
           <Field
             fieldName="Root username"
-            studyInfoField={studyInformation.rootUsername}
-            inputLabel="Root username"
+            recoilState={studyFormStudyInformationState}
             field="rootUsername"
+            inputLabel="Root username"
           />
           <Field
             fieldName="Root password"
-            studyInfoField={studyInformation.rootPassword}
-            inputLabel="Root password"
+            recoilState={studyFormStudyInformationState}
             field="rootPassword"
+            inputLabel="Root password"
           />
 
           <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
