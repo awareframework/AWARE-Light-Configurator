@@ -7,7 +7,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { Button, ThemeProvider } from "@mui/material";
-import { studyFormStudyInformationState } from "../functions/atom";
+import {
+  databaseInformationState,
+  studyFormStudyInformationState,
+} from "../functions/atom";
 import Field from "../components/Field/Field";
 import customisedTheme from "../functions/theme";
 
@@ -26,11 +29,14 @@ export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
   );
+  const [dbInformation, setdbInformation] = useRecoilState(
+    databaseInformationState
+  );
   const navigateTo = useNavigate();
 
   const updateFormByField = (fieldName, value) => {
-    setStudyInformation({
-      ...studyInformation,
+    setdbInformation({
+      ...dbInformation,
       [fieldName]: value,
     });
   };
@@ -72,32 +78,32 @@ export default function StudyInformation() {
           <Field
             fieldName="Study title*"
             recoilState={studyFormStudyInformationState}
-            field="studyTitle"
+            field="study_title"
             inputLabel="Study title"
             required
           />
           <Field
             fieldName="description*"
             recoilState={studyFormStudyInformationState}
-            field="description"
+            field="study_description"
             inputLabel="Description"
           />
           <Field
             fieldName="Researcher's first name*"
             recoilState={studyFormStudyInformationState}
-            field="firstName"
+            field="researcher_first"
             inputLabel="First name"
           />
           <Field
             fieldName="Researcher's last name*"
             recoilState={studyFormStudyInformationState}
-            field="lastName"
+            field="researcher_last"
             inputLabel="Last name"
           />
           <Field
             fieldName="Researcher's email*"
             recoilState={studyFormStudyInformationState}
-            field="email"
+            field="researcher_contact"
             inputLabel="Email"
           />
 
@@ -116,32 +122,32 @@ export default function StudyInformation() {
           <p className="explanation">{EXPLANATION2}</p>
           <Field
             fieldName="Host / Server IP*"
-            recoilState={studyFormStudyInformationState}
-            field="host"
+            recoilState={databaseInformationState}
+            field="database_host"
             inputLabel="Host"
           />
           <Field
             fieldName="Port number*"
-            recoilState={studyFormStudyInformationState}
-            field="portNumber"
+            recoilState={databaseInformationState}
+            field="database_port"
             inputLabel="Port number"
           />
           <Field
             fieldName="Database name*"
-            recoilState={studyFormStudyInformationState}
-            field="databaseName"
+            recoilState={databaseInformationState}
+            field="database_name"
             inputLabel="Database name"
           />
           <Field
             fieldName="INSERT-only username*"
-            recoilState={studyFormStudyInformationState}
-            field="insertOnlyUsername"
+            recoilState={databaseInformationState}
+            field="database_username"
             inputLabel="Insert only username"
           />
           <Field
             fieldName="INSERT-only password*"
-            recoilState={studyFormStudyInformationState}
-            field="insertOnlyPassword"
+            recoilState={databaseInformationState}
+            field="database_password"
             inputLabel="Insert only password"
           />
 
@@ -156,12 +162,12 @@ export default function StudyInformation() {
                 control={
                   <Checkbox
                     checked={
-                      studyInformation.NoPasswordInJSONFile
-                        ? studyInformation.NoPasswordInJSONFile
+                      dbInformation.config_without_password
+                        ? dbInformation.config_without_password
                         : false
                     }
                     onChange={(_, checked) => {
-                      updateFormByField("NoPasswordInJSONFile", checked);
+                      updateFormByField("config_without_password", checked);
                     }}
                   />
                 }
@@ -196,13 +202,13 @@ export default function StudyInformation() {
           <p className="explanation">{EXPLANATION3}</p>
           <Field
             fieldName="Root username"
-            recoilState={studyFormStudyInformationState}
+            recoilState={databaseInformationState}
             field="rootUsername"
             inputLabel="Root username"
           />
           <Field
             fieldName="Root password"
-            recoilState={studyFormStudyInformationState}
+            recoilState={databaseInformationState}
             field="rootPassword"
             inputLabel="Root password"
           />

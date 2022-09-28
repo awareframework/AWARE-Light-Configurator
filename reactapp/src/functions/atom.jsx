@@ -25,6 +25,11 @@ export const sensorDataState = atom({
   default: {},
 });
 
+export const databaseInformationState = atom({
+  key: "databaseDataState",
+  default: {},
+});
+
 // Software Sensor SubFields:
 
 export const applicationSensorState = atom({
