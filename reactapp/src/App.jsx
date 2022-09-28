@@ -9,8 +9,6 @@ import Overview from "./pages/Overview";
 import ScheduleConfiguration from "./pages/ScheduleConfiguration";
 import SensorData from "./pages/SensorData";
 
-// import {StudyInformation} from "./pages/StudyInformation";
-
 function App() {
   return (
     <BrowserRouter>
