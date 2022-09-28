@@ -11,6 +11,7 @@ import {
 import Box from "@mui/material/Box";
 import "./QuestionComponent.css";
 import DeleteIcon from "@mui/icons-material/Delete";
+import InputField from "../InputField/InputField";
 import Field from "../Field/Field";
 
 export default function QuestionComponent({ questionNumber }) {

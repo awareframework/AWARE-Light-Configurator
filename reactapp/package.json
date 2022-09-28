@@ -54,6 +54,7 @@
     "eslint-plugin-react": "^7.31.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1",
+    "react-notifications": "^1.7.4",
     "react-scripts": "latest",
     "sass": "^1.54.5"
   }

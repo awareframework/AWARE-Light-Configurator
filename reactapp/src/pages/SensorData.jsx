@@ -903,7 +903,6 @@ export default function SensorData() {
 
         <div className="border">
           <p className="title">Software sensors</p>
-          {/* ToDo: Application show options when clicked */}
           <SensorComponent
             sensorName="Application"
             sensorDescription="Application usage and incoming notifications on the device."
@@ -925,7 +924,6 @@ export default function SensorData() {
             field="sensor_battery"
             modeState="sensor"
           />
-          {/* ToDo: Communication show options when clicked */}
           <SensorComponent
             sensorName="Communication"
             sensorDescription="Communication events such as calls and messages, performed by or received by the user."
@@ -964,7 +962,6 @@ export default function SensorData() {
             field="sensor_telephony"
             modeState="sensor"
           />
-          {/* ToDo: Timezone show options when clicked */}
           <SensorComponent
             sensorName="Timezone"
             sensorDescription="Logs user's current timezone."
