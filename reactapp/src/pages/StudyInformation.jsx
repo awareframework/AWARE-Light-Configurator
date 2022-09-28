@@ -10,6 +10,7 @@ import { Button, ThemeProvider } from "@mui/material";
 import { studyFormStudyInformationState } from "../functions/atom";
 import Field from "../components/Field/Field";
 import customisedTheme from "../functions/theme";
+import Axios from "../functions/axiosSettings";
 
 const TITLE1 = "Study Information";
 const EXPLANATION1 =
@@ -182,7 +183,22 @@ export default function StudyInformation() {
                   color="main"
                   variant="contained"
                   onClick={() => {
-                    navigateTo("/study/questions");
+                    // test code
+                    Axios({
+                      method: "post",
+                      url: "test_connection/",
+                      data: {
+                        key1: "val1",
+                        key2: "val2",
+                        key3: "val3",
+                      },
+                    })
+                      .then((r) => {
+                        console.log(r);
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
                   }}
                 >
                   TEST CONNECTION

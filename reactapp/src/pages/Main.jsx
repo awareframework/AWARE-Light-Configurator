@@ -16,8 +16,15 @@ import { useRecoilState } from "recoil";
 import PageHeader from "../components/PageHeader/PageHeader";
 import { studyFormStudyInformationState } from "../functions/atom";
 import customisedTheme from "../functions/theme";
+import Axios from "../functions/axiosSettings";
 
 export default function Main() {
+  // initialize csrf token
+  Axios({
+    method: "get",
+    url: "get_token/",
+  });
+
   const navigateTo = useNavigate();
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState

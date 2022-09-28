@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
-from App01 import views
+from App01 import views, database_operations
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('test/', views.test),
-    path('', TemplateView.as_view(template_name='index.html'))
+    path('', TemplateView.as_view(template_name='index.html')),
+    path('test_connection/', database_operations.test_connection),
+    path('get_token/', database_operations.get_token)
 ]
