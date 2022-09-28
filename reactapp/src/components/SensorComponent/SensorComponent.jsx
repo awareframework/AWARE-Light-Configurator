@@ -28,7 +28,6 @@ import {
   timezoneState,
   wifiState,
 } from "../../functions/atom";
-import InputField from "../InputField/InputField";
 
 export default function SensorComponent(inputs) {
   const [sensorData, setsensorData] = useRecoilState(sensorDataState);

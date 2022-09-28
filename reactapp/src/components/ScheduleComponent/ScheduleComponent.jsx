@@ -18,7 +18,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import InputField from "../InputField/InputField";
 import Field from "../Field/Field";
 import { studyFormStudyInformationState } from "../../functions/atom";
 
