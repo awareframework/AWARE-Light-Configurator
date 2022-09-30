@@ -14,5 +14,6 @@ module.exports = {
     "no-unused-vars": 1,
     "react/no-array-index-key": 1,
     "react/no-unescaped-entities": 1,
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
   },
 };

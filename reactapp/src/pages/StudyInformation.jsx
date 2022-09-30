@@ -4,11 +4,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Button, ThemeProvider } from "@mui/material";
+import { Button, Modal, ThemeProvider } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   databaseInformationState,
+  isLoadingState,
   studyFormStudyInformationState,
 } from "../functions/atom";
 import Field from "../components/Field/Field";
@@ -33,7 +35,11 @@ export default function StudyInformation() {
   const [dbInformation, setdbInformation] = useRecoilState(
     databaseInformationState
   );
+  const [isLoading, setIsLoading] = useRecoilState(isLoadingState);
   const navigateTo = useNavigate();
+
+  const [testConnectResponse, setTestConnectResponse] = useState("");
+  const [initDBResponse, setInitDBResponse] = useState("");
 
   const updateFormByField = (fieldName, value) => {
     setdbInformation({
@@ -189,26 +195,47 @@ export default function StudyInformation() {
                   color="main"
                   variant="contained"
                   onClick={() => {
+                    setIsLoading(true);
                     // test code
                     Axios({
                       method: "post",
                       url: "test_connection/",
                       data: {
-                        key1: "val1",
-                        key2: "val2",
-                        key3: "val3",
+                        ip: dbInformation.database_host,
+                        port: dbInformation.database_port,
+                        database: dbInformation.database_name,
+                        username: dbInformation.database_username,
+                        password: dbInformation.database_password,
                       },
                     })
                       .then((r) => {
-                        console.log(r);
+                        setTestConnectResponse({
+                          isSuccess: r.data.success,
+                          msg: r.data.msg,
+                        });
                       })
                       .catch((err) => {
-                        console.log(err);
+                        setTestConnectResponse({
+                          isSuccess: false,
+                          msg: err.message,
+                        });
+                      })
+                      .finally(() => {
+                        setIsLoading(false);
                       });
                   }}
                 >
                   TEST CONNECTION
                 </Button>
+              </Grid>
+              <Grid xs={12}>
+                <p
+                  className={
+                    testConnectResponse.isSuccess ? "success" : "error"
+                  }
+                >
+                  {testConnectResponse.msg}
+                </p>
               </Grid>
             </Grid>
           </Box>
@@ -240,11 +267,44 @@ export default function StudyInformation() {
                   color="main"
                   variant="contained"
                   onClick={() => {
-                    navigateTo("/study/questions");
+                    setIsLoading(true);
+                    Axios({
+                      method: "post",
+                      url: "initialize_database/",
+                      data: {
+                        ip: dbInformation.database_host,
+                        port: dbInformation.database_port,
+                        database: dbInformation.database_name,
+                        username: dbInformation.database_username,
+                        password: dbInformation.database_password,
+                        root_username: dbInformation.rootUsername,
+                        root_password: dbInformation.rootPassword,
+                      },
+                    })
+                      .then((r) => {
+                        setInitDBResponse({
+                          isSuccess: r.data.success,
+                          msg: r.data.msg,
+                        });
+                      })
+                      .catch((err) => {
+                        setInitDBResponse({
+                          isSuccess: false,
+                          msg: err.message,
+                        });
+                      })
+                      .finally(() => {
+                        setIsLoading(false);
+                      });
                   }}
                 >
                   INITIALIZE DATABASE
                 </Button>
+              </Grid>
+              <Grid xs={12}>
+                <p className={initDBResponse.isSuccess ? "success" : "error"}>
+                  {initDBResponse.msg}
+                </p>
               </Grid>
             </Grid>
           </Box>
@@ -270,6 +330,9 @@ export default function StudyInformation() {
             </Grid>
           </Grid>
         </Box>
+        <Modal open={isLoading}>
+          <CircularProgress />
+        </Modal>
       </div>
     </ThemeProvider>
   );

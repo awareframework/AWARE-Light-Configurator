@@ -13,3 +13,11 @@
 .validity{
     font-size: 0.8rem;
 }
+
+.success{
+    color: green;
+}
+
+.error{
+    color: red;
+}
