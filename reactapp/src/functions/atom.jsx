@@ -1,5 +1,10 @@
 import { atom } from "recoil";
 
+export const isLoadingState = atom({
+  key: "isLoadingState",
+  default: false,
+});
+
 export const studyFormStudyInformationState = atom({
   key: "studyFormStudyInformationState",
   default: {},
