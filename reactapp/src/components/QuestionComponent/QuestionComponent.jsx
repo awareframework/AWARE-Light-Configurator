@@ -11,10 +11,66 @@ import {
 import Box from "@mui/material/Box";
 import "./QuestionComponent.css";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useRecoilState } from "recoil";
 import InputField from "../InputField/InputField";
 import Field from "../Field/Field";
+import {
+  sensorDataState,
+  studyFormQuestionsState,
+  studyFormStudyInformationState,
+} from "../../functions/atom";
 
 export default function QuestionComponent({ questionNumber }) {
+  const [type, setType] = React.useState("");
+
+  const selectType = (event) => {
+    setType(event.target.value);
+  };
+
+  const [questionData, setQuestionData] = useRecoilState(
+    studyFormStudyInformationState
+  );
+
+  const updateQuestionData = (fieldName, value) => {
+    setQuestionData({
+      ...questionData,
+      [fieldName]: value,
+    });
+  };
+
+  function layout() {
+    // ToDo
+    if (type === "free_text") {
+      return (
+        <p className="description" style={{ width: "100%" }}>
+          Allows participants to enter text using the keyboard. Use when
+          question answers are unable to be captured in a small set of choices.
+        </p>
+
+        // <Field
+        //     fieldName=""
+        //     recoilState={studyFormQuestionsState}
+        //     inputLabel=""
+        //     field=""
+        // />
+      );
+    }
+    if (type === "multiple_choice" || type === "single_choice") {
+      return <div>FREE TEXT</div>;
+    }
+    if (type === "likert") {
+      return <div>FREE TEXT</div>;
+    }
+    if (type === "quick_answer") {
+      return <div>FREE TEXT</div>;
+    }
+    if (type === "scale") {
+      return <div>FREE TEXT</div>;
+    }
+    // numeric type
+    return <div>hello</div>;
+  }
+
   return (
     <div>
       <div className="question_vertical_layout question_border">
@@ -36,15 +92,15 @@ export default function QuestionComponent({ questionNumber }) {
         <Box sx={{ width: "100%" }}>
           <Field
             fieldName="Title*"
-            // studyInfoField={studyInformation.questionTitle}
+            recoilState={studyFormQuestionsState}
             inputLabel="The actual question"
-            // field="questionTitle"
+            field="questionTitle"
           />
           <Field
             fieldName="Instructions"
-            // studyInfoField={studyInformation.instructions}
+            recoilState={studyFormQuestionsState}
             inputLabel="Any instructions for the participant(s)"
-            // field="instructions"
+            field="instructions"
           />
 
           <Grid
@@ -64,8 +120,8 @@ export default function QuestionComponent({ questionNumber }) {
                   labelId="question-type-select"
                   id="question-type"
                   label="Select One"
-                  // value={age}
-                  // onChange={handleChange}
+                  value={type}
+                  onChange={selectType}
                 >
                   <MenuItem value="Free Text">Free Text</MenuItem>
                   <MenuItem value="Single Choice(Radio)">
@@ -83,17 +139,20 @@ export default function QuestionComponent({ questionNumber }) {
             </Grid>
           </Grid>
 
+          {/* {layout} */}
+          {type ? layout() : <div />}
+
           <Field
             fieldName="Notification timeout"
-            // studyInfoField={studyInformation.instructions}
-            // field="instructions"
+            recoilState={studyFormQuestionsState}
+            field="notification_timeout"
             description="Dismiss the notification after the specified time (in seconds)."
           />
 
           <Field
             fieldName="Expiration time"
-            // studyInfoField={studyInformation.instructions}
-            // field="instructions"
+            recoilState={studyFormQuestionsState}
+            field="expiration_time"
             description="
                 Specify the maximum time the participant has to answer the
                 question (in seconds), use 0 for unlimited answer time. If an
