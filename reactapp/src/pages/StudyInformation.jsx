@@ -76,6 +76,16 @@ export default function StudyInformation() {
     );
   }
 
+  function validationMessage() {
+    const x = document.getElementById("validation_message");
+    // Add the "show" class to DIV
+    x.className = "show";
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
+  }
+
   return (
     <ThemeProvider theme={customisedTheme}>
       <div className="main_vertical_layout">
@@ -322,11 +332,28 @@ export default function StudyInformation() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/questions");
+                  // TODO: validations
+                  const validatoin =
+                    studyInformation.study_title ||
+                    studyInformation.study_description ||
+                    studyInformation.researcher_first ||
+                    studyInformation.researcher_last ||
+                    studyInformation.researcher_contact ||
+                    dbInformation.database_host ||
+                    dbInformation.database_port ||
+                    dbInformation.database_name ||
+                    dbInformation.database_username ||
+                    dbInformation.database_password;
+                  if (validatoin) {
+                    navigateTo("/study/questions");
+                  } else {
+                    validationMessage();
+                  }
                 }}
               >
                 NEXT STEP: QUESTIONS
               </Button>
+              <div id="validation_message">Missing requred fields</div>
             </Grid>
           </Grid>
         </Box>
