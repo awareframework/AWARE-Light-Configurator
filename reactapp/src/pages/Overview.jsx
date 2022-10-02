@@ -2,7 +2,7 @@ import "./Overview.css";
 import { Alert, AlertTitle, Button, ThemeProvider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import Box from "@mui/material/Box";
 import {
@@ -548,13 +548,17 @@ export default function Main() {
     // clean up "a" element & remove ObjectURL
     document.body.removeChild(link);
     URL.revokeObjectURL(href);
+  }
 
-    return (
-      <Alert severity="success">
-        <AlertTitle>Success</AlertTitle>
-        This is a success alert — <strong>check it out!</strong>
-      </Alert>
-    );
+  function downloadNotify() {
+    const x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
   }
 
   return (
@@ -794,11 +798,13 @@ export default function Main() {
                   variant="contained"
                   onClick={() => {
                     generateJSON();
+                    downloadNotify();
                     // navigateTo("/study/study_information");
                   }}
                 >
                   DOWNLOAD STUDY CONFIG
                 </Button>
+                <div id="snackbar">Downloading JSON file...</div>
               </Grid>
             </Grid>
           </Box>
