@@ -21,6 +21,6 @@ from App01 import database_operations, general
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('test_connection/', database_operations.test_connection),
-    path('get_token/', utils.get_token),
+    path('get_token/', general.get_token),
     path('initialize_database/', database_operations.initialize_database),
 ]
