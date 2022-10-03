@@ -5,6 +5,12 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import customisedTheme from "../functions/theme";
 import {
   accelerometerState,
   applicationSensorState,
@@ -29,11 +35,11 @@ import {
   timezoneState,
   wifiState,
 } from "../functions/atom";
-import customisedTheme from "../functions/theme";
 
 export default function Main() {
   const navigateTo = useNavigate();
 
+  const dbInformation = useRecoilState(databaseInformationState);
   const studyInformation = useRecoilValue(studyFormStudyInformationState);
   const databaseInfo = useRecoilValue(databaseInformationState);
   const sensorData = useRecoilValue(sensorDataState);
@@ -55,7 +61,6 @@ export default function Main() {
   const wifiData = useRecoilValue(wifiState);
   const timezoneData = useRecoilValue(timezoneState);
   const communicationData = useRecoilValue(communicationSensorState);
-
   const result = {
     id_: "asdf",
     study_info: studyInformation,
@@ -531,6 +536,67 @@ export default function Main() {
     ],
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const validationOn = () => {
+    setOpen(true);
+  };
+
+  const validationClose = () => {
+    setOpen(false);
+    // eslint-disable-next-line no-use-before-define
+    setBlankFields((oldArray) => []);
+  };
+
+  const [blankFields, setBlankFields] = React.useState([]);
+
+  const updateBlankFields = (name) => {
+    setBlankFields((oldArray) => [...oldArray, name]);
+  };
+
+  const [validation, setValidation] = React.useState(true);
+
+  const validate = (fieldName, value) => {
+    setValidation({
+      ...validation,
+      [fieldName]: value,
+    });
+  };
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function AlertDialog() {
+    console.log(blankFields);
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={validationClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Required fields are left blank.
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              The following fields need to be fill in:{"\n"}
+              {/* {blankFields} */}
+              {blankFields.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            {/* <Button onClick={validationClose}>Disagree</Button> */}
+            <Button onClick={validationClose} autoFocus>
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+
   function generateJSON() {
     const jsonText = JSON.stringify(result);
     console.log(jsonText);
@@ -797,13 +863,62 @@ export default function Main() {
                   color="main"
                   variant="contained"
                   onClick={() => {
-                    generateJSON();
-                    downloadNotify();
-                    // navigateTo("/study/study_information");
+                    validationOn();
+
+                    const validility =
+                      studyInformation.study_title &&
+                      studyInformation.study_description &&
+                      studyInformation.researcher_first &&
+                      studyInformation.researcher_last &&
+                      studyInformation.researcher_contact &&
+                      dbInformation.database_host &&
+                      dbInformation.database_port &&
+                      dbInformation.database_name &&
+                      dbInformation.database_username &&
+                      dbInformation.database_password;
+
+                    validate(validility);
+
+                    if (!studyInformation.study_title) {
+                      updateBlankFields("study title");
+                    }
+                    if (!studyInformation.study_description) {
+                      updateBlankFields("study description");
+                    }
+                    if (!studyInformation.researcher_first) {
+                      updateBlankFields("researcher's first name");
+                    }
+                    if (!studyInformation.researcher_last) {
+                      updateBlankFields("researcher's last name");
+                    }
+                    if (!studyInformation.researcher_contact) {
+                      updateBlankFields("researcher's contact (email)");
+                    }
+                    if (!dbInformation.database_host) {
+                      updateBlankFields("database host (server IP)");
+                    }
+                    if (!dbInformation.database_port) {
+                      updateBlankFields("database port number");
+                    }
+                    if (!dbInformation.database_name) {
+                      updateBlankFields("datatbase name");
+                    }
+                    if (!dbInformation.database_username) {
+                      updateBlankFields("INSERT-only username");
+                    }
+                    if (!dbInformation.database_password) {
+                      updateBlankFields("INSERT-only password");
+                    }
+
+                    if (validility) {
+                      generateJSON();
+                      downloadNotify();
+                    }
                   }}
                 >
                   DOWNLOAD STUDY CONFIG
                 </Button>
+                {validation ? AlertDialog() : <div />}
                 <div id="snackbar">Downloading JSON file...</div>
               </Grid>
             </Grid>
