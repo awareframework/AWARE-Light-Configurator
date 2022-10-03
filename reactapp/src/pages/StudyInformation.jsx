@@ -16,6 +16,7 @@ import {
 import Field from "../components/Field/Field";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
+import PasswordField from "../components/PasswordField/PasswordField";
 
 const TITLE1 = "Study Information";
 const EXPLANATION1 =
@@ -161,7 +162,7 @@ export default function StudyInformation() {
             field="database_username"
             inputLabel="Insert only username"
           />
-          <Field
+          <PasswordField
             fieldName="INSERT-only password*"
             recoilState={databaseInformationState}
             field="database_password"
@@ -205,6 +206,7 @@ export default function StudyInformation() {
                   color="main"
                   variant="contained"
                   onClick={() => {
+                    console.log(dbInformation);
                     setIsLoading(true);
                     // test code
                     Axios({
@@ -259,7 +261,7 @@ export default function StudyInformation() {
             field="rootUsername"
             inputLabel="Root username"
           />
-          <Field
+          <PasswordField
             fieldName="Root password"
             recoilState={databaseInformationState}
             field="rootPassword"
@@ -333,18 +335,18 @@ export default function StudyInformation() {
                 variant="contained"
                 onClick={() => {
                   // TODO: validations
-                  const validatoin =
-                    studyInformation.study_title ||
-                    studyInformation.study_description ||
-                    studyInformation.researcher_first ||
-                    studyInformation.researcher_last ||
-                    studyInformation.researcher_contact ||
-                    dbInformation.database_host ||
-                    dbInformation.database_port ||
-                    dbInformation.database_name ||
-                    dbInformation.database_username ||
+                  const validation =
+                    studyInformation.study_title &&
+                    studyInformation.study_description &&
+                    studyInformation.researcher_first &&
+                    studyInformation.researcher_last &&
+                    studyInformation.researcher_contact &&
+                    dbInformation.database_host &&
+                    dbInformation.database_port &&
+                    dbInformation.database_name &&
+                    dbInformation.database_username &&
                     dbInformation.database_password;
-                  if (validatoin) {
+                  if (validation) {
                     navigateTo("/study/questions");
                   } else {
                     validationMessage();
