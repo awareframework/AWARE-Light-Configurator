@@ -16,6 +16,7 @@ import {
 import Field from "../components/Field/Field";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
+import PasswordField from "../components/PasswordField/PasswordField";
 
 const TITLE1 = "Study Information";
 const EXPLANATION1 =
@@ -74,6 +75,16 @@ export default function StudyInformation() {
         Email is valid.
       </p>
     );
+  }
+
+  function validationMessage() {
+    const x = document.getElementById("validation_message");
+    // Add the "show" class to DIV
+    x.className = "show";
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
   }
 
   return (
@@ -151,7 +162,7 @@ export default function StudyInformation() {
             field="database_username"
             inputLabel="Insert only username"
           />
-          <Field
+          <PasswordField
             fieldName="INSERT-only password*"
             recoilState={databaseInformationState}
             field="database_password"
@@ -195,6 +206,7 @@ export default function StudyInformation() {
                   color="main"
                   variant="contained"
                   onClick={() => {
+                    console.log(dbInformation);
                     setIsLoading(true);
                     // test code
                     Axios({
@@ -249,7 +261,7 @@ export default function StudyInformation() {
             field="rootUsername"
             inputLabel="Root username"
           />
-          <Field
+          <PasswordField
             fieldName="Root password"
             recoilState={databaseInformationState}
             field="rootPassword"
@@ -322,11 +334,28 @@ export default function StudyInformation() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/questions");
+                  // TODO: validations
+                  const validation =
+                    studyInformation.study_title &&
+                    studyInformation.study_description &&
+                    studyInformation.researcher_first &&
+                    studyInformation.researcher_last &&
+                    studyInformation.researcher_contact &&
+                    dbInformation.database_host &&
+                    dbInformation.database_port &&
+                    dbInformation.database_name &&
+                    dbInformation.database_username &&
+                    dbInformation.database_password;
+                  if (validation) {
+                    navigateTo("/study/questions");
+                  } else {
+                    validationMessage();
+                  }
                 }}
               >
                 NEXT STEP: QUESTIONS
               </Button>
+              <div id="validation_message">Missing requred fields</div>
             </Grid>
           </Grid>
         </Box>

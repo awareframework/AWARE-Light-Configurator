@@ -4,7 +4,14 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Button, ThemeProvider } from "@mui/material";
+import {
+  Button,
+  Radio,
+  RadioGroup,
+  TextField,
+  ThemeProvider,
+} from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   accelerometerState,
   applicationSensorState,
@@ -34,6 +41,13 @@ import customisedTheme from "../functions/theme";
 export default function SensorData() {
   const navigateTo = useNavigate();
   const [sensorData, setsensorData] = useRecoilState(sensorDataState);
+
+  const updateSensorData = (fieldName, value) => {
+    setsensorData({
+      ...sensorData,
+      [fieldName]: value,
+    });
+  };
 
   // software sensor states
   const [applicationSensor, setapplicationSensor] = useRecoilState(
@@ -842,6 +856,69 @@ export default function SensorData() {
             modeState="sensor"
           />
 
+          <div>
+            <Grid>
+              <p className="field_name" mb={10}>
+                Clean data frequency
+              </p>
+            </Grid>
+            <Grid marginTop={2}>
+              <RadioGroup
+                aria-labelledby="clean_data_freq"
+                // defaultValue="never"
+                name="clean_data_freq"
+                value={sensorData.clean_data_freq || ""}
+                row
+              >
+                <FormControlLabel
+                  value="never"
+                  control={<Radio />}
+                  label="Never"
+                  onClick={(_, checked) => {
+                    updateSensorData("clean_data_freq", "never");
+                  }}
+                />
+                <FormControlLabel
+                  value="monthly"
+                  control={<Radio />}
+                  label="Monthly"
+                  onClick={(_, checked) => {
+                    updateSensorData("clean_data_freq", "monthly");
+                  }}
+                />
+                <FormControlLabel
+                  value="weekly"
+                  control={<Radio />}
+                  label="Weekly"
+                  onClick={(_, checked) => {
+                    updateSensorData("clean_data_freq", "weekly");
+                  }}
+                />
+                <FormControlLabel
+                  value="daily"
+                  control={<Radio />}
+                  label="Daily"
+                  // checked={}
+                  onClick={(_, checked) => {
+                    updateSensorData("clean_data_freq", "daily");
+                  }}
+                />
+                <FormControlLabel
+                  value="always"
+                  control={<Radio />}
+                  label="Always"
+                  // checked={}
+                  onClick={(_, checked) => {
+                    updateSensorData("clean_data_freq", "always");
+                  }}
+                />
+              </RadioGroup>
+              <p className="schedule-description">
+                How frequently to clean old data?
+              </p>
+            </Grid>
+          </div>
+
           <SensorComponent
             sensorName="Silent"
             sensorDescription="Don't show sync notifications."
@@ -1165,6 +1242,7 @@ export default function SensorData() {
                 variant="contained"
                 onClick={() => {
                   navigateTo("/study/overview");
+                  console.log(sensorData);
                 }}
               >
                 NEXT STEP: OVERVIEW
