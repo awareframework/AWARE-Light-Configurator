@@ -12,9 +12,8 @@ export default function StudyQuestions() {
   return (
     <ThemeProvider theme={customisedTheme}>
       <div className="study_question_vertical_layout">
-        <QuestionComponent questionNumber={1} />
-        <QuestionComponent questionNumber={2} />
-
+        <QuestionComponent questionNumber={0} />
+        {/* <QuestionComponent questionNumber={2} /> */}
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
           <Grid
             container
