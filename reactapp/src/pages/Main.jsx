@@ -12,9 +12,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Grid from "@mui/material/Unstable_Grid2";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import PageHeader from "../components/PageHeader/PageHeader";
-import { studyFormStudyInformationState } from "../functions/atom";
+import {
+  studyFormQuestionsState,
+  studyFormStudyInformationState,
+} from "../functions/atom";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
 
@@ -29,6 +32,7 @@ export default function Main() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
   );
+  const setStudyFormQuestions = useSetRecoilState(studyFormQuestionsState);
 
   return (
     <div>
@@ -49,6 +53,7 @@ export default function Main() {
               color="main"
               onClick={() => {
                 setStudyInformation({});
+                setStudyFormQuestions([{}]);
                 navigateTo("/study/study_information");
               }}
             >

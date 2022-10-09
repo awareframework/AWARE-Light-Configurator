@@ -16,12 +16,6 @@ export const studyFormQuestionsState = atom({
   default: [{}],
 });
 
-// options : key is index, value is how many options for this question
-export const questionOptionState = atom({
-  key: "questionOptionState",
-  default: {},
-});
-
 export const studyFormScheduleConfigurationState = atom({
   key: "studyFormScheduleConfigurationState",
   default: {},

@@ -33,7 +33,7 @@ export default function ScheduleConfiguration() {
                 ADD A NEW SCHEDULE
               </Button>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={2}>
               <Button
                 color="main"
                 variant="contained"

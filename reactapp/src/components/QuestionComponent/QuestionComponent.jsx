@@ -7,75 +7,54 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import "./QuestionComponent.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { atom, useRecoilState } from "recoil";
-import InputField from "../InputField/InputField";
+import { useRecoilState } from "recoil";
 import Field from "../Field/Field";
-import {
-  questionOptionState,
-  studyFormQuestionsState,
-} from "../../functions/atom";
-import FrequencyField from "../FrequencyField/FrequencyField";
+import { studyFormQuestionsState } from "../../functions/atom";
 
-export default function QuestionComponent({ questionNumber }) {
-  // global question
+export default function QuestionComponent(input) {
+  const { questionIndex, onDelete } = input;
   const [questions, setQuestions] = useRecoilState(studyFormQuestionsState);
-  const [questionOption, setQuestionOption] =
-    useRecoilState(questionOptionState);
 
-  const updateOptionNumber = (fieldName, value) => {
-    setQuestionOption({
-      ...questionOption,
-      [fieldName]: value,
-    });
+  const updateOptions = (curQuestionIndex, curOptionIndex, isAdd = true) => {
+    if (isAdd) {
+      const newQuestions = [...questions].map((question, curIndex) => {
+        if (curIndex === questionIndex) {
+          let newOptions = [];
+          if (question.options !== undefined) {
+            newOptions = [...question.options];
+          }
+          newOptions.push("");
+          return { ...question, options: newOptions };
+        }
+        return question;
+      });
+      setQuestions(newQuestions);
+    } else {
+      // delete option branch
+      const newQuestions = [...questions].map((question, curIndex) => {
+        if (curIndex === questionIndex) {
+          const newOptions = [...question.options];
+          newOptions.splice(curOptionIndex, 1);
+          return { ...question, options: newOptions };
+        }
+        return question;
+      });
+      setQuestions(newQuestions);
+    }
   };
 
-  // ToDo: should be done in StudyQuestion
-  // const addQuestion = () => {
-  //   setQuestions((oldArray) => [...oldArray, {}]);
-  // };
-
-  // const deleteQuestion = (index) => {
-  //   setQuestions([
-  //     ...questions.slice(0, index),
-  //     ...questions.slice(index + 1, questions.length),
-  //   ]);
-  // };
-
-  // Choices - options
-  // const [option, setOption] = useState([]);
-  //
-  // const updateOption = (content) => {
-  //   setOption((oldArray) => [...oldArray, content]);
-  //   setOption([...option, content]);
-  // };
   const updateQuestion = (field, value) => {
     const newQuestions = [...questions];
-    const question = newQuestions[questionNumber];
+    const question = newQuestions[questionIndex];
     const questionCopy = { ...question };
     questionCopy[field] = value;
-    newQuestions[questionNumber] = questionCopy;
+    newQuestions[questionIndex] = questionCopy;
     setQuestions(newQuestions);
   };
-
-  function updateCheckbox(index, value) {
-    const newQuestions = [...questions];
-    const question = newQuestions[questionNumber];
-    const questionCopy = { ...question };
-    const checkboxArray = { ...questionCopy.esm_checkboxes };
-    checkboxArray[index.toString()] = value;
-    questionCopy.esm_checkboxes = checkboxArray;
-    newQuestions[questionNumber] = questionCopy;
-    setQuestions(newQuestions);
-
-    // questionCopy.esm_checkboxes.push(value);
-    // newQuestions[questionNumber] = questionCopy;
-    // setQuestions(newQuestions);
-  }
 
   function questionTextField(
     fieldName,
@@ -84,25 +63,13 @@ export default function QuestionComponent({ questionNumber }) {
     questionLabel
   ) {
     return (
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid width="20%">
-          <p className="field_name">{fieldName}</p>
-        </Grid>
-        <Grid width="80%">
-          <TextField
-            // error={isError}
-            // required={required === undefined ? false : required}
-            id="submit_label"
-            label={questionLabel}
-            variant="outlined"
-            style={{ width: "100%" }}
-            value={globalQuestionField || ""}
-            onChange={(event) => {
-              updateQuestion(field, event.target.value);
-            }}
-          />
-        </Grid>
-      </Grid>
+      <Field
+        fieldName={fieldName}
+        recoilState={studyFormQuestionsState}
+        index={questionIndex}
+        field={field}
+        inputLabel={questionLabel}
+      />
     );
   }
 
@@ -114,75 +81,36 @@ export default function QuestionComponent({ questionNumber }) {
     description
   ) {
     return (
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid width="20%">
-          <p className="field_name">{fieldName}</p>
-        </Grid>
-        <Grid width="80%">
-          <TextField
-            // error={isError}
-            // required={required === undefined ? false : required}
-            // id="submit_label"
-            label={questionLabel}
-            type="number"
-            variant="outlined"
-            style={{ width: "100%" }}
-            value={globalQuestionField || ""}
-            onChange={(event) => {
-              updateQuestion(field, event.target.value);
-            }}
-          />
-          {description ? (
-            <p className="description" style={{ width: "100%" }}>
-              {description}
-            </p>
-          ) : (
-            <div />
-          )}
-        </Grid>
-      </Grid>
+      <Field
+        fieldName={fieldName}
+        recoilState={studyFormQuestionsState}
+        index={questionIndex}
+        field={field}
+        inputLabel={questionLabel}
+        description={description}
+        type="number"
+      />
     );
   }
 
   // checkboxes
-  function checkboxLayout(index) {
+  function optionsLayout(index) {
     return (
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid width="20%">
-          <p className="field_name">Option</p>
-        </Grid>
-        <Grid width="70%">
-          <TextField
-            // error={isError}
-            // required={required === undefined ? false : required}
-            id={index.toString()}
-            // label={questionLabel}
-            variant="outlined"
-            style={{ width: "100%" }}
-            // value={questions[questionNumber].esm_checkboxes[index] || ""}
-            onChange={(event) => {
-              // eslint-disable-next-line no-use-before-define
-              if (!questions[questionNumber].esm_checkboxes) {
-                updateQuestion("esm_checkboxes", {});
-                updateCheckbox(index, event.target.value);
-              } else {
-                updateCheckbox(index, event.target.value);
-              }
-              console.log(index.toString());
-              console.log(event.target.value);
-              // updateCheckbox(index.toString(), event.target.value);
-            }}
+        <Grid xs={10}>
+          <Field
+            fieldName={`Option ${index + 1}`}
+            recoilState={studyFormQuestionsState}
+            index={questionIndex}
+            subIndex={index}
+            field="options"
           />
         </Grid>
-        <Grid width="10%">
+        <Grid xs={1}>
           <Button
-            // color="red"
-            display="flex"
             variant="contained"
             onClick={() => {
-              // console.log(questions[questionNumber]);
-              console.log(questionOption[questionNumber]);
-              // deleteCheckbox();
+              updateOptions(questionIndex, index, false);
             }}
           >
             X
@@ -192,18 +120,20 @@ export default function QuestionComponent({ questionNumber }) {
     );
   }
 
-  function gatherCheckbox(amount) {
+  function gatherOptions() {
     const checkboxList = [];
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < amount; i++) {
-      checkboxList.push(checkboxLayout(i));
+    if (questions[questionIndex].options === undefined) {
+      return checkboxList;
+    }
+    const optionNum = questions[questionIndex].options.length;
+    for (let i = 0; i < optionNum; i += 1) {
+      checkboxList.push(optionsLayout(i));
     }
     return checkboxList;
   }
 
-  // eslint-disable-next-line consistent-return
   function layout() {
-    if (questions[questionNumber].type === "free_text") {
+    if (questions[questionIndex].type === "free_text") {
       return (
         <p className="description" style={{ width: "100%" }}>
           Allows participants to enter text using the keyboard. Use when
@@ -211,7 +141,7 @@ export default function QuestionComponent({ questionNumber }) {
         </p>
       );
     }
-    if (questions[questionNumber].type === "single_choice") {
+    if (questions[questionIndex].type === "single_choice") {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -222,25 +152,23 @@ export default function QuestionComponent({ questionNumber }) {
             display="flex"
             variant="contained"
             onClick={() => {
-              let count;
-              if (questionOption[questionNumber]) {
-                count = questionOption[questionNumber] + 1;
-              } else {
-                count = 1;
+              let nextOptionIdx = 0;
+              if (questions.options) {
+                nextOptionIdx = questions.options.length();
               }
-              updateOptionNumber(questionNumber, count);
+              updateOptions(questionIndex, nextOptionIdx, true);
             }}
           >
             ADD OPTION
           </Button>
 
-          {gatherCheckbox(questionOption[questionNumber])}
+          {gatherOptions()}
 
           <div />
         </div>
       );
     }
-    if (questions[questionNumber].type === "multiple_choice") {
+    if (questions[questionIndex].type === "multiple_choice") {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -252,23 +180,21 @@ export default function QuestionComponent({ questionNumber }) {
             display="flex"
             variant="contained"
             onClick={() => {
-              let count;
-              if (questionOption[questionNumber]) {
-                count = questionOption[questionNumber] + 1;
-              } else {
-                count = 1;
+              let nextOptionIdx = 0;
+              if (questions.options) {
+                nextOptionIdx = questions.options.length();
               }
-              updateOptionNumber(questionNumber, count);
+              updateOptions(questionIndex, nextOptionIdx, true);
             }}
           >
             ADD OPTION
           </Button>
-          {gatherCheckbox(questionOption[questionNumber])}
+          {gatherOptions()}
           <div />
         </div>
       );
     }
-    if (questions[questionNumber].type === "likert") {
+    if (questions[questionIndex].type === "likert") {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -278,25 +204,25 @@ export default function QuestionComponent({ questionNumber }) {
           {questionNumberField(
             "maximum value",
             "maximum_value",
-            questions[questionNumber].maximum_value,
+            questions[questionIndex].maximum_value,
             "Maximum value of the scale"
           )}
           {questionTextField(
             "minimum label",
             "minimum_label",
-            questions[questionNumber].minimum_label,
+            questions[questionIndex].minimum_label,
             "(e.g. completely disagree)"
           )}
           {questionTextField(
             "maximum label",
             "maximum_label",
-            questions[questionNumber].maximum_label,
+            questions[questionIndex].maximum_label,
             "(e.g. completely agree)"
           )}
         </div>
       );
     }
-    if (questions[questionNumber].type === "quick_answer") {
+    if (questions[questionIndex].type === "quick_answer") {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -307,23 +233,21 @@ export default function QuestionComponent({ questionNumber }) {
             display="flex"
             variant="contained"
             onClick={() => {
-              let count;
-              if (questionOption[questionNumber]) {
-                count = questionOption[questionNumber] + 1;
-              } else {
-                count = 1;
+              let nextOptionIdx = 0;
+              if (questions.options) {
+                nextOptionIdx = questions.options.length();
               }
-              updateOptionNumber(questionNumber, count);
+              updateOptions(questionIndex, nextOptionIdx, true);
             }}
           >
             ADD OPTION
           </Button>
-          {gatherCheckbox(questionOption[questionNumber])}
+          {gatherOptions()}
           <div />
         </div>
       );
     }
-    if (questions[questionNumber].type === "scale") {
+    if (questions[questionIndex].type === "scale") {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -333,66 +257,61 @@ export default function QuestionComponent({ questionNumber }) {
           {questionNumberField(
             "minimum value",
             "minimum_value",
-            questions[questionNumber].minimum_value,
+            questions[questionIndex].minimum_value,
             "Minimum value of the scale"
           )}
           {questionNumberField(
             "maximum value",
             "maximum_value",
-            questions[questionNumber].maximum_value,
+            questions[questionIndex].maximum_value,
             "Maximum value of the scale"
           )}
           {questionTextField(
             "minimum label",
             "minimum_label",
-            questions[questionNumber].minimum_label,
+            questions[questionIndex].minimum_label,
             "(e.g. completely disagree)"
           )}
           {questionTextField(
             "maximum label",
             "maximum_label",
-            questions[questionNumber].maximum_label,
+            questions[questionIndex].maximum_label,
             "(e.g. completely agree)"
           )}
           {questionNumberField(
             "step size",
             "step_size",
-            questions[questionNumber].step_size,
+            questions[questionIndex].step_size,
             "Steps of increment while dragging the sider"
           )}
           {questionNumberField(
             "scale start",
             "scale_start",
-            questions[questionNumber].scale_start,
+            questions[questionIndex].scale_start,
             "Initial scale value"
           )}
         </div>
       );
     }
-    if (questions[questionNumber].type === "numeric") {
-      return (
-        <p className="description" style={{ width: "100%" }}>
-          Allows participants to enter numeric only text.
-        </p>
-      );
-    }
+    // if questions[questionNumber].type === "numeric"
+    return (
+      <p className="description" style={{ width: "100%" }}>
+        Allows participants to enter numeric only text.
+      </p>
+    );
   }
 
   return (
     <div>
       <div className="question_vertical_layout question_border">
         <div className="question_horizontal_layout">
-          <p className="question_title">Question {questionNumber + 1}</p>
+          <p className="question_title">Question {questionIndex + 1}</p>
           <Button>
             <DeleteIcon
               color="error"
               sx={{ fontSize: 40 }}
               onClick={() => {
-                // console.log(getObjKey(questions[questionNumber], "type"));
-                console.log(questions[questionNumber]);
-                console.log(questionOption);
-                // console.log(questions.at(questionNumber));
-                // alert("delete function has not implemented");
+                onDelete();
               }}
             >
               REMOVE QUESTION
@@ -403,12 +322,14 @@ export default function QuestionComponent({ questionNumber }) {
           <Field
             fieldName="Title*"
             recoilState={studyFormQuestionsState}
+            index={questionIndex}
             inputLabel="The actual question"
             field="questionTitle"
           />
           <Field
             fieldName="Instructions"
             recoilState={studyFormQuestionsState}
+            index={questionIndex}
             inputLabel="Any instructions for the participant(s)"
             field="instructions"
           />
@@ -430,7 +351,7 @@ export default function QuestionComponent({ questionNumber }) {
                   labelId="question-type-select"
                   id="question-type"
                   label="Select One"
-                  value={questions[questionNumber].type || ""}
+                  value={questions[questionIndex].type || ""}
                 >
                   <MenuItem
                     value="free_text"
@@ -491,12 +412,12 @@ export default function QuestionComponent({ questionNumber }) {
                 </Select>
               </FormControl>
 
-              {questions[questionNumber].type ? layout() : <div />}
-              {questions[questionNumber].type ? (
+              {questions[questionIndex].type ? layout() : <div />}
+              {questions[questionIndex].type ? (
                 questionTextField(
                   "submit label",
                   "submit_label",
-                  questions[questionNumber].submit_label
+                  questions[questionIndex].submit_label
                 )
               ) : (
                 <div />
@@ -507,14 +428,14 @@ export default function QuestionComponent({ questionNumber }) {
           {questionNumberField(
             "Notification timeout",
             "notification_timeout",
-            questions[questionNumber].notification_timeout,
+            questions[questionIndex].notification_timeout,
             "",
             "Dismiss the notification after the specified time (in seconds)."
           )}
           {questionNumberField(
             "Expiration time",
             "expiration_time",
-            questions[questionNumber].expiration_time,
+            questions[questionIndex].expiration_time,
             "",
             "Specify the maximum time the participant has to answer the question\n" +
               "            (in seconds), use 0 for unlimited answer time. If an expiration time\n" +
@@ -527,11 +448,3 @@ export default function QuestionComponent({ questionNumber }) {
     </div>
   );
 }
-
-QuestionComponent.propTypes = {
-  questionNumber: PropTypes.number,
-};
-
-QuestionComponent.defaultProps = {
-  questionNumber: 0,
-};
