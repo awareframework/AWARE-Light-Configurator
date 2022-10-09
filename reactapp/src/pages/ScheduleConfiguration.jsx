@@ -1,19 +1,61 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Button, Link, ThemeProvider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ScheduleComponent from "../components/ScheduleComponent/ScheduleComponent";
+import ScheduleComponent, {
+  SET_SCHEDULES,
+} from "../components/ScheduleComponent/ScheduleComponent";
 import "./ScheduleConfiguration.css";
 import customisedTheme from "../functions/theme";
+import { studyFormScheduleConfigurationState } from "../functions/atom";
 
 export default function ScheduleConfiguration() {
   const navigateTo = useNavigate();
+  const [schedules, setSchedules] = useRecoilState(
+    studyFormScheduleConfigurationState
+  );
+
+  const addSchedules = () => {
+    const newQuestions = [
+      ...schedules,
+      {
+        schedule_type: SET_SCHEDULES,
+        number: `08:00`,
+        last_hour: `20:00`,
+        number_of_triggers: 6,
+        inter_notification_time: 15,
+      },
+    ];
+    setSchedules(newQuestions);
+  };
+
+  const deleteSchedules = (curQuestionIdx) => {
+    // delete schedule
+    const newQuestions = [...schedules];
+    newQuestions.splice(curQuestionIdx, 1);
+    setSchedules(newQuestions);
+  };
+
+  const scheduleList = [
+    schedules.map((_, idx) => {
+      return (
+        <ScheduleComponent
+          key={idx}
+          scheduleIndex={idx}
+          onDelete={() => {
+            deleteSchedules(idx);
+          }}
+        />
+      );
+    }),
+  ];
+
   return (
     <ThemeProvider theme={customisedTheme}>
       <div className="study_schedule_vertical_layout">
-        <ScheduleComponent scheduleNumber={1} />
-        <ScheduleComponent scheduleNumber={2} />
+        {scheduleList}
 
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
           <Grid
@@ -26,8 +68,7 @@ export default function ScheduleConfiguration() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  // todo
-                  alert("add new question has not implemented");
+                  addSchedules();
                 }}
               >
                 ADD A NEW SCHEDULE

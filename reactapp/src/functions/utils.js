@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
@@ -13,4 +12,12 @@ export function getCookie(name) {
     }
   }
   return cookieValue;
+}
+
+export function padding(num, length) {
+  let curNum = num;
+  for (let len = `${curNum}`.length; len < length; len = curNum.length) {
+    curNum = `0${curNum}`;
+  }
+  return curNum;
 }

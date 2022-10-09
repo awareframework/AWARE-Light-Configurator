@@ -17,6 +17,7 @@ import Field from "../components/Field/Field";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
 import PasswordField from "../components/PasswordField/PasswordField";
+import CustomizedCheckbox from "../components/CustomizedCheckbox/CustomizedCheckbox";
 
 const TITLE1 = "Study Information";
 const EXPLANATION1 =
@@ -162,11 +163,12 @@ export default function StudyInformation() {
             field="database_username"
             inputLabel="Insert only username"
           />
-          <PasswordField
+          <Field
             fieldName="INSERT-only password*"
             recoilState={databaseInformationState}
             field="database_password"
             inputLabel="Insert only password"
+            type="password"
           />
 
           <Grid
@@ -176,19 +178,9 @@ export default function StudyInformation() {
           >
             <Grid width="20%" />
             <Grid width="80%">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={
-                      dbInformation.config_without_password
-                        ? dbInformation.config_without_password
-                        : false
-                    }
-                    onChange={(_, checked) => {
-                      updateFormByField("config_without_password", checked);
-                    }}
-                  />
-                }
+              <CustomizedCheckbox
+                recoilState={studyFormStudyInformationState}
+                field="config_without_password"
                 label="No password in JSON file"
               />
               <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>

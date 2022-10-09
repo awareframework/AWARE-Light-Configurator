@@ -324,7 +324,7 @@ export default function QuestionComponent(input) {
             recoilState={studyFormQuestionsState}
             index={questionIndex}
             inputLabel="The actual question"
-            field="questionTitle"
+            field="question_title"
           />
           <Field
             fieldName="Instructions"

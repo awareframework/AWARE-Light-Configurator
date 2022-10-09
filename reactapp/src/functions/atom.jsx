@@ -18,7 +18,7 @@ export const studyFormQuestionsState = atom({
 
 export const studyFormScheduleConfigurationState = atom({
   key: "studyFormScheduleConfigurationState",
-  default: {},
+  default: [{}],
 });
 
 export const studyFormSensorDataState = atom({
