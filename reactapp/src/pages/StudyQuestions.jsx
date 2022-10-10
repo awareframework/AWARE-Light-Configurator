@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Button, Link, ThemeProvider } from "@mui/material";
@@ -7,13 +8,43 @@ import QuestionComponent from "../components/QuestionComponent/QuestionComponent
 import "./StudyQuestions.css";
 import customisedTheme from "../functions/theme";
 
+import { studyFormQuestionsState } from "../functions/atom";
+
 export default function StudyQuestions() {
   const navigateTo = useNavigate();
+  const [questions, setQuestions] = useRecoilState(studyFormQuestionsState);
+
+  const addQuestion = () => {
+    const newQuestions = [...questions, {}];
+    setQuestions(newQuestions);
+  };
+
+  const deleteQuestion = (curQuestionIdx) => {
+    // delete question branch
+    const newQuestions = [...questions];
+    newQuestions.splice(curQuestionIdx, 1);
+    setQuestions(newQuestions);
+  };
+
+  const questionList = [
+    questions.map((_, idx) => {
+      return (
+        <QuestionComponent
+          key={idx}
+          questionIndex={idx}
+          onDelete={() => {
+            deleteQuestion(idx);
+          }}
+        />
+      );
+    }),
+  ];
+
   return (
     <ThemeProvider theme={customisedTheme}>
       <div className="study_question_vertical_layout">
-        <QuestionComponent questionNumber={0} />
-        {/* <QuestionComponent questionNumber={2} /> */}
+        {questionList}
+
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
           <Grid
             container
@@ -25,14 +56,13 @@ export default function StudyQuestions() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  // todo
-                  alert("add new question has not implemented");
+                  addQuestion();
                 }}
               >
                 ADD A NEW QUESTION
               </Button>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={2}>
               <Button
                 color="main"
                 variant="contained"

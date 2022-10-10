@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Unstable_Grid2";
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -16,75 +16,278 @@ import "./ScheduleComponent.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import Field from "../Field/Field";
-import { studyFormStudyInformationState } from "../../functions/atom";
+import {
+  databaseInformationState,
+  studyFormQuestionsState,
+  studyFormScheduleConfigurationState,
+  studyFormStudyInformationState,
+} from "../../functions/atom";
+import { padding } from "../../functions/utils";
+import CustomizedCheckbox from "../CustomizedCheckbox/CustomizedCheckbox";
 
-function Schedule(scheduleName) {
-  console.log(scheduleName);
-  if (scheduleName === "repeat_intervals") {
-    return (
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid width="30%">
-          <p className="schedule_field_name">Repeat interval</p>
-        </Grid>
-        <Grid width="50%">
-          <TextField
-            id="outlined-number"
-            label="Triggered every X minutes"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            style={{ width: "140%" }}
-          />
-          <p className="schedule-description">
-            Schedule is triggered repeatedly in accordance with the specified
-            interval (in minutes).
-          </p>
-        </Grid>
-      </Grid>
-    );
-  }
-  if (scheduleName === "set_schedules") {
-    return <p>set schedules</p>;
-  }
-  if (scheduleName === "random_triggers") {
-    return <p>random triggers</p>;
-  }
-}
+export const SET_SCHEDULES = "set_schedules";
+export const RANDOM_TRIGGERS = "random_triggers";
+export const REPEAT_INTERVALS = "repeat_intervals";
 
-export default function ScheduleComponent({ ScheduleNumber }) {
-  const [studyInformation, setStudyInformation] = useRecoilState(
-    studyFormStudyInformationState
+export default function ScheduleComponent(input) {
+  const { scheduleIndex, onDelete } = input;
+  const [schedules, setSchedules] = useRecoilState(
+    studyFormScheduleConfigurationState
   );
-  const navigateTo = useNavigate();
+  const questions = useRecoilValue(studyFormQuestionsState);
 
   const updateFormByField = (fieldName, value) => {
-    setStudyInformation({
-      ...studyInformation,
+    setSchedules({
+      ...schedules,
       [fieldName]: value,
     });
   };
 
-  let scheduleChoice;
-  const changeSchedule = (name) => {
-    scheduleChoice = name;
-  };
+  function getScheduleByType(scheduleName) {
+    if (scheduleName === REPEAT_INTERVALS) {
+      return (
+        <Field
+          fieldName="Repeat interval"
+          recoilState={studyFormScheduleConfigurationState}
+          index={scheduleIndex}
+          field="repeat_interval"
+          inputLabel="Triggered every X minutes"
+          description="Schedule is triggered repeatedly in accordance with the specified interval (in minutes)."
+          type="number"
+        />
+        // <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        //   <Grid width="30%">
+        //     <p className="schedule_field_name">Repeat interval</p>
+        //   </Grid>
+        //   <Grid width="50%">
+        //     <TextField
+        //       id="outlined-number"
+        //       label="Triggered every X minutes"
+        //       type="number"
+        //       InputLabelProps={{
+        //         shrink: true,
+        //       }}
+        //       style={{ width: "140%" }}
+        //     />
+        //     <p className="schedule-description">
+        //       Schedule is triggered repeatedly in accordance with the specified
+        //       interval (in minutes).
+        //     </p>
+        //   </Grid>
+        // </Grid>
+      );
+    }
+    if (scheduleName === SET_SCHEDULES) {
+      const hours = [];
+      for (let i = 0; i < 24; i += 1) {
+        hours.push(
+          <CustomizedCheckbox
+            key={i}
+            recoilState={studyFormScheduleConfigurationState}
+            field={`${padding(i, 2)}:00`}
+            index={scheduleIndex}
+            inGroup
+            groupField="hours"
+            label={`${padding(i, 2)}:00`}
+          />
+        );
+      }
+
+      const days = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ].map((day, idx) => {
+        return (
+          <CustomizedCheckbox
+            key={idx}
+            recoilState={studyFormScheduleConfigurationState}
+            field={day}
+            index={scheduleIndex}
+            inGroup
+            groupField="days"
+            label={day}
+          />
+        );
+      });
+      return (
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid width="20%">
+            <p className="schedule_field_name">Hours</p>
+          </Grid>
+          <Grid width="80%">{hours}</Grid>
+
+          <Grid width="20%" />
+          <Grid width="80%">
+            <p style={{ width: "100%" }}>
+              Notification sent at the determined hours.
+            </p>
+          </Grid>
+
+          <Grid width="20%">
+            <p className="schedule_field_name">Days</p>
+          </Grid>
+          <Grid width="80%">{days}</Grid>
+
+          <Grid width="20%" />
+          <Grid width="80%">
+            <p style={{ width: "100%" }}>
+              Notification sent at the determined days.
+            </p>
+          </Grid>
+        </Grid>
+      );
+    }
+    // if (scheduleName === RANDOM_TRIGGERS)
+
+    const numberList = [];
+    for (let i = 0; i < 24; i += 1) {
+      const value = `${padding(i, 2)}:00`;
+      numberList.push(
+        <MenuItem
+          key={i}
+          value={value}
+          onClick={() => {
+            const newSchedules = [...schedules].map((schedule, idx) => {
+              if (idx === scheduleIndex) {
+                return { ...schedule, number: value };
+              }
+              return schedule;
+            });
+            setSchedules(newSchedules);
+          }}
+        >
+          {value}
+        </MenuItem>
+      );
+    }
+
+    const lastHourList = [];
+    for (let i = 0; i < 24; i += 1) {
+      const value = `${padding(i, 2)}:00`;
+      lastHourList.push(
+        <MenuItem
+          key={i}
+          value={value}
+          onClick={() => {
+            const newSchedules = [...schedules].map((schedule, idx) => {
+              if (idx === scheduleIndex) {
+                return { ...schedule, last_hour: value };
+              }
+              return schedule;
+            });
+            setSchedules(newSchedules);
+          }}
+        >
+          {value}
+        </MenuItem>
+      );
+    }
+    return (
+      <div>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid width="20%">
+            <p className="schedule_field_name">Number</p>
+          </Grid>
+          <Grid width="80%">
+            <Select
+              required
+              style={{ width: "100%" }}
+              id="random-triggers-number"
+              value={schedules[scheduleIndex].number}
+            >
+              {numberList}
+            </Select>
+          </Grid>
+
+          <Grid width="20%">
+            <p className="schedule_field_name">Last hour</p>
+          </Grid>
+          <Grid width="80%">
+            <Select
+              required
+              style={{ width: "100%" }}
+              id="random-triggers-last-hour"
+              value={schedules[scheduleIndex].last_hour}
+            >
+              {lastHourList}
+            </Select>
+          </Grid>
+        </Grid>
+
+        <Field
+          fieldName="Number of triggers"
+          recoilState={studyFormScheduleConfigurationState}
+          index={scheduleIndex}
+          field="number_of_triggers"
+          inputLabel="Number of notifications across the scheduled hour(s)."
+          type="number"
+        />
+
+        <Field
+          fieldName="Inter-notification time"
+          recoilState={studyFormScheduleConfigurationState}
+          index={scheduleIndex}
+          field="inter_notification_time"
+          inputLabel="Minimum time in-between two notifications (in minutes)."
+          type="number"
+        />
+      </div>
+    );
+  }
+
+  function changeType(newType) {
+    return () => {
+      const newSchedules = [...schedules].map((schedule, curIdx) => {
+        if (curIdx === scheduleIndex) {
+          return {
+            ...schedule,
+            schedule_type: newType,
+          };
+        }
+        return schedule;
+      });
+      setSchedules(newSchedules);
+    };
+  }
+
+  const questionList = questions.map((question, idx) => {
+    return (
+      <CustomizedCheckbox
+        key={idx}
+        recoilState={studyFormScheduleConfigurationState}
+        field={question.question_title}
+        index={scheduleIndex}
+        inGroup
+        groupField="included_questions"
+        label={question.question_title}
+      />
+      // <FormControlLabel
+      //   key={idx}
+      //   control={<Checkbox />}
+      //   label={question.question_title}
+      // />
+    );
+  });
 
   return (
     <div>
       <div className="schedule_vertical_layout question_border">
         <div className="schedule_horizontal_layout">
-          <p className="schedule_title">Schedule {ScheduleNumber}</p>
+          <p className="schedule_title">Schedule {scheduleIndex + 1}</p>
           <Button>
             <DeleteIcon
               color="error"
               sx={{ fontSize: 40 }}
               onClick={() => {
-                // todo
-                alert("delete function has not implemented");
+                onDelete();
               }}
             >
               REMOVE SCHEDULE
@@ -98,7 +301,13 @@ export default function ScheduleComponent({ ScheduleNumber }) {
         </p>
 
         <Box sx={{ width: "100%" }}>
-          <Field fieldName="Title*" inputLabel="The schedule title" />
+          <Field
+            fieldName="Title*"
+            inputLabel="The schedule title"
+            index={scheduleIndex}
+            recoilState={studyFormScheduleConfigurationState}
+            field="title"
+          />
           <Grid
             container
             rowSpacing={1}
@@ -108,24 +317,7 @@ export default function ScheduleComponent({ ScheduleNumber }) {
               <p className="schedule_field_name">Included questions*</p>
             </Grid>
             <Grid width="50%">
-              <div className="schedule_vertical_layout">
-                {/* ToDo: Display all the questions here */}
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={
-                        studyInformation.includedQuestions
-                          ? studyInformation.includedQuestions
-                          : false
-                      }
-                      onChange={(_, checked) => {
-                        updateFormByField("Question X", checked);
-                      }}
-                    />
-                  }
-                  label="Question X"
-                />
-              </div>
+              <div className="schedule_vertical_layout">{questionList}</div>
             </Grid>
           </Grid>
           <Grid
@@ -145,50 +337,25 @@ export default function ScheduleComponent({ ScheduleNumber }) {
               >
                 <FormControlLabel
                   value="set_schedules"
-                  control={<Radio />}
+                  control={<Radio onClick={changeType(SET_SCHEDULES)} />}
                   label="Set schedules"
-                  // ToDo: Update values - 存的时候因为存的是const所以应当render出Schedule()
-                  // checked={}
-                  // onClick={(_, checked) => {
-                  //   updateFormByField("NoPasswordInJSONFile", checked);
-                  // }}
                 />
                 <FormControlLabel
                   value="random_triggers"
-                  control={<Radio />}
+                  control={<Radio onClick={changeType(RANDOM_TRIGGERS)} />}
                   label="Random triggers"
-                  // ToDo: Update values
-                  // checked={}
-                  // onClick={(_, checked) => {
-                  //   updateFormByField("NoPasswordInJSONFile", checked);
-                  // }}
                 />
                 <FormControlLabel
                   value="repeat_intervals"
-                  control={<Radio />}
+                  control={<Radio onClick={changeType(REPEAT_INTERVALS)} />}
                   label="Repeat intervals"
-                  // ToDo: Update values
-                  // checked={}
-                  onClick={(_, checked) => {
-                    changeSchedule("repeat_intervals");
-                    console.log(scheduleChoice);
-                    // updateFormByField("NoPasswordInJSONFile", checked);
-                  }}
                 />
               </RadioGroup>
             </Grid>
           </Grid>
         </Box>
-        {Schedule(scheduleChoice)}
+        {getScheduleByType(schedules[scheduleIndex].schedule_type)}
       </div>
     </div>
   );
 }
-
-ScheduleComponent.propTypes = {
-  ScheduleNumber: PropTypes.number,
-};
-
-ScheduleComponent.defaultProps = {
-  ScheduleNumber: 1,
-};

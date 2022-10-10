@@ -4,13 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Radio,
-  RadioGroup,
-  TextField,
-  ThemeProvider,
-} from "@mui/material";
+import { Button, Radio, RadioGroup, ThemeProvider } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   accelerometerState,

@@ -12,11 +12,16 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Grid from "@mui/material/Unstable_Grid2";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import PageHeader from "../components/PageHeader/PageHeader";
-import { studyFormStudyInformationState } from "../functions/atom";
+import {
+  studyFormQuestionsState,
+  studyFormScheduleConfigurationState,
+  studyFormStudyInformationState,
+} from "../functions/atom";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
+import { SET_SCHEDULES } from "../components/ScheduleComponent/ScheduleComponent";
 
 export default function Main() {
   // initialize csrf token
@@ -29,7 +34,10 @@ export default function Main() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
   );
-
+  const setStudyFormQuestions = useSetRecoilState(studyFormQuestionsState);
+  const setStudyFormScheduleConfiguration = useSetRecoilState(
+    studyFormScheduleConfigurationState
+  );
   return (
     <div>
       <PageHeader />
@@ -49,6 +57,17 @@ export default function Main() {
               color="main"
               onClick={() => {
                 setStudyInformation({});
+                setStudyFormQuestions([{}]);
+                setStudyFormScheduleConfiguration([
+                  {
+                    schedule_type: SET_SCHEDULES,
+                    number: `08:00`,
+                    last_hour: `20:00`,
+                    number_of_triggers: 6,
+                    inter_notification_time: 15,
+                  },
+                ]);
+
                 navigateTo("/study/study_information");
               }}
             >
