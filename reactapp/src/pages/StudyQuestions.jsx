@@ -15,7 +15,7 @@ export default function StudyQuestions() {
   const [questions, setQuestions] = useRecoilState(studyFormQuestionsState);
 
   const addQuestion = () => {
-    const newQuestions = [...questions, {}];
+    const newQuestions = [...questions, { esm_submit: "Submit" }];
     setQuestions(newQuestions);
   };
 
@@ -24,6 +24,16 @@ export default function StudyQuestions() {
     const newQuestions = [...questions];
     newQuestions.splice(curQuestionIdx, 1);
     setQuestions(newQuestions);
+  };
+
+  const checkValidation = () => {
+    for (let i = 0; i < questions.length; i += 1) {
+      const each = questions[i];
+      if (!each.esm_type || !each.esm_title) {
+        return false;
+      }
+    }
+    return true;
   };
 
   const questionList = [
@@ -81,8 +91,10 @@ export default function StudyQuestions() {
                 display="flex"
                 variant="contained"
                 onClick={() => {
+                  console.log(questions);
                   navigateTo("/study/schedule_configuration");
                 }}
+                disabled={!checkValidation()}
               >
                 NEXT STEP:SCHEDULE CONFIGURATION
               </Button>

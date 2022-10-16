@@ -21,11 +21,11 @@ export default function ScheduleConfiguration() {
     const newQuestions = [
       ...schedules,
       {
-        schedule_type: SET_SCHEDULES,
-        number: `08:00`,
-        last_hour: `20:00`,
-        number_of_triggers: 6,
-        inter_notification_time: 15,
+        type: SET_SCHEDULES,
+        firsthour: `08:00`,
+        lasthour: `20:00`,
+        randomCount: 6,
+        randomInterval: 15,
       },
     ];
     setSchedules(newQuestions);
@@ -36,6 +36,28 @@ export default function ScheduleConfiguration() {
     const newQuestions = [...schedules];
     newQuestions.splice(curQuestionIdx, 1);
     setSchedules(newQuestions);
+  };
+
+  const checkValidation = () => {
+    for (let i = 0; i < schedules.length; i += 1) {
+      const each = schedules[i];
+      if (!each.questions || !each.title) {
+        return false;
+      }
+
+      let flag = false;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key in each.questions) {
+        if (each.questions[key] === true) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        return false;
+      }
+    }
+    return true;
   };
 
   const scheduleList = [
@@ -93,6 +115,7 @@ export default function ScheduleConfiguration() {
                 onClick={() => {
                   navigateTo("/study/sensor_data");
                 }}
+                disabled={!checkValidation()}
               >
                 NEXT STEP: SENSOR DATA
               </Button>

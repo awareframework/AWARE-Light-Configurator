@@ -57,14 +57,14 @@ export default function Main() {
               color="main"
               onClick={() => {
                 setStudyInformation({});
-                setStudyFormQuestions([{}]);
+                setStudyFormQuestions([{ esm_submit: "Submit" }]);
                 setStudyFormScheduleConfiguration([
                   {
-                    schedule_type: SET_SCHEDULES,
-                    number: `08:00`,
-                    last_hour: `20:00`,
-                    number_of_triggers: 6,
-                    inter_notification_time: 15,
+                    type: SET_SCHEDULES,
+                    firsthour: `08:00`,
+                    lasthour: `20:00`,
+                    randomCount: 6,
+                    randomInterval: 15,
                   },
                 ]);
 
