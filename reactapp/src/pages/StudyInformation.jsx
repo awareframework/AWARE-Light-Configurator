@@ -1,5 +1,5 @@
 import "./StudyInformation.css";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -42,7 +42,7 @@ export default function StudyInformation() {
 
   const [testConnectResponse, setTestConnectResponse] = useState("");
   const [initDBResponse, setInitDBResponse] = useState("");
-
+  const [isDbConnected, setIsDbConnected] = useState(false);
   const updateFormByField = (fieldName, value) => {
     setdbInformation({
       ...dbInformation,
@@ -61,12 +61,7 @@ export default function StudyInformation() {
     if (!isValidEmail(studyInformation.email)) {
       // email not valid
       return (
-        <p
-          className="validity"
-          style={{ color: "red" }}
-          // marginTop={5}
-          // marginLeft={10}
-        >
+        <p className="validity" style={{ color: "red" }}>
           Invalid email
         </p>
       );
@@ -88,6 +83,22 @@ export default function StudyInformation() {
     }, 3000);
   }
 
+  const checkValidation = () => {
+    return (
+      studyInformation.study_title &&
+      studyInformation.study_description &&
+      studyInformation.researcher_first &&
+      studyInformation.researcher_last &&
+      studyInformation.researcher_contact &&
+      dbInformation.database_host &&
+      dbInformation.database_port &&
+      dbInformation.database_name &&
+      dbInformation.database_username &&
+      dbInformation.database_password &&
+      isDbConnected
+    );
+  };
+
   return (
     <ThemeProvider theme={customisedTheme}>
       <div className="main_vertical_layout">
@@ -95,35 +106,39 @@ export default function StudyInformation() {
           <p className="title">{TITLE1}</p>
           <p className="explanation">{EXPLANATION1}</p>
           <Field
-            fieldName="Study title*"
+            fieldName="Study title"
             recoilState={studyFormStudyInformationState}
             field="study_title"
             inputLabel="Study title"
             required
           />
           <Field
-            fieldName="description*"
+            fieldName="description"
             recoilState={studyFormStudyInformationState}
             field="study_description"
             inputLabel="Description"
+            required
           />
           <Field
-            fieldName="Researcher's first name*"
+            fieldName="Researcher's first name"
             recoilState={studyFormStudyInformationState}
             field="researcher_first"
             inputLabel="First name"
+            required
           />
           <Field
-            fieldName="Researcher's last name*"
+            fieldName="Researcher's last name"
             recoilState={studyFormStudyInformationState}
             field="researcher_last"
             inputLabel="Last name"
+            required
           />
           <Field
-            fieldName="Researcher's email*"
+            fieldName="Researcher's email"
             recoilState={studyFormStudyInformationState}
             field="researcher_contact"
             inputLabel="Email"
+            required
           />
 
           <Grid
@@ -140,35 +155,40 @@ export default function StudyInformation() {
           <p className="title">{TITLE2}</p>
           <p className="explanation">{EXPLANATION2}</p>
           <Field
-            fieldName="Host / Server IP*"
+            fieldName="Host / Server IP"
             recoilState={databaseInformationState}
             field="database_host"
             inputLabel="Host"
+            required
           />
           <Field
-            fieldName="Port number*"
+            fieldName="Port number"
             recoilState={databaseInformationState}
             field="database_port"
             inputLabel="Port number"
+            required
           />
           <Field
-            fieldName="Database name*"
+            fieldName="Database name"
             recoilState={databaseInformationState}
             field="database_name"
             inputLabel="Database name"
+            required
           />
           <Field
-            fieldName="INSERT-only username*"
+            fieldName="INSERT-only username"
             recoilState={databaseInformationState}
             field="database_username"
             inputLabel="Insert only username"
+            required
           />
           <Field
-            fieldName="INSERT-only password*"
+            fieldName="INSERT-only password"
             recoilState={databaseInformationState}
             field="database_password"
             inputLabel="Insert only password"
             type="password"
+            required
           />
 
           <Grid
@@ -217,12 +237,14 @@ export default function StudyInformation() {
                           isSuccess: r.data.success,
                           msg: r.data.msg,
                         });
+                        setIsDbConnected(true);
                       })
                       .catch((err) => {
                         setTestConnectResponse({
                           isSuccess: false,
                           msg: err.message,
                         });
+                        setIsDbConnected(false);
                       })
                       .finally(() => {
                         setIsLoading(false);
@@ -326,24 +348,9 @@ export default function StudyInformation() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  // TODO: validations
-                  const validation =
-                    studyInformation.study_title &&
-                    studyInformation.study_description &&
-                    studyInformation.researcher_first &&
-                    studyInformation.researcher_last &&
-                    studyInformation.researcher_contact &&
-                    dbInformation.database_host &&
-                    dbInformation.database_port &&
-                    dbInformation.database_name &&
-                    dbInformation.database_username &&
-                    dbInformation.database_password;
-                  if (validation) {
-                    navigateTo("/study/questions");
-                  } else {
-                    validationMessage();
-                  }
+                  navigateTo("/study/questions");
                 }}
+                disabled={!checkValidation()}
               >
                 NEXT STEP: QUESTIONS
               </Button>

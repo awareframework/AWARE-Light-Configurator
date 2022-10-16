@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -15,20 +15,43 @@ import { useRecoilState } from "recoil";
 import Field from "../Field/Field";
 import { studyFormQuestionsState } from "../../functions/atom";
 
+const FREE_TEXT = 1;
+const SINGLE_CHOICE = 2;
+const MULTIPLE_CHOICE = 3;
+const LIKERT_SCALE = 4;
+const QUICK_ANSWER = 5;
+const SCALE = 6;
+const NUMERIC = 7;
+
+const TYPE_MAP = {
+  1: "Free Text",
+  2: "Single Choice(Radio)",
+  3: "Multiple Choice(Checkbox)",
+  4: "Likert Scale",
+  5: "Quick Answer",
+  6: "Scale",
+  7: "Numeric",
+};
+
 export default function QuestionComponent(input) {
   const { questionIndex, onDelete } = input;
   const [questions, setQuestions] = useRecoilState(studyFormQuestionsState);
 
-  const updateOptions = (curQuestionIndex, curOptionIndex, isAdd = true) => {
+  const updateOptions = (
+    curQuestionIndex,
+    groupFieldName,
+    curOptionIndex,
+    isAdd = true
+  ) => {
     if (isAdd) {
       const newQuestions = [...questions].map((question, curIndex) => {
         if (curIndex === questionIndex) {
           let newOptions = [];
-          if (question.options !== undefined) {
-            newOptions = [...question.options];
+          if (question[groupFieldName] !== undefined) {
+            newOptions = [...question[groupFieldName]];
           }
           newOptions.push("");
-          return { ...question, options: newOptions };
+          return { ...question, [groupFieldName]: newOptions };
         }
         return question;
       });
@@ -37,9 +60,9 @@ export default function QuestionComponent(input) {
       // delete option branch
       const newQuestions = [...questions].map((question, curIndex) => {
         if (curIndex === questionIndex) {
-          const newOptions = [...question.options];
+          const newOptions = [...question[groupFieldName]];
           newOptions.splice(curOptionIndex, 1);
-          return { ...question, options: newOptions };
+          return { ...question, [groupFieldName]: newOptions };
         }
         return question;
       });
@@ -94,7 +117,7 @@ export default function QuestionComponent(input) {
   }
 
   // checkboxes
-  function optionsLayout(index) {
+  function optionsLayout(index, groupFieldName) {
     return (
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid xs={10}>
@@ -103,14 +126,14 @@ export default function QuestionComponent(input) {
             recoilState={studyFormQuestionsState}
             index={questionIndex}
             subIndex={index}
-            field="options"
+            field={groupFieldName}
           />
         </Grid>
         <Grid xs={1}>
           <Button
             variant="contained"
             onClick={() => {
-              updateOptions(questionIndex, index, false);
+              updateOptions(questionIndex, groupFieldName, index, false);
             }}
           >
             X
@@ -120,20 +143,20 @@ export default function QuestionComponent(input) {
     );
   }
 
-  function gatherOptions() {
+  function gatherOptions(groupFieldName) {
     const checkboxList = [];
-    if (questions[questionIndex].options === undefined) {
+    if (questions[questionIndex][groupFieldName] === undefined) {
       return checkboxList;
     }
-    const optionNum = questions[questionIndex].options.length;
+    const optionNum = questions[questionIndex][groupFieldName].length;
     for (let i = 0; i < optionNum; i += 1) {
-      checkboxList.push(optionsLayout(i));
+      checkboxList.push(optionsLayout(i, groupFieldName));
     }
     return checkboxList;
   }
 
   function layout() {
-    if (questions[questionIndex].type === "free_text") {
+    if (questions[questionIndex].esm_type === FREE_TEXT) {
       return (
         <p className="description" style={{ width: "100%" }}>
           Allows participants to enter text using the keyboard. Use when
@@ -141,7 +164,7 @@ export default function QuestionComponent(input) {
         </p>
       );
     }
-    if (questions[questionIndex].type === "single_choice") {
+    if (questions[questionIndex].esm_type === SINGLE_CHOICE) {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -156,19 +179,19 @@ export default function QuestionComponent(input) {
               if (questions.options) {
                 nextOptionIdx = questions.options.length();
               }
-              updateOptions(questionIndex, nextOptionIdx, true);
+              updateOptions(questionIndex, "esm_radios", nextOptionIdx, true);
             }}
           >
             ADD OPTION
           </Button>
 
-          {gatherOptions()}
+          {gatherOptions("esm_radios")}
 
           <div />
         </div>
       );
     }
-    if (questions[questionIndex].type === "multiple_choice") {
+    if (questions[questionIndex].esm_type === MULTIPLE_CHOICE) {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -184,17 +207,22 @@ export default function QuestionComponent(input) {
               if (questions.options) {
                 nextOptionIdx = questions.options.length();
               }
-              updateOptions(questionIndex, nextOptionIdx, true);
+              updateOptions(
+                questionIndex,
+                "esm_checkboxes",
+                nextOptionIdx,
+                true
+              );
             }}
           >
             ADD OPTION
           </Button>
-          {gatherOptions()}
+          {gatherOptions("esm_checkboxes")}
           <div />
         </div>
       );
     }
-    if (questions[questionIndex].type === "likert") {
+    if (questions[questionIndex].esm_type === LIKERT_SCALE) {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -203,26 +231,26 @@ export default function QuestionComponent(input) {
           </p>
           {questionNumberField(
             "maximum value",
-            "maximum_value",
-            questions[questionIndex].maximum_value,
+            "esm_likert_max",
+            questions[questionIndex].esm_likert_max,
             "Maximum value of the scale"
           )}
           {questionTextField(
             "minimum label",
-            "minimum_label",
-            questions[questionIndex].minimum_label,
+            "esm_likert_min_label",
+            questions[questionIndex].esm_likert_min_label,
             "(e.g. completely disagree)"
           )}
           {questionTextField(
             "maximum label",
-            "maximum_label",
-            questions[questionIndex].maximum_label,
+            "esm_likert_max_label",
+            questions[questionIndex].esm_likert_max_label,
             "(e.g. completely agree)"
           )}
         </div>
       );
     }
-    if (questions[questionIndex].type === "quick_answer") {
+    if (questions[questionIndex].esm_type === QUICK_ANSWER) {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -237,17 +265,22 @@ export default function QuestionComponent(input) {
               if (questions.options) {
                 nextOptionIdx = questions.options.length();
               }
-              updateOptions(questionIndex, nextOptionIdx, true);
+              updateOptions(
+                questionIndex,
+                "esm_quick_answers",
+                nextOptionIdx,
+                true
+              );
             }}
           >
             ADD OPTION
           </Button>
-          {gatherOptions()}
+          {gatherOptions("esm_quick_answers")}
           <div />
         </div>
       );
     }
-    if (questions[questionIndex].type === "scale") {
+    if (questions[questionIndex].esm_type === SCALE) {
       return (
         <div>
           <p className="description" style={{ width: "100%" }}>
@@ -256,44 +289,44 @@ export default function QuestionComponent(input) {
           </p>
           {questionNumberField(
             "minimum value",
-            "minimum_value",
-            questions[questionIndex].minimum_value,
+            "esm_scale_min",
+            questions[questionIndex].esm_scale_min,
             "Minimum value of the scale"
           )}
           {questionNumberField(
             "maximum value",
-            "maximum_value",
-            questions[questionIndex].maximum_value,
+            "esm_scale_max",
+            questions[questionIndex].esm_scale_max,
             "Maximum value of the scale"
           )}
           {questionTextField(
             "minimum label",
-            "minimum_label",
-            questions[questionIndex].minimum_label,
+            "esm_scale_min_label",
+            questions[questionIndex].esm_scale_min_label,
             "(e.g. completely disagree)"
           )}
           {questionTextField(
             "maximum label",
-            "maximum_label",
-            questions[questionIndex].maximum_label,
+            "esm_scale_max_label",
+            questions[questionIndex].esm_scale_max_label,
             "(e.g. completely agree)"
           )}
           {questionNumberField(
             "step size",
-            "step_size",
-            questions[questionIndex].step_size,
+            "esm_scale_step",
+            questions[questionIndex].esm_scale_step,
             "Steps of increment while dragging the sider"
           )}
           {questionNumberField(
             "scale start",
-            "scale_start",
-            questions[questionIndex].scale_start,
+            "esm_scale_start",
+            questions[questionIndex].esm_scale_start,
             "Initial scale value"
           )}
         </div>
       );
     }
-    // if questions[questionNumber].type === "numeric"
+    // if questions[questionNumber].esm_type === NUMERIC
     return (
       <p className="description" style={{ width: "100%" }}>
         Allows participants to enter numeric only text.
@@ -320,11 +353,12 @@ export default function QuestionComponent(input) {
         </div>
         <Box sx={{ width: "100%" }}>
           <Field
-            fieldName="Title*"
+            fieldName="Title"
             recoilState={studyFormQuestionsState}
             index={questionIndex}
             inputLabel="The actual question"
-            field="question_title"
+            field="esm_title"
+            required
           />
           <Field
             fieldName="Instructions"
@@ -351,60 +385,60 @@ export default function QuestionComponent(input) {
                   labelId="question-type-select"
                   id="question-type"
                   label="Select One"
-                  value={questions[questionIndex].type || ""}
+                  value={questions[questionIndex].esm_type || ""}
                 >
                   <MenuItem
-                    value="free_text"
+                    value={FREE_TEXT}
                     onClick={(event) => {
-                      updateQuestion("type", "free_text");
+                      updateQuestion("esm_type", FREE_TEXT);
                     }}
                   >
                     Free Text
                   </MenuItem>
                   <MenuItem
-                    value="single_choice"
+                    value={SINGLE_CHOICE}
                     onClick={(event) => {
-                      updateQuestion("type", "single_choice");
+                      updateQuestion("esm_type", SINGLE_CHOICE);
                     }}
                   >
                     Single Choice(Radio)
                   </MenuItem>
                   <MenuItem
-                    value="multiple_choice"
+                    value={MULTIPLE_CHOICE}
                     onClick={(event) => {
-                      updateQuestion("type", "multiple_choice");
+                      updateQuestion("esm_type", MULTIPLE_CHOICE);
                     }}
                   >
                     Multiple Choice(Checkbox)
                   </MenuItem>
                   <MenuItem
-                    value="likert"
+                    value={LIKERT_SCALE}
                     onClick={(event) => {
-                      updateQuestion("type", "likert");
+                      updateQuestion("esm_type", LIKERT_SCALE);
                     }}
                   >
                     Likert Scale
                   </MenuItem>
                   <MenuItem
-                    value="quick_answer"
+                    value={QUICK_ANSWER}
                     onClick={(event) => {
-                      updateQuestion("type", "quick_answer");
+                      updateQuestion("esm_type", QUICK_ANSWER);
                     }}
                   >
                     Quick Answer
                   </MenuItem>
                   <MenuItem
-                    value="scale"
+                    value={SCALE}
                     onClick={(event) => {
-                      updateQuestion("type", "scale");
+                      updateQuestion("esm_type", SCALE);
                     }}
                   >
                     Scale
                   </MenuItem>
                   <MenuItem
-                    value="numeric"
+                    value={NUMERIC}
                     onClick={(event) => {
-                      updateQuestion("type", "numeric");
+                      updateQuestion("esm_type", NUMERIC);
                     }}
                   >
                     Numeric
@@ -412,12 +446,12 @@ export default function QuestionComponent(input) {
                 </Select>
               </FormControl>
 
-              {questions[questionIndex].type ? layout() : <div />}
-              {questions[questionIndex].type ? (
+              {questions[questionIndex].esm_type ? layout() : <div />}
+              {questions[questionIndex].esm_type ? (
                 questionTextField(
                   "submit label",
-                  "submit_label",
-                  questions[questionIndex].submit_label
+                  "esm_submit",
+                  questions[questionIndex].esm_submit
                 )
               ) : (
                 <div />
@@ -427,15 +461,15 @@ export default function QuestionComponent(input) {
 
           {questionNumberField(
             "Notification timeout",
-            "notification_timeout",
-            questions[questionIndex].notification_timeout,
+            "esm_notification_timeout",
+            questions[questionIndex].esm_notification_timeout,
             "",
             "Dismiss the notification after the specified time (in seconds)."
           )}
           {questionNumberField(
             "Expiration time",
-            "expiration_time",
-            questions[questionIndex].expiration_time,
+            "esm_expiration_threshold",
+            questions[questionIndex].esm_expiration_threshold,
             "",
             "Specify the maximum time the participant has to answer the question\n" +
               "            (in seconds), use 0 for unlimited answer time. If an expiration time\n" +

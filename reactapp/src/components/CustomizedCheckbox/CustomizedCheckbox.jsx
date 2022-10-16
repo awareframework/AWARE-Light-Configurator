@@ -58,11 +58,11 @@ export default function CustomizedCheckbox(inputs) {
   function getValue() {
     // non-list structure
     if (index === undefined) {
-      return information[groupField] || false;
+      return information[field] || false;
     }
     // for list structure
     if (inGroup === undefined || inGroup === false) {
-      return information[index][groupField] || false;
+      return information[index][field] || false;
     }
     // for in group
     if (information[index][groupField] === undefined) {

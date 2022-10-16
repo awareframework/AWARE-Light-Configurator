@@ -88,8 +88,7 @@ export default function Field(inputs) {
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       <Grid width="20%">
-        {/* <p className="field_name">{fieldName}</p> */}
-        <p className="field_name">{fieldName}</p>
+        <p className="field_name">{fieldName + (required ? " *" : "")}</p>
       </Grid>
       <Grid width="80%">
         <TextField
@@ -103,6 +102,11 @@ export default function Field(inputs) {
           type={type || "text"}
           onChange={(event) => {
             updateFormByField(field.toString(), event.target.value);
+          }}
+          onBlur={() => {
+            if (getValue() === undefined) {
+              setIsError(true);
+            }
           }}
         />
         {description === undefined ? "" : <Grid width="20%" />}
