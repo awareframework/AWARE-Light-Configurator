@@ -162,9 +162,9 @@ export default function StudyQuestions() {
                 onClick={() => {
                   validationOn();
                   validate(checkValidation());
-                  console.log(questions);
                   if (questions.length === 0 || checkValidation()) {
                     navigateTo("/study/schedule_configuration");
+                    console.log(questions);
                   } else {
                     for (let i = 0; i < questions.length; i += 1) {
                       const each = questions[i];
