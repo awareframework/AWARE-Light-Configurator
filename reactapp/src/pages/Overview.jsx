@@ -25,6 +25,7 @@ import {
   barometerState,
   bluetoothState,
   communicationSensorState,
+  databaseConnectionState,
   databaseInformationState,
   gravityState,
   gyroscopeState,
@@ -64,6 +65,7 @@ const TYPE_MAP = {
 export default function Main() {
   const navigateTo = useNavigate();
 
+  const isDbConnected = useRecoilState(databaseConnectionState);
   const studyInformation = useRecoilValue(studyFormStudyInformationState);
   const databaseInfo = useRecoilValue(databaseInformationState);
   const questions = useRecoilValue(studyFormQuestionsState);
@@ -92,6 +94,54 @@ export default function Main() {
 
   const id = uuidv4();
   const date = new Date().toJSON();
+
+  const checkStudyInformationValidation = () => {
+    return (
+      studyInformation.study_title &&
+      studyInformation.study_description &&
+      studyInformation.researcher_first &&
+      studyInformation.researcher_last &&
+      studyInformation.researcher_contact &&
+      databaseInfo.database_host &&
+      databaseInfo.database_port &&
+      databaseInfo.database_name &&
+      databaseInfo.database_username &&
+      databaseInfo.database_password &&
+      isDbConnected
+    );
+  };
+
+  const checkQuestionValidation = () => {
+    for (let i = 0; i < questions.length; i += 1) {
+      const each = questions[i];
+      if (!each.esm_type || !each.esm_title) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const checkScheduleValidation = () => {
+    for (let i = 0; i < schedules.length; i += 1) {
+      const each = schedules[i];
+      if (!each.questions || !each.title) {
+        return false;
+      }
+
+      let flag = false;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key in each.questions) {
+        if (each.questions[key] === true) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   function displayInfo(instruction, content) {
     return (
@@ -730,7 +780,7 @@ export default function Main() {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              The following fields need to be fill in:{"\n"}
+              The following pages need to be rechecked:{"\n"}
               {/* {blankFields} */}
               {blankFields.map((item) => (
                 <li key={item}>{item}</li>
@@ -921,51 +971,22 @@ export default function Main() {
                   onClick={() => {
                     validationOn();
 
-                    const validility = true;
-                    console.log(schedules);
-                    // studyInformation.study_title &&
-                    // studyInformation.study_description &&
-                    // studyInformation.researcher_first &&
-                    // studyInformation.researcher_last &&
-                    // studyInformation.researcher_contact &&
-                    // dbInformation.database_host &&
-                    // dbInformation.database_port &&
-                    // dbInformation.database_name &&
-                    // dbInformation.database_username &&
-                    // dbInformation.database_password;
+                    const validility =
+                      checkStudyInformationValidation() &&
+                      checkQuestionValidation() &&
+                      checkScheduleValidation();
 
                     validate(validility);
 
-                    // if (!studyInformation.study_title) {
-                    //   updateBlankFields("study title");
-                    // }
-                    // if (!studyInformation.study_description) {
-                    //   updateBlankFields("study description");
-                    // }
-                    // if (!studyInformation.researcher_first) {
-                    //   updateBlankFields("researcher's first name");
-                    // }
-                    // if (!studyInformation.researcher_last) {
-                    //   updateBlankFields("researcher's last name");
-                    // }
-                    // if (!studyInformation.researcher_contact) {
-                    //   updateBlankFields("researcher's contact (email)");
-                    // }
-                    // if (!dbInformation.database_host) {
-                    //   updateBlankFields("database host (server IP)");
-                    // }
-                    // if (!dbInformation.database_port) {
-                    //   updateBlankFields("database port number");
-                    // }
-                    // if (!dbInformation.database_name) {
-                    //   updateBlankFields("datatbase name");
-                    // }
-                    // if (!dbInformation.database_username) {
-                    //   updateBlankFields("INSERT-only username");
-                    // }
-                    // if (!dbInformation.database_password) {
-                    //   updateBlankFields("INSERT-only password");
-                    // }
+                    if (!checkStudyInformationValidation()) {
+                      updateBlankFields("Study information page");
+                    }
+                    if (!checkQuestionValidation()) {
+                      updateBlankFields("Question page");
+                    }
+                    if (!checkScheduleValidation()) {
+                      updateBlankFields("Schedule page");
+                    }
 
                     if (validility) {
                       generateJSON();
