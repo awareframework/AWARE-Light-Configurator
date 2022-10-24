@@ -64,7 +64,6 @@ export default function StudyInformation() {
 
   const validationClose = () => {
     setOpen(false);
-    // eslint-disable-next-line no-use-before-define
     setBlankFields((oldArray) => []);
   };
 
@@ -177,7 +176,7 @@ export default function StudyInformation() {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              The following fields are missed:{"\n"}
+              The following fields are missing:{"\n"}
               {/* {blankFields} */}
               {blankFields.map((item) => (
                 <li key={item}>{item}</li>
