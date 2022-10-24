@@ -157,15 +157,8 @@ export default function StudyInformation() {
       "database_port" in dbInformation &&
       "database_name" in dbInformation &&
       "database_username" in dbInformation &&
-      "database_password" in dbInformation
-
-      // dbInformation.database_host &&
-      // dbInformation.database_port &&
-      // dbInformation.database_name &&
-      // dbInformation.database_username &&
-      // dbInformation.database_password
-      // &&
-      // isDbConnected
+      "database_password" in dbInformation &&
+      isDbConnected
     );
   };
 
