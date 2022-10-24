@@ -480,7 +480,7 @@ export default function StudyInformation() {
                 NEXT STEP: QUESTIONS
               </Button>
               {validation ? alertDialog() : <div />}
-              <div id="validation_message">Missing requred fields</div>
+              <div id="validation_message">Missing required fields</div>
             </Grid>
           </Grid>
         </Box>
