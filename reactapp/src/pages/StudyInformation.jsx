@@ -76,11 +76,8 @@ export default function StudyInformation() {
 
   const [validation, setValidation] = React.useState(true);
 
-  const validate = (fieldName, value) => {
-    setValidation({
-      ...validation,
-      [fieldName]: value,
-    });
+  const validate = (value) => {
+    setValidation(value);
   };
 
   function initializeDB() {
@@ -146,19 +143,32 @@ export default function StudyInformation() {
   }
 
   const checkValidation = () => {
-    return (
-      "study_title" in studyInformation &&
-      "study_description" in studyInformation &&
-      "researcher_first" in studyInformation &&
-      "researcher_last" in studyInformation &&
-      "researcher_contact" in studyInformation &&
-      "database_host" in dbInformation &&
-      "database_port" in dbInformation &&
-      "database_name" in dbInformation &&
-      "database_username" in dbInformation &&
-      "database_password" in dbInformation &&
-      isDbConnected
-    );
+    if (
+      !("study_title" in studyInformation) ||
+      !("study_description" in studyInformation) ||
+      !("researcher_first" in studyInformation) ||
+      !("researcher_last" in studyInformation) ||
+      !("researcher_contact" in studyInformation) ||
+      !("database_host" in dbInformation) ||
+      !("database_port" in dbInformation) ||
+      !("database_name" in dbInformation) ||
+      !("database_username" in dbInformation) ||
+      !("database_password" in dbInformation) ||
+      !studyInformation.study_title ||
+      !studyInformation.study_description ||
+      !studyInformation.researcher_first ||
+      !studyInformation.researcher_last ||
+      !studyInformation.researcher_contact ||
+      !studyInformation.database_host ||
+      !studyInformation.database_port ||
+      !studyInformation.database_name ||
+      !studyInformation.database_username ||
+      !studyInformation.database_password ||
+      !isDbConnected
+    ) {
+      return false;
+    }
+    return true;
   };
 
   function alertDialog() {
@@ -433,45 +443,50 @@ export default function StudyInformation() {
                   validate(checkValidation());
                   testDBConnection();
                   console.log(checkValidation());
-                  if (!studyInformation.study_title) {
-                    updateBlankFields("study title");
-                  }
-                  if (!studyInformation.study_description) {
-                    updateBlankFields("study description");
-                  }
-                  if (!studyInformation.researcher_first) {
-                    updateBlankFields("researcher's first name");
-                  }
-                  if (!studyInformation.researcher_last) {
-                    updateBlankFields("researcher's last name");
-                  }
-                  if (!studyInformation.researcher_contact) {
-                    updateBlankFields("researcher's contact (email)");
-                  }
-                  if (!dbInformation.database_host) {
-                    updateBlankFields("database host (server IP)");
-                  }
-                  if (!dbInformation.database_port) {
-                    updateBlankFields("database port number");
-                  }
-                  if (!dbInformation.database_name) {
-                    updateBlankFields("datatbase name");
-                  }
-                  if (!dbInformation.database_username) {
-                    updateBlankFields("INSERT-only username");
-                  }
-                  if (!dbInformation.database_password) {
-                    updateBlankFields("INSERT-only password");
-                  }
-                  if (!isDbConnected) {
-                    updateBlankFields("Incorrect database information");
+
+                  if (checkValidation()) {
+                    navigateTo("/study/questions");
+                  } else {
+                    if (!studyInformation.study_title) {
+                      updateBlankFields("study title");
+                    }
+                    if (!studyInformation.study_description) {
+                      updateBlankFields("study description");
+                    }
+                    if (!studyInformation.researcher_first) {
+                      updateBlankFields("researcher's first name");
+                    }
+                    if (!studyInformation.researcher_last) {
+                      updateBlankFields("researcher's last name");
+                    }
+                    if (!studyInformation.researcher_contact) {
+                      updateBlankFields("researcher's contact (email)");
+                    }
+                    if (!dbInformation.database_host) {
+                      updateBlankFields("database host (server IP)");
+                    }
+                    if (!dbInformation.database_port) {
+                      updateBlankFields("database port number");
+                    }
+                    if (!dbInformation.database_name) {
+                      updateBlankFields("datatbase name");
+                    }
+                    if (!dbInformation.database_username) {
+                      updateBlankFields("INSERT-only username");
+                    }
+                    if (!dbInformation.database_password) {
+                      updateBlankFields("INSERT-only password");
+                    }
+                    if (!isDbConnected) {
+                      updateBlankFields("Incorrect database information");
+                    }
                   }
                 }}
                 // disabled={!checkValidation()}
               >
                 NEXT STEP: QUESTIONS
               </Button>
-              {validation ? alertDialog() : <div />}
+              {!validation ? alertDialog() : <div />}
               <div id="validation_message">Missing required fields</div>
             </Grid>
           </Grid>
