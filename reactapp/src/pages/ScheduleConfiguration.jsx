@@ -1,21 +1,93 @@
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Button, Link, ThemeProvider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import "./ScheduleConfiguration.css";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import {
+  studyFormQuestionsState,
+  studyFormScheduleConfigurationState,
+} from "../functions/atom";
+import customisedTheme from "../functions/theme";
 import ScheduleComponent, {
   SET_SCHEDULES,
 } from "../components/ScheduleComponent/ScheduleComponent";
-import "./ScheduleConfiguration.css";
-import customisedTheme from "../functions/theme";
-import { studyFormScheduleConfigurationState } from "../functions/atom";
 
 export default function ScheduleConfiguration() {
   const navigateTo = useNavigate();
   const [schedules, setSchedules] = useRecoilState(
     studyFormScheduleConfigurationState
   );
+
+  const questions = useRecoilValue(studyFormQuestionsState);
+  const [blankFields, setBlankFields] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const updateBlankFields = (name) => {
+    setBlankFields((oldArray) => [...oldArray, name]);
+  };
+
+  const validationOn = () => {
+    setOpen(true);
+  };
+
+  const validationClose = () => {
+    setOpen(false);
+    setBlankFields((oldArray) => []);
+  };
+
+  const [validation, setValidation] = React.useState(true);
+
+  const validate = (value) => {
+    setValidation(value);
+  };
+
+  function alertDialog() {
+    // console.log(blankFields);
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={validationClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Schedule incorrect or with missing values.
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              The following schedules are missing values or having problems:
+              {"\n"}
+              {/* {blankFields} */}
+              {blankFields.map((item) => (
+                <li key={item}>Schedule {item + 1}</li>
+              ))}
+              Are you sure going to next page?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={validationClose} autoFocus>
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                validationClose();
+                navigateTo("/study/questions");
+              }}
+            >
+              Next page
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
 
   const addSchedules = () => {
     const newQuestions = [
@@ -39,9 +111,20 @@ export default function ScheduleConfiguration() {
   };
 
   const checkValidation = () => {
+    if (
+      (questions.length === 0 || Object.keys(questions).length === 0) &&
+      !(schedules.length === 0)
+    ) {
+      return false;
+    }
+
+    if (!(questions.length === 0) && schedules.length === 0) {
+      return false;
+    }
+
     for (let i = 0; i < schedules.length; i += 1) {
       const each = schedules[i];
-      if (!each.questions || !each.title) {
+      if (!each.questions || !each.title || !("title" in each)) {
         return false;
       }
 
@@ -113,12 +196,47 @@ export default function ScheduleConfiguration() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/sensor_data");
+                  validationOn();
+                  validate(checkValidation());
+                  console.log(questions.length);
+                  console.log(questions);
+                  if (checkValidation()) {
+                    navigateTo("/study/sensor_data");
+                  }
+                  if (
+                    (questions.length === 0 ||
+                      Object.keys(questions).length === 0) &&
+                    !(schedules.length === 0)
+                  ) {
+                    updateBlankFields(
+                      "More than one schedule but zero questions"
+                    );
+                  } else if (
+                    !(
+                      questions.length === 0 ||
+                      Object.keys(questions).length === 0
+                    ) &&
+                    schedules.length === 0
+                  ) {
+                    updateBlankFields("No schedules");
+                  } else {
+                    for (let i = 0; i < schedules.length; i += 1) {
+                      const each = schedules[i];
+                      if (
+                        !each.questions ||
+                        !each.title ||
+                        !("title" in each)
+                      ) {
+                        updateBlankFields(i);
+                      }
+                    }
+                  }
                 }}
-                disabled={!checkValidation()}
+                // disabled={!checkValidation()}
               >
                 NEXT STEP: SENSOR DATA
               </Button>
+              {!validation ? alertDialog() : <div />}
             </Grid>
           </Grid>
         </Box>

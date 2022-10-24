@@ -10,6 +10,12 @@ export const studyFormStudyInformationState = atom({
   default: {},
 });
 
+// database connection
+export const databaseConnectionState = atom({
+  key: "databaseConnectionState",
+  default: false,
+});
+
 // questions
 export const studyFormQuestionsState = atom({
   key: "studyFormQuestionsState",

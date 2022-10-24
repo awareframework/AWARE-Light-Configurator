@@ -8,8 +8,14 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal, ThemeProvider } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 import {
   databaseInformationState,
+  databaseConnectionState,
   isLoadingState,
   studyFormStudyInformationState,
 } from "../functions/atom";
@@ -42,13 +48,169 @@ export default function StudyInformation() {
 
   const [testConnectResponse, setTestConnectResponse] = useState("");
   const [initDBResponse, setInitDBResponse] = useState("");
-  const [isDbConnected, setIsDbConnected] = useState(false);
+  const [isDbConnected, setIsDbConnected] = useRecoilState(
+    databaseConnectionState
+  );
+
+  const [blankFields, setBlankFields] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const updateBlankFields = (name) => {
+    setBlankFields((oldArray) => [...oldArray, name]);
+  };
+
+  const validationOn = () => {
+    setOpen(true);
+  };
+
+  const validationClose = () => {
+    setOpen(false);
+    setBlankFields((oldArray) => []);
+  };
+
   const updateFormByField = (fieldName, value) => {
     setdbInformation({
       ...dbInformation,
       [fieldName]: value,
     });
   };
+
+  const [validation, setValidation] = React.useState(true);
+
+  const validate = (value) => {
+    setValidation(value);
+  };
+
+  function initializeDB() {
+    Axios({
+      method: "post",
+      url: "initialize_database/",
+      data: {
+        ip: dbInformation.database_host,
+        port: dbInformation.database_port,
+        database: dbInformation.database_name,
+        username: dbInformation.database_username,
+        password: dbInformation.database_password,
+        root_username: dbInformation.rootUsername,
+        root_password: dbInformation.rootPassword,
+      },
+    })
+      .then((r) => {
+        setInitDBResponse({
+          isSuccess: r.data.success,
+          msg: r.data.msg,
+        });
+      })
+      .catch((err) => {
+        setInitDBResponse({
+          isSuccess: false,
+          msg: err.message,
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function testDBConnection() {
+    Axios({
+      method: "post",
+      url: "test_connection/",
+      data: {
+        ip: dbInformation.database_host,
+        port: dbInformation.database_port,
+        database: dbInformation.database_name,
+        username: dbInformation.database_username,
+        password: dbInformation.database_password,
+      },
+    })
+      .then((r) => {
+        setTestConnectResponse({
+          isSuccess: r.data.success,
+          msg: r.data.msg,
+        });
+        setIsDbConnected(true);
+      })
+      .catch((err) => {
+        setTestConnectResponse({
+          isSuccess: false,
+          msg: err.message,
+        });
+        setIsDbConnected(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  const checkValidation = () => {
+    if (
+      !("study_title" in studyInformation) ||
+      !("study_description" in studyInformation) ||
+      !("researcher_first" in studyInformation) ||
+      !("researcher_last" in studyInformation) ||
+      !("researcher_contact" in studyInformation) ||
+      !("database_host" in dbInformation) ||
+      !("database_port" in dbInformation) ||
+      !("database_name" in dbInformation) ||
+      !("database_username" in dbInformation) ||
+      !("database_password" in dbInformation) ||
+      !studyInformation.study_title ||
+      !studyInformation.study_description ||
+      !studyInformation.researcher_first ||
+      !studyInformation.researcher_last ||
+      !studyInformation.researcher_contact ||
+      !studyInformation.database_host ||
+      !studyInformation.database_port ||
+      !studyInformation.database_name ||
+      !studyInformation.database_username ||
+      !studyInformation.database_password ||
+      !isDbConnected
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  function alertDialog() {
+    // console.log(blankFields);
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={validationClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Required fields are left blank.
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              The following fields are missing:{"\n"}
+              {/* {blankFields} */}
+              {blankFields.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+              Are you sure going to next page?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={validationClose} autoFocus>
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                validationClose();
+                navigateTo("/study/questions");
+              }}
+            >
+              Next page
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -82,22 +244,6 @@ export default function StudyInformation() {
       x.className = x.className.replace("show", "");
     }, 3000);
   }
-
-  const checkValidation = () => {
-    return (
-      studyInformation.study_title &&
-      studyInformation.study_description &&
-      studyInformation.researcher_first &&
-      studyInformation.researcher_last &&
-      studyInformation.researcher_contact &&
-      dbInformation.database_host &&
-      dbInformation.database_port &&
-      dbInformation.database_name &&
-      dbInformation.database_username &&
-      dbInformation.database_password &&
-      isDbConnected
-    );
-  };
 
   return (
     <ThemeProvider theme={customisedTheme}>
@@ -220,35 +366,7 @@ export default function StudyInformation() {
                   onClick={() => {
                     console.log(dbInformation);
                     setIsLoading(true);
-                    // test code
-                    Axios({
-                      method: "post",
-                      url: "test_connection/",
-                      data: {
-                        ip: dbInformation.database_host,
-                        port: dbInformation.database_port,
-                        database: dbInformation.database_name,
-                        username: dbInformation.database_username,
-                        password: dbInformation.database_password,
-                      },
-                    })
-                      .then((r) => {
-                        setTestConnectResponse({
-                          isSuccess: r.data.success,
-                          msg: r.data.msg,
-                        });
-                        setIsDbConnected(true);
-                      })
-                      .catch((err) => {
-                        setTestConnectResponse({
-                          isSuccess: false,
-                          msg: err.message,
-                        });
-                        setIsDbConnected(false);
-                      })
-                      .finally(() => {
-                        setIsLoading(false);
-                      });
+                    testDBConnection();
                   }}
                 >
                   TEST CONNECTION
@@ -294,34 +412,7 @@ export default function StudyInformation() {
                   variant="contained"
                   onClick={() => {
                     setIsLoading(true);
-                    Axios({
-                      method: "post",
-                      url: "initialize_database/",
-                      data: {
-                        ip: dbInformation.database_host,
-                        port: dbInformation.database_port,
-                        database: dbInformation.database_name,
-                        username: dbInformation.database_username,
-                        password: dbInformation.database_password,
-                        root_username: dbInformation.rootUsername,
-                        root_password: dbInformation.rootPassword,
-                      },
-                    })
-                      .then((r) => {
-                        setInitDBResponse({
-                          isSuccess: r.data.success,
-                          msg: r.data.msg,
-                        });
-                      })
-                      .catch((err) => {
-                        setInitDBResponse({
-                          isSuccess: false,
-                          msg: err.message,
-                        });
-                      })
-                      .finally(() => {
-                        setIsLoading(false);
-                      });
+                    initializeDB();
                   }}
                 >
                   INITIALIZE DATABASE
@@ -348,13 +439,55 @@ export default function StudyInformation() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/questions");
+                  validationOn();
+                  validate(checkValidation());
+                  testDBConnection();
+                  console.log(checkValidation());
+
+                  if (checkValidation()) {
+                    navigateTo("/study/questions");
+                  } else {
+                    if (!studyInformation.study_title) {
+                      updateBlankFields("study title");
+                    }
+                    if (!studyInformation.study_description) {
+                      updateBlankFields("study description");
+                    }
+                    if (!studyInformation.researcher_first) {
+                      updateBlankFields("researcher's first name");
+                    }
+                    if (!studyInformation.researcher_last) {
+                      updateBlankFields("researcher's last name");
+                    }
+                    if (!studyInformation.researcher_contact) {
+                      updateBlankFields("researcher's contact (email)");
+                    }
+                    if (!dbInformation.database_host) {
+                      updateBlankFields("database host (server IP)");
+                    }
+                    if (!dbInformation.database_port) {
+                      updateBlankFields("database port number");
+                    }
+                    if (!dbInformation.database_name) {
+                      updateBlankFields("datatbase name");
+                    }
+                    if (!dbInformation.database_username) {
+                      updateBlankFields("INSERT-only username");
+                    }
+                    if (!dbInformation.database_password) {
+                      updateBlankFields("INSERT-only password");
+                    }
+                    if (!isDbConnected) {
+                      updateBlankFields("Incorrect database information");
+                    }
+                  }
                 }}
-                disabled={!checkValidation()}
+                // disabled={!checkValidation()}
               >
                 NEXT STEP: QUESTIONS
               </Button>
-              <div id="validation_message">Missing requred fields</div>
+              {!validation ? alertDialog() : <div />}
+              <div id="validation_message">Missing required fields</div>
             </Grid>
           </Grid>
         </Box>

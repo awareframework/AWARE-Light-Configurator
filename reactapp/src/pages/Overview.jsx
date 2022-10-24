@@ -1,5 +1,11 @@
 import "./Overview.css";
-import { Alert, AlertTitle, Button, ThemeProvider } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Button,
+  Divider,
+  ThemeProvider,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useEffect, useState } from "react";
@@ -10,6 +16,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { v4 as uuidv4 } from "uuid";
 import customisedTheme from "../functions/theme";
 import {
   accelerometerState,
@@ -17,6 +25,7 @@ import {
   barometerState,
   bluetoothState,
   communicationSensorState,
+  databaseConnectionState,
   databaseInformationState,
   gravityState,
   gyroscopeState,
@@ -41,10 +50,22 @@ import {
   REPEAT_INTERVALS,
   SET_SCHEDULES,
 } from "../components/ScheduleComponent/ScheduleComponent";
+import CustomizedCheckbox from "../components/CustomizedCheckbox/CustomizedCheckbox";
+
+const TYPE_MAP = {
+  1: "Free Text",
+  2: "Single Choice(Radio)",
+  3: "Multiple Choice(Checkbox)",
+  4: "Likert Scale",
+  5: "Quick Answer",
+  6: "Scale",
+  7: "Numeric",
+};
 
 export default function Main() {
   const navigateTo = useNavigate();
 
+  const isDbConnected = useRecoilState(databaseConnectionState);
   const studyInformation = useRecoilValue(studyFormStudyInformationState);
   const databaseInfo = useRecoilValue(databaseInformationState);
   const questions = useRecoilValue(studyFormQuestionsState);
@@ -70,13 +91,123 @@ export default function Main() {
   const communicationData = useRecoilValue(communicationSensorState);
 
   const [result, setResult] = useState({});
+
+  const id = uuidv4();
+  const date = new Date().toJSON();
+
+  const checkStudyInformationValidation = () => {
+    return (
+      studyInformation.study_title &&
+      studyInformation.study_description &&
+      studyInformation.researcher_first &&
+      studyInformation.researcher_last &&
+      studyInformation.researcher_contact &&
+      databaseInfo.database_host &&
+      databaseInfo.database_port &&
+      databaseInfo.database_name &&
+      databaseInfo.database_username &&
+      databaseInfo.database_password &&
+      isDbConnected
+    );
+  };
+
+  const checkQuestionValidation = () => {
+    for (let i = 0; i < questions.length; i += 1) {
+      const each = questions[i];
+      if (!each.esm_type || !each.esm_title) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const checkScheduleValidation = () => {
+    for (let i = 0; i < schedules.length; i += 1) {
+      const each = schedules[i];
+      if (!each.questions || !each.title) {
+        return false;
+      }
+
+      let flag = false;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key in each.questions) {
+        if (each.questions[key] === true) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  function displayInfo(instruction, content) {
+    return (
+      <Grid container rowSpacing={1} ml="10%" mt="3%" mb="3%">
+        <Grid width="50%">
+          <div>{instruction}</div>
+        </Grid>
+        <Grid width="50%">
+          <div>{content}</div>
+        </Grid>
+      </Grid>
+    );
+  }
+
+  // eslint-disable-next-line consistent-return
+  function displaySensors(sensor, sensorName) {
+    if (sensor in sensorData) {
+      return (
+        <Grid width="100%" ml="10%" mt="3%">
+          <div>{sensorName}</div>
+        </Grid>
+      );
+    }
+    return <div />;
+  }
+
+  const questionList = questions.map((question, idx) => {
+    return (
+      <div>
+        {displayInfo(`Question ${(idx + 1).toString()}`, question.esm_title)}
+        {displayInfo("Instructions", question.instructions)}
+        {displayInfo("Question type", TYPE_MAP[question.esm_type])}
+
+        <Divider
+          style={{ background: "main" }}
+          // component="li"
+          variant="middle"
+          sx={{ marginBottom: "3%" }}
+        />
+      </div>
+    );
+  });
+
+  const scheduleList = schedules.map((schedule, idx) => {
+    return (
+      <div>
+        {displayInfo(`Schedule ${(idx + 1).toString()}`, schedule.title)}
+        {displayInfo(`Questions`, Object.keys(schedule.questions).join(", "))}
+
+        <Divider
+          style={{ background: "main" }}
+          // component="li"
+          variant="middle"
+          sx={{ marginBottom: "3%" }}
+        />
+      </div>
+    );
+  });
+
   useEffect(() => {
     const newResult = {
-      _id: "asdf",
+      _id: id,
       study_info: studyInformation,
       database: databaseInfo,
-      createdAt: "time1",
-      updatedAt: "time2",
+      createdAt: date,
+      updatedAt: date,
       questions: [...questions].map((question, idx) => {
         return { ...question, id: idx + 1 };
       }),
@@ -98,7 +229,7 @@ export default function Main() {
           newSchedule.hours = [];
           for (const key in schedule.hours) {
             const val = schedule.hours[key];
-            console.log(key);
+            // console.log(key);
             if (val === true) {
               newSchedule.hours.push(parseInt(key.slice(0, 2), 10));
             }
@@ -635,7 +766,7 @@ export default function Main() {
 
   // eslint-disable-next-line react/no-unstable-nested-components
   function AlertDialog() {
-    console.log(blankFields);
+    // console.log(blankFields);
     return (
       <div>
         <Dialog
@@ -649,7 +780,7 @@ export default function Main() {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              The following fields need to be fill in:{"\n"}
+              The following pages need to be rechecked:{"\n"}
               {/* {blankFields} */}
               {blankFields.map((item) => (
                 <li key={item}>{item}</li>
@@ -669,7 +800,7 @@ export default function Main() {
 
   function generateJSON() {
     const jsonText = JSON.stringify(result);
-    console.log(jsonText);
+    // console.log(jsonText);
 
     const blob = new Blob([jsonText]);
     const href = URL.createObjectURL(blob);
@@ -706,34 +837,11 @@ export default function Main() {
               <p className="title">Study Information</p>
             </Grid>
 
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-              mt={1}
-            >
-              <Grid width={250}>
-                <p className="field_name">Study title</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">{studyInformation.studyTitle}</p>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-            >
-              <Grid width={250}>
-                <p className="field_name">Study description</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">{studyInformation.description}</p>
-              </Grid>
-            </Grid>
+            {displayInfo(`Study title`, studyInformation.study_title)}
+            {displayInfo(
+              `Study description`,
+              studyInformation.study_description
+            )}
 
             <Grid
               container
@@ -757,48 +865,7 @@ export default function Main() {
               <p className="title">Questions</p>
             </Grid>
 
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-              mt={1}
-            >
-              <Grid width={250}>
-                <p className="field_name">Question 1</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">question1</p>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-            >
-              <Grid width={250}>
-                <p className="field_name">Instructions</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">instruction</p>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-            >
-              <Grid width={250}>
-                <p className="field_name">Question type</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">question_type</p>
-              </Grid>
-            </Grid>
+            {questionList}
 
             <Grid
               container
@@ -822,36 +889,7 @@ export default function Main() {
             <Grid width={250} ml={5} mt={3}>
               <p className="title">Schedule configuration</p>
             </Grid>
-
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-              mt={1}
-            >
-              <Grid width={250}>
-                <p className="field_name">Schedule 1</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">schedule1</p>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-            >
-              <Grid width={250}>
-                <p className="field_name">Questions</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">questions</p>
-              </Grid>
-            </Grid>
-
+            {scheduleList}
             <Grid
               container
               justifyContent="flex-end"
@@ -874,34 +912,32 @@ export default function Main() {
               <p className="title">Sensor data</p>
             </Grid>
 
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-              mt={1}
-            >
-              <Grid width={250}>
-                <p className="field_name">Study title</p>
-              </Grid>
+            {displaySensors("sensor_application", "Application")}
+            {displaySensors("sensor_battery", "Battery")}
+            {displaySensors("sensor_communication", "Communication")}
+            {displaySensors("sensor_processor", "Processor")}
+            {displaySensors("sensor_installation", "Installation")}
+            {displaySensors("sensor_screen", "Screen")}
+            {displaySensors("sensor_telephony", "Telephony")}
+            {displaySensors("sensor_timezone", "Timezone")}
 
-              <Grid width={250}>
-                <p className="value">"Study Information"</p>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              ml={5}
-            >
-              <Grid width={250}>
-                <p className="field_name">Study description</p>
-              </Grid>
-
-              <Grid width={250}>
-                <p className="value">"Study Information"</p>
-              </Grid>
-            </Grid>
+            {displaySensors("sensor_accelerometer", "Accelerometer")}
+            {displaySensors("sensor_barometer", "Barometer")}
+            {displaySensors("sensor_bluetooth", "Bluetooth")}
+            {displaySensors("sensor_gravity", "Gravity")}
+            {displaySensors("sensor_gyroscope", "Gyroscope")}
+            {displaySensors("sensor_light", "Light")}
+            {displaySensors(
+              "sensor_linear_accelerometer",
+              "Linear accelerometer"
+            )}
+            {displaySensors("sensor_locations", "Locations")}
+            {displaySensors("sensor_network", "Network")}
+            {displaySensors("sensor_processor", "Processor")}
+            {displaySensors("sensor_proximity", "Proximity")}
+            {displaySensors("sensor_rotation", "Rotation")}
+            {displaySensors("sensor_temperature", "Temperature")}
+            {displaySensors("sensor_sensor_wifi", "Wifi")}
 
             <Grid
               container
@@ -935,50 +971,22 @@ export default function Main() {
                   onClick={() => {
                     validationOn();
 
-                    const validility = true;
-                    // studyInformation.study_title &&
-                    // studyInformation.study_description &&
-                    // studyInformation.researcher_first &&
-                    // studyInformation.researcher_last &&
-                    // studyInformation.researcher_contact &&
-                    // dbInformation.database_host &&
-                    // dbInformation.database_port &&
-                    // dbInformation.database_name &&
-                    // dbInformation.database_username &&
-                    // dbInformation.database_password;
+                    const validility =
+                      checkStudyInformationValidation() &&
+                      checkQuestionValidation() &&
+                      checkScheduleValidation();
 
                     validate(validility);
 
-                    // if (!studyInformation.study_title) {
-                    //   updateBlankFields("study title");
-                    // }
-                    // if (!studyInformation.study_description) {
-                    //   updateBlankFields("study description");
-                    // }
-                    // if (!studyInformation.researcher_first) {
-                    //   updateBlankFields("researcher's first name");
-                    // }
-                    // if (!studyInformation.researcher_last) {
-                    //   updateBlankFields("researcher's last name");
-                    // }
-                    // if (!studyInformation.researcher_contact) {
-                    //   updateBlankFields("researcher's contact (email)");
-                    // }
-                    // if (!dbInformation.database_host) {
-                    //   updateBlankFields("database host (server IP)");
-                    // }
-                    // if (!dbInformation.database_port) {
-                    //   updateBlankFields("database port number");
-                    // }
-                    // if (!dbInformation.database_name) {
-                    //   updateBlankFields("datatbase name");
-                    // }
-                    // if (!dbInformation.database_username) {
-                    //   updateBlankFields("INSERT-only username");
-                    // }
-                    // if (!dbInformation.database_password) {
-                    //   updateBlankFields("INSERT-only password");
-                    // }
+                    if (!checkStudyInformationValidation()) {
+                      updateBlankFields("Study information page");
+                    }
+                    if (!checkQuestionValidation()) {
+                      updateBlankFields("Question page");
+                    }
+                    if (!checkScheduleValidation()) {
+                      updateBlankFields("Schedule page");
+                    }
 
                     if (validility) {
                       generateJSON();
