@@ -8,6 +8,7 @@ import StudyQuestions from "./pages/StudyQuestions";
 import Overview from "./pages/Overview";
 import ScheduleConfiguration from "./pages/ScheduleConfiguration";
 import SensorData from "./pages/SensorData";
+import Upload from "./pages/Upload";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/study/sensor_data" element={<SensorData />} />
           <Route path="/study/overview" element={<Overview />} />
         </Route>
+        <Route path="/upload" element={<Upload />} />
       </Routes>
     </BrowserRouter>
   );

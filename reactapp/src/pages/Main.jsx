@@ -75,7 +75,25 @@ export default function Main() {
               Design your own study
             </Button>
 
-            <Button variant="outlined" color="main">
+            <Button
+              variant="outlined"
+              color="main"
+              onClick={() => {
+                setStudyInformation({});
+                setStudyFormQuestions([{ esm_submit: "Submit" }]);
+                setStudyFormScheduleConfiguration([
+                  {
+                    type: SET_SCHEDULES,
+                    firsthour: `08:00`,
+                    lasthour: `20:00`,
+                    randomCount: 6,
+                    randomInterval: 15,
+                  },
+                ]);
+
+                navigateTo("/upload");
+              }}
+            >
               <EditIcon />
               Update an existing study
             </Button>

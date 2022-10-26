@@ -188,9 +188,19 @@ export default function Main() {
   const scheduleList = schedules.map((schedule, idx) => {
     return (
       <div>
-        {displayInfo(`Schedule ${(idx + 1).toString()}`, schedule.title)}
-        {displayInfo(`Questions`, Object.keys(schedule.questions).join(", "))}
+        {/* {displayInfo(`Schedule ${(idx + 1).toString()}`, schedule.title)} */}
+        {/* {displayInfo(`Questions`, Object.keys(schedule.questions).join(", "))} */}
 
+        {schedule ? (
+          displayInfo(`Schedule ${(idx + 1).toString()}`, schedule.title)
+        ) : (
+          <div />
+        )}
+        {schedule.questions ? (
+          displayInfo(`Schedule ${(idx + 1).toString()}`, schedule.title)
+        ) : (
+          <div />
+        )}
         <Divider
           style={{ background: "main" }}
           // component="li"
@@ -889,7 +899,9 @@ export default function Main() {
             <Grid width={250} ml={5} mt={3}>
               <p className="title">Schedule configuration</p>
             </Grid>
-            {scheduleList}
+            {/* {scheduleList} */}
+            {schedules ? scheduleList : <div />}
+
             <Grid
               container
               justifyContent="flex-end"
