@@ -17,7 +17,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { v4 as uuidv4 } from "uuid";
 import customisedTheme from "../functions/theme";
 import {
   accelerometerState,
@@ -25,6 +24,7 @@ import {
   barometerState,
   bluetoothState,
   communicationSensorState,
+  createTimeState,
   databaseConnectionState,
   databaseInformationState,
   gravityState,
@@ -41,6 +41,7 @@ import {
   studyFormQuestionsState,
   studyFormScheduleConfigurationState,
   studyFormStudyInformationState,
+  studyIdState,
   temperatureState,
   timezoneState,
   wifiState,
@@ -50,7 +51,6 @@ import {
   REPEAT_INTERVALS,
   SET_SCHEDULES,
 } from "../components/ScheduleComponent/ScheduleComponent";
-import CustomizedCheckbox from "../components/CustomizedCheckbox/CustomizedCheckbox";
 
 const TYPE_MAP = {
   1: "Free Text",
@@ -89,10 +89,10 @@ export default function Main() {
   const wifiData = useRecoilValue(wifiState);
   const timezoneData = useRecoilValue(timezoneState);
   const communicationData = useRecoilValue(communicationSensorState);
-
+  const studyId = useRecoilValue(studyIdState);
+  const createTime = useRecoilValue(createTimeState);
   const [result, setResult] = useState({});
 
-  const id = uuidv4();
   const date = new Date().toJSON();
 
   const checkStudyInformationValidation = () => {
@@ -213,10 +213,10 @@ export default function Main() {
 
   useEffect(() => {
     const newResult = {
-      _id: id,
+      _id: studyId,
       study_info: studyInformation,
       database: databaseInfo,
-      createdAt: date,
+      createdAt: createTime,
       updatedAt: date,
       questions: [...questions].map((question, idx) => {
         return { ...question, id: idx + 1 };
@@ -227,9 +227,9 @@ export default function Main() {
         newSchedule.type = schedule.type;
         newSchedule.questions = [];
         for (const key in schedule.questions) {
-          const val = schedule.questions[key];
+          const isSelected = schedule.questions[key];
           for (let i = 0; i < questions.length; i += 1) {
-            if (val === questions[i].title) {
+            if (key === questions[i].esm_title && isSelected) {
               newSchedule.questions.push(i + 1);
             }
           }
@@ -745,7 +745,7 @@ export default function Main() {
       ],
     };
     setResult(newResult);
-  });
+  }, []);
 
   const [open, setOpen] = React.useState(false);
 

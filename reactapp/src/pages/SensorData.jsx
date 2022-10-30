@@ -863,6 +863,7 @@ export default function SensorData() {
                 name="clean_data_freq"
                 value={sensorData.clean_data_freq || ""}
                 row
+                // todo: add this to the overview and upload page.
               >
                 <FormControlLabel
                   value="never"

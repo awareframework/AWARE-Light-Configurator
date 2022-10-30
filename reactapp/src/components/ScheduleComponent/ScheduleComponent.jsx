@@ -48,10 +48,16 @@ export default function ScheduleComponent(input) {
     });
     setSchedules(newSchedules);
   };
-
-  // initialize schedule type to "set schedules"
+  // initialize schedule type to "set schedules" if type is empty
   useEffect(() => {
-    updateFormByField("type", SET_SCHEDULES);
+    if (
+      schedules[scheduleIndex].type === null ||
+      schedules[scheduleIndex].type === undefined ||
+      schedules[scheduleIndex].type === ""
+    ) {
+      console.log(schedules[scheduleIndex].type);
+      updateFormByField("type", SET_SCHEDULES);
+    }
   }, []);
 
   function getScheduleByType(scheduleName) {
@@ -316,6 +322,7 @@ export default function ScheduleComponent(input) {
               <RadioGroup
                 aria-labelledby="type"
                 defaultValue={SET_SCHEDULES}
+                value={schedules[scheduleIndex].type}
                 name="schedule"
                 row
               >
