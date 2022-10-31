@@ -311,7 +311,8 @@ export default function StudyInformation() {
         <div className="border">
           <p className="title">{TITLE2}</p>
           <p className="explanation">
-            For this step, you should already have a host and port database.
+            You should already have a server and its host and port for this
+            step.
             <br />
             <br />
             If it is your first time setting up the study, please:
@@ -327,8 +328,8 @@ export default function StudyInformation() {
             3) Press the INITIALIZE DATABASE button.
             <br />
             <br />
-            This way, we will create the database on your server, together with
-            the INSERT-only username and password.
+            This way, we will create the database on your server with the
+            INSERT-only username and password.
             <br />
             <br />
             After creating a database with an insert-only username and password
