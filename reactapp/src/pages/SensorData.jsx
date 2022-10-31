@@ -160,7 +160,7 @@ export default function SensorData() {
           <SensorComponent
             sensorName="Touch"
             sensorDescription="Logs clicks, long-clicks and scroll up/down events."
-            stateField={screenData.touch}
+            stateField={screenData.sensor_touch}
             field="sensor_touch"
             modeState="screen"
           />
@@ -459,7 +459,7 @@ export default function SensorData() {
             description="Non-deterministic frequency in microseconds (dependent of the hardware sensor capabilities and resources), e.g., 200000 (normal), 60000 (UI), 20000 (game), 0 (fastest)"
             field="frequency_linear_accelerometer"
             studyField={linearAccelerometerData.frequency_linear_accelerometer}
-            modeState="linear_accelerometer"
+            modeState="linearAccelerometer"
           />
 
           <FrequencyField
@@ -470,7 +470,7 @@ export default function SensorData() {
             description="E.g., log only if [x,y,z] >= 0.01. 0 = disabled"
             field="threshold"
             studyField={linearAccelerometerData.threshold}
-            modeState="linear_accelerometer"
+            modeState="linearAccelerometer"
           />
 
           <SensorComponent
@@ -478,7 +478,7 @@ export default function SensorData() {
             sensorDescription="Enforce the frequency"
             stateField={linearAccelerometerData.enforce}
             field="enforce"
-            modeState="linear_accelerometer"
+            modeState="linearAccelerometer"
           />
         </Grid>
       </Grid>
