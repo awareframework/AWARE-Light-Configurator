@@ -279,7 +279,10 @@ export default function Main() {
           setting: "frequency_webservice",
           value: sensorData.offload_frequency,
         },
-        { setting: "frequency_clean_old_data", value: true },
+        {
+          setting: "frequency_clean_old_data",
+          value: sensorData.clean_data_freq,
+        },
         {
           setting: "webservice_silent",
           value: sensorData.no_sync_notify ? sensorData.no_sync_notify : false,

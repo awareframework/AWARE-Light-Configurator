@@ -859,52 +859,51 @@ export default function SensorData() {
             <Grid marginTop={2}>
               <RadioGroup
                 aria-labelledby="clean_data_freq"
-                // defaultValue="never"
                 name="clean_data_freq"
-                value={sensorData.clean_data_freq || ""}
+                value={sensorData.clean_data_freq || "0"}
                 row
                 // todo: add this to the overview and upload page.
               >
                 <FormControlLabel
-                  value="never"
+                  value="0"
                   control={<Radio />}
                   label="Never"
                   onClick={(_, checked) => {
-                    updateSensorData("clean_data_freq", "never");
+                    updateSensorData("clean_data_freq", "0");
                   }}
                 />
                 <FormControlLabel
-                  value="monthly"
+                  value="2"
                   control={<Radio />}
                   label="Monthly"
                   onClick={(_, checked) => {
-                    updateSensorData("clean_data_freq", "monthly");
+                    updateSensorData("clean_data_freq", "2");
                   }}
                 />
                 <FormControlLabel
-                  value="weekly"
+                  value="1"
                   control={<Radio />}
                   label="Weekly"
                   onClick={(_, checked) => {
-                    updateSensorData("clean_data_freq", "weekly");
+                    updateSensorData("clean_data_freq", "1");
                   }}
                 />
                 <FormControlLabel
-                  value="daily"
+                  value="3"
                   control={<Radio />}
                   label="Daily"
                   // checked={}
                   onClick={(_, checked) => {
-                    updateSensorData("clean_data_freq", "daily");
+                    updateSensorData("clean_data_freq", "3");
                   }}
                 />
                 <FormControlLabel
-                  value="always"
+                  value="4"
                   control={<Radio />}
                   label="Always"
                   // checked={}
                   onClick={(_, checked) => {
-                    updateSensorData("clean_data_freq", "always");
+                    updateSensorData("clean_data_freq", "4");
                   }}
                 />
               </RadioGroup>
