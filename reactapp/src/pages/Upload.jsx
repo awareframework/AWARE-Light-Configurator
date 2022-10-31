@@ -203,7 +203,7 @@ export default function Upload() {
           sensorData.offload_frequency = value;
           break;
         case "frequency_clean_old_data":
-          // default value
+          sensorData.clean_data_freq = value;
           break;
         case "webservice_silent":
           sensorData.no_sync_notify = value;
