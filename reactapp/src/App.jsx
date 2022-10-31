@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import React from "react";
 import Main from "./pages/Main";
 import SurveyLayout from "./layout/SurveyLayout";
@@ -14,7 +14,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Navigate replace to="/main" />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/study" element={<SurveyLayout />}>
           <Route index element={<StudyInformation />} />
           <Route

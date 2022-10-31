@@ -139,3 +139,13 @@ export const wifiState = atom({
   key: "wifiState",
   default: {},
 });
+
+export const studyIdState = atom({
+  key: "studyIdState",
+  default: "",
+});
+
+export const createTimeState = atom({
+  key: "createTimeState",
+  default: "",
+});

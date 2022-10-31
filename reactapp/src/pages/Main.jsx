@@ -13,11 +13,14 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Grid from "@mui/material/Unstable_Grid2";
 import React from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { v4 as uuidv4 } from "uuid";
 import PageHeader from "../components/PageHeader/PageHeader";
 import {
+  createTimeState,
   studyFormQuestionsState,
   studyFormScheduleConfigurationState,
   studyFormStudyInformationState,
+  studyIdState,
 } from "../functions/atom";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
@@ -38,6 +41,8 @@ export default function Main() {
   const setStudyFormScheduleConfiguration = useSetRecoilState(
     studyFormScheduleConfigurationState
   );
+  const setStudyId = useSetRecoilState(studyIdState);
+  const setCreateTime = useSetRecoilState(createTimeState);
   return (
     <div>
       <PageHeader />
@@ -56,6 +61,8 @@ export default function Main() {
               style={{ marginRight: "1rem" }}
               color="main"
               onClick={() => {
+                setStudyId(uuidv4());
+                setCreateTime(new Date().toJSON());
                 setStudyInformation({});
                 setStudyFormQuestions([{ esm_submit: "Submit" }]);
                 setStudyFormScheduleConfiguration([
