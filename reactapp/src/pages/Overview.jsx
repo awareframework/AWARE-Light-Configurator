@@ -65,7 +65,7 @@ const TYPE_MAP = {
 export default function Main() {
   const navigateTo = useNavigate();
 
-  const isDbConnected = useRecoilState(databaseConnectionState);
+  const isDbConnected = useRecoilValue(databaseConnectionState);
   const studyInformation = useRecoilValue(studyFormStudyInformationState);
   const databaseInfo = useRecoilValue(databaseInformationState);
   const questions = useRecoilValue(studyFormQuestionsState);
@@ -770,11 +770,14 @@ export default function Main() {
 
   const [validation, setValidation] = React.useState(true);
 
-  const validate = (fieldName, value) => {
-    setValidation({
-      ...validation,
-      [fieldName]: value,
-    });
+  // const validate = (fieldName, value) => {
+  //   setValidation({
+  //     ...validation,
+  //     [fieldName]: value,
+  //   });
+  // };
+  const validate = (value) => {
+    setValidation(value);
   };
 
   // eslint-disable-next-line react/no-unstable-nested-components
@@ -801,10 +804,10 @@ export default function Main() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            {/* <Button onClick={validationClose}>Disagree</Button> */}
             <Button onClick={validationClose} autoFocus>
               Okay
             </Button>
+            {/* <Button autoFocus>Okay</Button> */}
           </DialogActions>
         </Dialog>
       </div>
@@ -1011,7 +1014,9 @@ export default function Main() {
                 >
                   DOWNLOAD STUDY CONFIG
                 </Button>
-                {validation ? AlertDialog() : <div />}
+                {console.log(isDbConnected)}
+                {console.log(checkStudyInformationValidation())}
+                {!validation ? AlertDialog() : <div />}
                 <div id="snackbar">Downloading JSON file...</div>
               </Grid>
             </Grid>

@@ -197,7 +197,7 @@ export default function StudyInformation() {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              The following fields are missing:{"\n"}
+              Fields are missing or problems occur:{"\n"}
               {/* {blankFields} */}
               {blankFields.map((item) => (
                 <li key={item}>{item}</li>
