@@ -364,7 +364,6 @@ export default function StudyInformation() {
                   color="main"
                   variant="contained"
                   onClick={() => {
-                    console.log(dbInformation);
                     setIsLoading(true);
                     testDBConnection();
                   }}
