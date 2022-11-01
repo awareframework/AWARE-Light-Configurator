@@ -328,8 +328,8 @@ export default function StudyInformation() {
             3) Press the INITIALIZE DATABASE button.
             <br />
             <br />
-            This way, we will create the database on your server with the
-            INSERT-only username and password.
+            This way, we will create the AWARE-light database on your server
+            with the INSERT-only username and password.
             <br />
             <br />
             After creating a database with an insert-only username and password
@@ -431,10 +431,6 @@ export default function StudyInformation() {
               </Grid>
             </Grid>
           </Box>
-        </div>
-
-        <div className="border">
-          {/* <p className="explanation">{EXPLANATION3}</p> */}
           <p />
           <Field
             fieldName="Root username"
