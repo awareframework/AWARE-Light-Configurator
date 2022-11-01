@@ -311,8 +311,8 @@ export default function StudyInformation() {
         <div className="border">
           <p className="title">{TITLE2}</p>
           <p className="explanation">
-            You should already have a server and its host and port for this
-            step.
+            You should already have a database server and its host and port for
+            this step.
             <br />
             <br />
             If it is your first time setting up the study, please:
