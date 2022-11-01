@@ -31,7 +31,18 @@ const EXPLANATION1 =
 
 const TITLE2 = "Database Configuration";
 const EXPLANATION2 =
-  "Where will the study data be stored? Please insert credentials for a user with INSERT only privilege to the specified database to proceed.";
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n\n" +
+  "Press the TEST CONNECTION button.\n" +
+  "\n" +
+  "As long as the connection builds and succeeds, your database for AWARE is set up!";
 const EXPLANATION3 =
   "If it is your first time setting up a study, please provide your database's ROOT credentials and click the INITIALISE DATABASE button to setup the tables and a user with INSERT only privilege for this database.";
 const NO_PASSWORD_EXPLANATION =
@@ -186,7 +197,7 @@ export default function StudyInformation() {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              The following fields are missing:{"\n"}
+              Fields are missing or problems occur:{"\n"}
               {/* {blankFields} */}
               {blankFields.map((item) => (
                 <li key={item}>{item}</li>
@@ -299,7 +310,45 @@ export default function StudyInformation() {
 
         <div className="border">
           <p className="title">{TITLE2}</p>
-          <p className="explanation">{EXPLANATION2}</p>
+          <p className="explanation">
+            You should already have a database server and its host and port for
+            this step.
+            <br />
+            <br />
+            If it is your first time setting up the study, please:
+            <br />
+            <br />
+            1) Customize a database name, an insert-only username and an
+            insert-only password and fill the fields.
+            <br />
+            <br />
+            2) Fill in the root username and password.
+            <br />
+            <br />
+            3) Press the INITIALIZE DATABASE button.
+            <br />
+            <br />
+            This way, we will create the AWARE-light database on your server
+            with the INSERT-only username and password.
+            <br />
+            <br />
+            After creating a database with an insert-only username and password
+            for this study, you may leave the root username and password blank
+            and only focus on the other fields. We need to verify that the
+            database exists. You may verify it by:
+            <br />
+            <br />
+            1) Fill out the host, port, database name, insert-only username and
+            password.
+            <br />
+            <br />
+            2) Press the TEST CONNECTION button.
+            <br />
+            <br />
+            As long as the connection builds and succeeds, your database for
+            AWARE is set up!
+          </p>
+
           <Field
             fieldName="Host / Server IP"
             recoilState={databaseInformationState}
@@ -382,10 +431,7 @@ export default function StudyInformation() {
               </Grid>
             </Grid>
           </Box>
-        </div>
-
-        <div className="border">
-          <p className="explanation">{EXPLANATION3}</p>
+          <p />
           <Field
             fieldName="Root username"
             recoilState={databaseInformationState}

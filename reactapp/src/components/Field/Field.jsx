@@ -104,7 +104,7 @@ export default function Field(inputs) {
             updateFormByField(field.toString(), event.target.value);
           }}
           onBlur={() => {
-            if (getValue() === undefined) {
+            if (getValue() === undefined || getValue() === "") {
               setIsError(true);
             }
           }}
