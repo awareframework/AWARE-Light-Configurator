@@ -261,7 +261,7 @@ export default function SensorData() {
         <Grid width="70%">
           <SensorComponent
             sensorName="Communication events"
-            sensorDescription="Activate or deactivate high-level context of users’ communication usa"
+            sensorDescription="Activate or deactivate high-level context of users’ communication usage."
             stateField={communicationData.events}
             field="events"
             modeState="communication"
@@ -398,7 +398,7 @@ export default function SensorData() {
             id="frequency_bluetooth"
             title="Frequency bluetooth"
             inputLabel="frequency in seconds"
-            defaultNum={200000}
+            defaultNum={60}
             description="Deterministic frequency in seconds (default is 60 seconds)."
             field="frequency_bluetooth"
             studyField={bluetoothData.frequency_bluetooth}
@@ -741,7 +741,7 @@ export default function SensorData() {
             id="frequency_processor"
             title="Frequency processor"
             inputLabel="frequency in seconds"
-            defaultNum={200000}
+            defaultNum={10}
             description="Frequency in seconds to update the processor load, by default is 10 seconds."
             field="frequency_processor"
             studyField={processorData.frequency_processor}
