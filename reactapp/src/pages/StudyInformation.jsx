@@ -170,11 +170,11 @@ export default function StudyInformation() {
       !studyInformation.researcher_first ||
       !studyInformation.researcher_last ||
       !studyInformation.researcher_contact ||
-      !studyInformation.database_host ||
-      !studyInformation.database_port ||
-      !studyInformation.database_name ||
-      !studyInformation.database_username ||
-      !studyInformation.database_password ||
+      !dbInformation.database_host ||
+      !dbInformation.database_port ||
+      !dbInformation.database_name ||
+      !dbInformation.database_username ||
+      !dbInformation.database_password ||
       !isDbConnected
     ) {
       return false;
