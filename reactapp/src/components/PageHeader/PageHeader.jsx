@@ -2,7 +2,7 @@ import React from "react";
 import "./PageHeader.css";
 import { useNavigate } from "react-router-dom";
 import { Button, ThemeProvider } from "@mui/material";
-import customisedTheme from "../../functions/theme";
+import headerTheme from "../../functions/headerTheme";
 
 export default function PageHeader() {
   const navigateTo = useNavigate();
@@ -10,7 +10,7 @@ export default function PageHeader() {
     <div>
       <div className="top_bar" />
       <div className="page_header">
-        <ThemeProvider theme={customisedTheme}>
+        <ThemeProvider theme={headerTheme}>
           <Button
             color="header"
             onClick={() => {
