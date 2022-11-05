@@ -46,7 +46,7 @@ const EXPLANATION2 =
 const EXPLANATION3 =
   "If it is your first time setting up a study, please provide your database's ROOT credentials and click the INITIALISE DATABASE button to setup the tables and a user with INSERT only privilege for this database.";
 const NO_PASSWORD_EXPLANATION =
-  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study.";
+  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study. You need to provide the password again if you undo the clicking.";
 export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
@@ -76,13 +76,6 @@ export default function StudyInformation() {
   const validationClose = () => {
     setOpen(false);
     setBlankFields((oldArray) => []);
-  };
-
-  const updateFormByField = (fieldName, value) => {
-    setdbInformation({
-      ...dbInformation,
-      [fieldName]: value,
-    });
   };
 
   const [validation, setValidation] = React.useState(true);
@@ -170,11 +163,11 @@ export default function StudyInformation() {
       !studyInformation.researcher_first ||
       !studyInformation.researcher_last ||
       !studyInformation.researcher_contact ||
-      !studyInformation.database_host ||
-      !studyInformation.database_port ||
-      !studyInformation.database_name ||
-      !studyInformation.database_username ||
-      !studyInformation.database_password ||
+      !dbInformation.database_host ||
+      !dbInformation.database_port ||
+      !dbInformation.database_name ||
+      !dbInformation.database_username ||
+      !dbInformation.database_password ||
       !isDbConnected
     ) {
       return false;
@@ -372,21 +365,21 @@ export default function StudyInformation() {
             required
           />
 
-          {/* <Grid */}
-          {/*  container */}
-          {/*  rowSpacing={1} */}
-          {/*  columnSpacing={{ xs: 1, sm: 2, md: 3 }} */}
-          {/* > */}
-          {/*  <Grid width="20%" /> */}
-          {/*  <Grid width="80%"> */}
-          {/*    <CustomizedCheckbox */}
-          {/*      recoilState={studyFormStudyInformationState} */}
-          {/*      field="config_without_password" */}
-          {/*      label="No password in JSON file" */}
-          {/*    /> */}
-          {/*    <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p> */}
-          {/*  </Grid> */}
-          {/* </Grid> */}
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            <Grid width="20%" />
+            <Grid width="80%">
+              <CustomizedCheckbox
+                recoilState={studyFormStudyInformationState}
+                field="config_without_password"
+                label="No password in JSON file"
+              />
+              <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
+            </Grid>
+          </Grid>
 
           <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
             <Grid

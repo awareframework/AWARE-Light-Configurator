@@ -215,7 +215,14 @@ export default function Main() {
     const newResult = {
       _id: studyId,
       study_info: studyInformation,
-      database: databaseInfo,
+      database: {
+        ...databaseInfo,
+        database_password:
+          "config_without_password" in studyInformation &&
+          studyInformation.config_without_password
+            ? "-"
+            : databaseInfo.database_password,
+      },
       createdAt: createTime,
       updatedAt: date,
       questions: [...questions].map((question, idx) => {
@@ -358,6 +365,24 @@ export default function Main() {
           value: applicationSensor.mask_touch_text
             ? applicationSensor.mask_touch_text
             : false,
+        },
+        {
+          setting: "status_screentext",
+          value: applicationSensor.status_screentext
+            ? applicationSensor.status_screentext
+            : false,
+        },
+        {
+          setting: "package_specification",
+          value: applicationSensor.package_specification
+            ? applicationSensor.package_specification
+            : false,
+        },
+        {
+          setting: "package_names",
+          value: applicationSensor.package_names
+            ? applicationSensor.package_names
+            : "",
         },
 
         // battery
@@ -987,6 +1012,7 @@ export default function Main() {
                   color="main"
                   variant="contained"
                   onClick={() => {
+                    console.log(databaseInfo);
                     validationOn();
 
                     const validility =
