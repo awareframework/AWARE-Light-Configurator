@@ -311,42 +311,28 @@ export default function StudyInformation() {
         <div className="border">
           <p className="title">{TITLE2}</p>
           <p className="explanation">
-            You should already have a database server and its host and port for
-            this step.
+            For this step you will need the name of your MySQL database, its
+            hostname and port number.
             <br />
             <br />
-            If it is your first time setting up the study, please:
+            If this is your first time setting up the study, then you will need
+            to set up the database tables and the required INSERT-only user
+            account by the following initialisation process:
             <br />
             <br />
-            1) Customize a database name, an insert-only username and an
-            insert-only password and fill the fields.
+            1) Provide your database name, a username for an INSERT-only account
+            that will be created, and the password for the account to be
+            created.
             <br />
             <br />
-            2) Fill in the root username and password.
+            2) Fill in the root username and password of your database.
             <br />
             <br />
             3) Press the INITIALIZE DATABASE button.
             <br />
             <br />
-            This way, we will create the AWARE-light database on your server
-            with the INSERT-only username and password.
-            <br />
-            <br />
-            After creating a database with an insert-only username and password
-            for this study, you may leave the root username and password blank
-            and only focus on the other fields. We need to verify that the
-            database exists. You may verify it by:
-            <br />
-            <br />
-            1) Fill out the host, port, database name, insert-only username and
-            password.
-            <br />
-            <br />
-            2) Press the TEST CONNECTION button.
-            <br />
-            <br />
-            As long as the connection builds and succeeds, your database for
-            AWARE is set up!
+            The TEST CONNECTION button can then be used to test that the
+            database and INSERT-only account are working.
           </p>
 
           <Field
@@ -386,21 +372,21 @@ export default function StudyInformation() {
             required
           />
 
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid width="20%" />
-            <Grid width="80%">
-              <CustomizedCheckbox
-                recoilState={studyFormStudyInformationState}
-                field="config_without_password"
-                label="No password in JSON file"
-              />
-              <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
-            </Grid>
-          </Grid>
+          {/* <Grid */}
+          {/*  container */}
+          {/*  rowSpacing={1} */}
+          {/*  columnSpacing={{ xs: 1, sm: 2, md: 3 }} */}
+          {/* > */}
+          {/*  <Grid width="20%" /> */}
+          {/*  <Grid width="80%"> */}
+          {/*    <CustomizedCheckbox */}
+          {/*      recoilState={studyFormStudyInformationState} */}
+          {/*      field="config_without_password" */}
+          {/*      label="No password in JSON file" */}
+          {/*    /> */}
+          {/*    <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p> */}
+          {/*  </Grid> */}
+          {/* </Grid> */}
 
           <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
             <Grid
