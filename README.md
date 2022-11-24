@@ -21,3 +21,20 @@ Developing Frontend Code Guide:
 2. `npm run build`
 3. `serve -s build` start server
 4. `npm start` (run this if step3 not works)
+
+
+
+Deploying Guide:
+1. clone repository 
+`git clone https://github.com/awareframework/AWARE-Light-Configurator.git`
+2. make sure nginx and gunicorn is installed on the server
+3. modify preparation.sh file
+```
+# please enter the correct ip address and port number
+REPLACEABLE_IP_ADDR="localhost"
+REPLACEABLE_PORT_NUM="8000"  # please use 80 as default production environment port number
+```
+4. run preparation.sh
+`bash preparation.sh`
+5. run start.sh
+`bash start.sh`
