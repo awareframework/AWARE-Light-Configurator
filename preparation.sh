@@ -19,12 +19,9 @@ replace_parameter(){
               replace_parameter "$1/$file"
             fi
         else
-            if [ "${file##*.}"x = "py"x ]||[ "${file##*.}"x = "js"x ]
-            then
-                sed -i "s/\[REPLACEABLE_IP_ADDR\]/$REPLACEABLE_IP_ADDR/" "$1/$file"
-                sed -i "s/\[REPLACEABLE_PORT_NUM\]/$REPLACEABLE_PORT_NUM/" "$1/$file"
-                sed -i "s/\[REPLACEABLE_STATIC_ROOT\]/$REPLACEABLE_STATIC_ROOT/" "$1/$file"
-            fi
+            sed -i "s/\[REPLACEABLE_IP_ADDR\]/$REPLACEABLE_IP_ADDR/" "$1/$file"
+            sed -i "s/\[REPLACEABLE_PORT_NUM\]/$REPLACEABLE_PORT_NUM/" "$1/$file"
+            sed -i "s/\[REPLACEABLE_STATIC_ROOT\]/$REPLACEABLE_STATIC_ROOT/" "$1/$file"
         fi
     done
 }
