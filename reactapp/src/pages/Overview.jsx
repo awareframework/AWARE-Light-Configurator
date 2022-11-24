@@ -196,8 +196,9 @@ export default function Main() {
         ) : (
           <div />
         )}
+        {/* {console.log(schedule.questions)} */}
         {schedule.questions ? (
-          displayInfo(`Schedule ${(idx + 1).toString()}`, schedule.title)
+          displayInfo(`Questions`, Object.keys(schedule.questions).join(", "))
         ) : (
           <div />
         )}
