@@ -39,7 +39,6 @@ cd "$CUR_PATH/reactapp" || exit
 npm install
 npm run build
 
-
 cd "$CUR_PATH" || exit
 # install dependencies for django
 pip install -r requirements.txt
