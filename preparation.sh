@@ -50,3 +50,4 @@ sudo rm "$NGINX_PATH/sites-available/AWARE-Light-Configurator_nginx"
 sudo rm "$NGINX_PATH/sites-enabled/AWARE-Light-Configurator_nginx"
 sudo ln -s "$CUR_PATH/util/nginx_config" "$NGINX_PATH/sites-available/AWARE-Light-Configurator_nginx"
 sudo ln -s "$CUR_PATH/util/nginx_config" "$NGINX_PATH/sites-enabled/AWARE-Light-Configurator_nginx"
+sudo systemctl restart nginx
