@@ -1,0 +1,14 @@
+server {
+    listen [REPLACEABLE_PORT_NUM];
+    server_name [REPLACEABLE_IP_ADDR];
+
+    location / {
+        include proxy_params;
+        proxy_pass http://localhost:8000;
+    }
+
+    location /static {
+        alias [REPLACEABLE_STATIC_ROOT];
+        autoindex on;
+    }
+}
