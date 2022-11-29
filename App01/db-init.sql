@@ -846,3 +846,15 @@ CREATE TABLE IF NOT EXISTS `wifi` (
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `screentext` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `timestamp` double DEFAULT '0',
+    `device_id` varchar(150) DEFAULT '',
+    `class_name` varchar(150) DEFAULT '',
+    `package_name` varchar(150) DEFAULT '',
+    `text` text,    `user_action` int(11) DEFAULT '0',
+    `event_type` int(11) DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

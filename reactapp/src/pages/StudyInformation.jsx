@@ -373,7 +373,7 @@ export default function StudyInformation() {
             <Grid width="20%" />
             <Grid width="80%">
               <CustomizedCheckbox
-                recoilState={studyFormStudyInformationState}
+                recoilState={databaseInformationState}
                 field="config_without_password"
                 label="No password in JSON file"
               />
