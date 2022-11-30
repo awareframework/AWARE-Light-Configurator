@@ -23,7 +23,7 @@ Developing Frontend Code Guide:
 4. `npm start` (run this if step3 not works)
 
 
-#Deployment Guide without SSL setting:
+## Deployment Guide without SSL setting:
 1. clone repository 
 `git clone https://github.com/awareframework/AWARE-Light-Configurator.git`
 2. make sure nginx and gunicorn is installed on the server
@@ -41,7 +41,7 @@ NGINX_PATH=/etc/nginx/
 5. run start.sh `bash start.sh`
 
 
-#Deployment Guide with SSL setting:
+## Deployment Guide with SSL setting:
 1. clone repository 
 `git clone https://github.com/awareframework/AWARE-Light-Configurator.git`
 2. make sure nginx and gunicorn is installed on the server
