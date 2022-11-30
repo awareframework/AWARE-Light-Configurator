@@ -1,6 +1,6 @@
 server {
-    listen [REPLACEABLE_PORT_NUM];
-    server_name [REPLACEABLE_IP_ADDR];
+    listen 8000;
+    server_name localhost;
 
     location / {
         include proxy_params;

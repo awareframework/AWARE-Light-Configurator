@@ -5,7 +5,7 @@ axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
 const Axios = axios.create({
-  baseURL: `http://${config.SERVER_IP}:${config.SERVER_PORT}/`,
+  baseURL: `${config.SERVER_PROTOCOL}://${config.SERVER_IP}:${config.SERVER_PORT}/`,
 });
 
 export default Axios;
