@@ -21,7 +21,7 @@ server {
     }
 
     location /static {
-        alias /application/AWARE-Light-Configurator/static;
+        alias [REPLACEABLE_STATIC_ROOT];
         autoindex on;
     }
 }

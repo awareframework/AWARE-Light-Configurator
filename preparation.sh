@@ -5,9 +5,8 @@ CUR_PATH=$(pwd)
 REPLACEABLE_STATIC_ROOT="$(echo "$CUR_PATH" | sed 's/\//\\\//g')\/static"
 REPLACEABLE_ROOT_PATH="$(echo "$CUR_PATH" | sed 's/\//\\\//g')"
 
-# please enter the correct ip address and port number
-REPLACEABLE_IP_ADDR=""
-REPLACEABLE_PORT_NUM=""  # please use 80 as default production environment port number
+# please enter the correct ip address
+REPLACEABLE_IP_ADDR=""   # please enter the ip address or host url
 
 # please enter the certificate file name for ssl setting
 REPLACEABLE_CERTIFICATE=""
@@ -17,9 +16,8 @@ REPLACEABLE_CERTIFICATE_KEY=""
 NGINX_PATH=/etc/nginx/
 
 
-
 useEncryption="false"
-while getopts ":e:" opt
+while getopts ":e" opt
 do
     case $opt in
         e)
@@ -44,7 +42,14 @@ replace_parameter(){
             fi
         else
             sed -i "s/\[REPLACEABLE_IP_ADDR\]/$REPLACEABLE_IP_ADDR/" "$1/$file"
-            sed -i "s/\[REPLACEABLE_PORT_NUM\]/$REPLACEABLE_PORT_NUM/" "$1/$file"
+            if [ "$useEncryption" == "true" ]
+            then
+              sed -i "s/\[REPLACEABLE_PROTOCOL\]/https/" "$1/$file"
+              sed -i "s/\[REPLACEABLE_PORT_NUM\]/443/" "$1/$file"
+            else
+              sed -i "s/\[REPLACEABLE_PROTOCOL\]/http/" "$1/$file"
+              sed -i "s/\[REPLACEABLE_PORT_NUM\]/80/" "$1/$file"
+            fi
             sed -i "s/\[REPLACEABLE_ROOT_PATH\]/$REPLACEABLE_ROOT_PATH/" "$1/$file"
             sed -i "s/\[REPLACEABLE_STATIC_ROOT\]/$REPLACEABLE_STATIC_ROOT/" "$1/$file"
             sed -i "s/\[REPLACEABLE_CERTIFICATE\]/$REPLACEABLE_CERTIFICATE/" "$1/$file"

@@ -8,7 +8,7 @@ server {
     }
 
     location /static {
-        alias /d/project/AWARE/AWARE-Light-Configurator-Dajngo/static;
+        alias [REPLACEABLE_STATIC_ROOT];
         autoindex on;
     }
 }

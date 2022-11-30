@@ -29,9 +29,8 @@ Developing Frontend Code Guide:
 2. make sure nginx and gunicorn is installed on the server
 3. modify preparation.sh file
 ```
-# please enter the correct ip address and port number
+# please enter the correct ip address
 REPLACEABLE_IP_ADDR=""
-REPLACEABLE_PORT_NUM=""  # please use 80 as default production environment port number
 
 ...
 
@@ -46,12 +45,12 @@ NGINX_PATH=/etc/nginx/
 1. clone repository 
 `git clone https://github.com/awareframework/AWARE-Light-Configurator.git`
 2. make sure nginx and gunicorn is installed on the server
-3. upload certificate file to `<project_root_path>/cert` directory
-4. modify preparation.sh file
+3. create `cert` directory in root path `mkdir cert`
+4. upload certificate file to `<project_root_path>/cert` directory
+5. modify preparation.sh file
 ```
-# please enter the correct ip address and port number
+# please enter the correct ip address
 REPLACEABLE_IP_ADDR=""
-REPLACEABLE_PORT_NUM=""  # please use 80 as default production environment port number
 
 # please enter the certificate file name for ssl setting
 REPLACEABLE_CERTIFICATE=""
@@ -60,5 +59,5 @@ REPLACEABLE_CERTIFICATE_KEY=""
 # please correct the nginx path if you install nginx in other place.
 NGINX_PATH=/etc/nginx/
 ```
-5. run preparation.sh `bash preparation.sh -e`
-6. run start.sh `bash start.sh`
+6. run preparation.sh `bash preparation.sh -e`
+7. run start.sh `bash start.sh`
