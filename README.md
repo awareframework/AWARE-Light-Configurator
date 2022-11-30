@@ -45,7 +45,7 @@ NGINX_PATH=/etc/nginx/
 1. clone repository 
 `git clone https://github.com/awareframework/AWARE-Light-Configurator.git`
 2. make sure nginx and gunicorn is installed on the server
-3. create `cert` directory in root path `mkdir cert`
+3. create `cert` directory in AWARE project root path `mkdir cert`
 4. upload certificate file to `<project_root_path>/cert` directory
 5. modify preparation.sh file
 ```
