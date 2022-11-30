@@ -822,7 +822,14 @@ export default function Main() {
       method: "post",
       url: "save_json_file/",
       data: {
-        text: JSON.stringify({ ...result, databaseInfo: null }),
+        text: JSON.stringify({
+          ...result,
+          database: null,
+          study_info: {
+            study_title: result.study_info.study_title,
+            study_description: result.study_info.study_description,
+          },
+        }),
       },
     });
   }
