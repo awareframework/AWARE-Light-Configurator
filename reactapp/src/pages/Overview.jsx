@@ -51,6 +51,7 @@ import {
   REPEAT_INTERVALS,
   SET_SCHEDULES,
 } from "../components/ScheduleComponent/ScheduleComponent";
+import Axios from "../functions/axiosSettings";
 
 const TYPE_MAP = {
   1: "Free Text",
@@ -815,6 +816,17 @@ export default function Main() {
     );
   }
 
+  function saveJsonFile() {
+    console.log("enter save json file function");
+    Axios({
+      method: "post",
+      url: "save_json_file/",
+      data: {
+        text: JSON.stringify({ ...result, databaseInfo: null }),
+      },
+    });
+  }
+
   function generateJSON() {
     const jsonText = JSON.stringify(result);
     // console.log(jsonText);
@@ -1010,6 +1022,7 @@ export default function Main() {
                     if (validility) {
                       generateJSON();
                       downloadNotify();
+                      saveJsonFile();
                     }
                   }}
                 >
