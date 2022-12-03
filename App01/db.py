@@ -80,7 +80,7 @@ def check_root_privileges(ip, port, database, username, password):
         logger.info('User privileges: ', privileges)
         cursor.close()
 
-        if re.search('ALL', privileges) is not None:
+        if re.search('ALL|CREATE', privileges) is not None:
             result['success'] = True
             result['msg'] = "Successfully connected. User account has correct privileges."
         else:
