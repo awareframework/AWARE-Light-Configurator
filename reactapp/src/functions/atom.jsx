@@ -149,3 +149,8 @@ export const createTimeState = atom({
   key: "createTimeState",
   default: "",
 });
+
+export const dialogState = atom({
+  key: "dialogState",
+  default: { isOpen: false, title: "", content: "" },
+});
