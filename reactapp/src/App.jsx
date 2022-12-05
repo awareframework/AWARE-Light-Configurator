@@ -9,6 +9,7 @@ import Overview from "./pages/Overview";
 import ScheduleConfiguration from "./pages/ScheduleConfiguration";
 import SensorData from "./pages/SensorData";
 import Upload from "./pages/Upload";
+import CustomizedDialog from "./components/Dialog/CustomizedDialog";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         </Route>
         <Route path="/upload" element={<Upload />} />
       </Routes>
+      <CustomizedDialog />
     </BrowserRouter>
   );
 }

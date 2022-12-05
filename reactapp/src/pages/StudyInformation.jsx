@@ -132,7 +132,7 @@ export default function StudyInformation() {
           isSuccess: r.data.success,
           msg: r.data.msg,
         });
-        setIsDbConnected(true);
+        setIsDbConnected(r.data.success);
       })
       .catch((err) => {
         setTestConnectResponse({
