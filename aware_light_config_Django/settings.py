@@ -137,3 +137,5 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+
+STORAGE_DIR = "./saved_json_files"
