@@ -1,12 +1,12 @@
 server {
     listen 80;
-    server_name configurator.aware-light.org;
-    rewrite ^(.*)$ https://configurator.aware-light.org:443/$1 permanent;
+    server_name [REPLACEABLE_IP_ADDR];
+    rewrite ^(.*)$ https://[REPLACEABLE_IP_ADDR]:443/$1 permanent;
 }
 
 server {
     listen 443;
-    server_name configurator.aware-light.org;
+    server_name [REPLACEABLE_IP_ADDR];
     ssl on;
     ssl_certificate [REPLACEABLE_ROOT_PATH]/cert/[REPLACEABLE_CERTIFICATE];
     ssl_certificate_key [REPLACEABLE_ROOT_PATH]/cert/[REPLACEABLE_CERTIFICATE_KEY];
