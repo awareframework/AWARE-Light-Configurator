@@ -1006,10 +1006,11 @@ export default function Main() {
               <Grid>
                 <p style={{ color: "#FF0000", fontWeight: "bold" }}>Note:</p>
                 <p style={{ color: "#FF0000" }}>
-                  So that we can compile stats on what sensors people are using,
-                  we will be storing the details of your configuration file
-                  anonymously minus your database credentials once you generate
-                  the file.
+                  So that we can compile statistics on what sensors and other
+                  configuration settings people are using, we will be storing
+                  the details of your configuration file anonymously minus your
+                  database credentials once you click the button below to
+                  generate the configuration file.
                 </p>
               </Grid>
               <Grid xs="auto">
