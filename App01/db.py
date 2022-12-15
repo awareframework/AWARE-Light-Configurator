@@ -86,11 +86,12 @@ def check_root_privileges(ip, port, database, username, password):
         elif re.search("CREATE", privileges) is not None\
                 and re.search("INSERT", privileges) is not None\
                 and re.search("CREATE USER", privileges) is not None\
+                and re.search("RELOAD", privileges) is not None\
                 and re.search("GRANT", privileges) is not None:
             result['success'] = True
             result['msg'] = "Successfully connected. User account has correct privileges."
         else:
-            result['success'] = True
+            result['success'] = False
             result['msg'] = "Insufficient privileges for this MySQL account. " \
                          "Please use a root account or ask your database administrator" \
                          " to add 'ALL' privilege to your account."
