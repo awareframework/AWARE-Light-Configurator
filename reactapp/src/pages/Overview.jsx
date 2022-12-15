@@ -1003,6 +1003,16 @@ export default function Main() {
               columnSpacing={{ xs: 1, sm: 2, md: 23 }}
             >
               <Grid xs />
+              <Grid>
+                <p style={{ color: "#FF0000", fontWeight: "bold" }}>Note:</p>
+                <p style={{ color: "#FF0000" }}>
+                  So that we can compile statistics on what sensors and other
+                  configuration settings people are using, we will be storing
+                  the details of your configuration file anonymously minus your
+                  database credentials once you click the button below to
+                  generate the configuration file.
+                </p>
+              </Grid>
               <Grid xs="auto">
                 <Button
                   color="main"
