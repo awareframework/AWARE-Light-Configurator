@@ -52,7 +52,6 @@ import {
   SET_SCHEDULES,
 } from "../components/ScheduleComponent/ScheduleComponent";
 import Axios from "../functions/axiosSettings";
-import { useOpenDialog } from "../components/Dialog/CustomizedDialog";
 
 const TYPE_MAP = {
   1: "Free Text",
@@ -94,7 +93,6 @@ export default function Main() {
   const studyId = useRecoilValue(studyIdState);
   const createTime = useRecoilValue(createTimeState);
   const [result, setResult] = useState({});
-  const openDialog = useOpenDialog();
   const date = new Date().toJSON();
 
   const checkStudyInformationValidation = () => {
@@ -843,7 +841,6 @@ export default function Main() {
   }
 
   function saveJsonFile() {
-    console.log("enter save json file function");
     Axios({
       method: "post",
       url: "save_json_file/",
@@ -1064,10 +1061,6 @@ export default function Main() {
                     }
 
                     if (validility) {
-                      openDialog(
-                        "Note",
-                        "So that we can compile stats on what sensors people are using, we will be storing the details of your configuration file anonymously minus your database credentials once you generate the file."
-                      );
                       generateJSON();
                       downloadNotify();
                       saveJsonFile();
