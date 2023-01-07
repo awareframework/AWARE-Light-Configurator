@@ -278,7 +278,9 @@ export default function Main() {
         },
         {
           setting: "frequency_webservice",
-          value: sensorData.offload_frequency,
+          value: sensorData.offload_frequency
+            ? sensorData.offload_frequency
+            : 60,
         },
         {
           setting: "frequency_clean_old_data",
