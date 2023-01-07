@@ -223,6 +223,8 @@ export default function Main() {
           databaseInfo.config_without_password
             ? "-"
             : databaseInfo.database_password,
+        rootUsername: "-",
+        rootPassword: "-",
       },
       createdAt: createTime,
       updatedAt: date,
