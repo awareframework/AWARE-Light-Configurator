@@ -78,7 +78,7 @@ export default function ScheduleConfiguration() {
             <Button
               onClick={() => {
                 validationClose();
-                navigateTo("/study/questions");
+                navigateTo("/study/sensor_data");
               }}
             >
               Next page
