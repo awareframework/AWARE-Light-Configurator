@@ -167,8 +167,8 @@ export default function StudyInformation() {
       !dbInformation.database_port ||
       !dbInformation.database_name ||
       !dbInformation.database_username ||
-      !dbInformation.database_password ||
-      !isDbConnected
+      !dbInformation.database_password
+      // !isDbConnected
     ) {
       return false;
     }
@@ -176,7 +176,6 @@ export default function StudyInformation() {
   };
 
   function alertDialog() {
-    // console.log(blankFields);
     return (
       <div>
         <Dialog
@@ -239,14 +238,88 @@ export default function StudyInformation() {
     );
   }
 
-  function validationMessage() {
-    const x = document.getElementById("validation_message");
-    // Add the "show" class to DIV
-    x.className = "show";
-    // After 3 seconds, remove the show class from DIV
-    setTimeout(function () {
-      x.className = x.className.replace("show", "");
-    }, 3000);
+  function alertDBConnection() {
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={validationClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">Test Connection</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Please press the test connection button to verify the input
+              database information is correct.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={validationClose} autoFocus>
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                validationClose();
+                navigateTo("/study/questions");
+              }}
+            >
+              Skip Verification
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+
+  function alertDBConnectionFailed() {
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={validationClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Database Connection Failed
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Please click the TEST CONNECTION button to make sure the database
+              information is correct. Are you sure to go to next page without
+              verifying or with the incorrect database information?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={validationClose} autoFocus>
+              Back
+            </Button>
+            <Button
+              onClick={() => {
+                validationClose();
+                navigateTo("/study/questions");
+              }}
+            >
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+
+  function nextPage() {
+    if (!validation) {
+      return alertDialog();
+    }
+    // if (!testConnectResponse) {
+    //   return alertDBConnection();
+    // }
+    if (!isDbConnected) {
+      return alertDBConnectionFailed();
+    }
+    return <div />;
   }
 
   return (
@@ -465,10 +538,8 @@ export default function StudyInformation() {
                 onClick={() => {
                   validationOn();
                   validate(checkValidation());
-                  testDBConnection();
-                  console.log(checkValidation());
 
-                  if (checkValidation()) {
+                  if (checkValidation() && isDbConnected) {
                     navigateTo("/study/questions");
                   } else {
                     if (!studyInformation.study_title) {
@@ -506,12 +577,11 @@ export default function StudyInformation() {
                     }
                   }
                 }}
-                // disabled={!checkValidation()}
               >
                 NEXT STEP: QUESTIONS
               </Button>
-              {!validation ? alertDialog() : <div />}
-              <div id="validation_message">Missing required fields</div>
+              {console.log(isDbConnected)}
+              {nextPage()}
             </Grid>
           </Grid>
         </Box>
