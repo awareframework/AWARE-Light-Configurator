@@ -4,8 +4,16 @@ import { TextField } from "@mui/material";
 
 import { useRecoilState } from "recoil";
 import Grid from "@mui/material/Unstable_Grid2";
+import {
+  databaseConnectionState,
+  databaseInformationState,
+} from "../../functions/atom";
 
 export default function Field(inputs) {
+  const [isDbConnected, setIsDbConnected] = useRecoilState(
+    databaseConnectionState
+  );
+
   const {
     fieldName, // mandatory feature, field's name
     recoilState, // mandatory feature, recoil state to store current field's value
@@ -102,6 +110,9 @@ export default function Field(inputs) {
           type={type || "text"}
           onChange={(event) => {
             updateFormByField(field.toString(), event.target.value);
+            if (recoilState === databaseInformationState) {
+              setIsDbConnected(false);
+            }
           }}
           onBlur={() => {
             if (required) {
