@@ -12,6 +12,9 @@ REPLACEABLE_IP_ADDR=""   # please enter the ip address or host url
 REPLACEABLE_CERTIFICATE=""
 REPLACEABLE_CERTIFICATE_KEY=""
 
+# please enter the certificate directory
+REPLACEABLE_CERTIFICATE_DIR=""
+
 # please correct the nginx path if you install nginx in other place.
 NGINX_PATH=/etc/nginx/
 
@@ -54,6 +57,7 @@ replace_parameter(){
             sed -i "s/\[REPLACEABLE_STATIC_ROOT\]/$REPLACEABLE_STATIC_ROOT/" "$1/$file"
             sed -i "s/\[REPLACEABLE_CERTIFICATE\]/$REPLACEABLE_CERTIFICATE/" "$1/$file"
             sed -i "s/\[REPLACEABLE_CERTIFICATE_KEY\]/$REPLACEABLE_CERTIFICATE_KEY/" "$1/$file"
+            sed -i "s/\[REPLACEABLE_CERTIFICATE_DIR\]/REPLACEABLE_CERTIFICATE_DIR/" "$1/$file"
         fi
     done
 }
