@@ -8,8 +8,8 @@ server {
     listen 443;
     server_name [REPLACEABLE_IP_ADDR];
     ssl on;
-    ssl_certificate [REPLACEABLE_ROOT_PATH]/../../etc/letsencrypt/live/configurator.aware-light.org/[REPLACEABLE_CERTIFICATE];
-    ssl_certificate_key [REPLACEABLE_ROOT_PATH]/../../etc/letsencrypt/live/configurator.aware-light.org/[REPLACEABLE_CERTIFICATE_KEY];
+    ssl_certificate /etc/letsencrypt/live/configurator.aware-light.org/[REPLACEABLE_CERTIFICATE];
+    ssl_certificate_key /etc/letsencrypt/live/configurator.aware-light.org/[REPLACEABLE_CERTIFICATE_KEY];
     ssl_session_timeout 5m;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
