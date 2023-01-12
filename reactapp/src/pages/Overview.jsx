@@ -216,7 +216,11 @@ export default function Main() {
     const newResult = {
       _id: studyId,
       study_info: studyInformation,
-      database: databaseInfo,
+      database: {
+        ...databaseInfo,
+        rootUsername: "",
+        rootPassword: "",
+      },
       createdAt: createTime,
       updatedAt: date,
       questions: [...questions].map((question, idx) => {
