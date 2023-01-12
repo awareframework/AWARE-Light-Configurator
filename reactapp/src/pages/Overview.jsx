@@ -223,6 +223,10 @@ export default function Main() {
           databaseInfo.config_without_password
             ? "-"
             : databaseInfo.database_password,
+        config_without_password: !!(
+          "config_without_password" in databaseInfo &&
+          databaseInfo.config_without_password
+        ),
         rootUsername: "-",
         rootPassword: "-",
       },
@@ -381,7 +385,7 @@ export default function Main() {
           setting: "package_specification",
           value: applicationSensor.package_specification
             ? applicationSensor.package_specification
-            : false,
+            : "2",
         },
         {
           setting: "package_names",
