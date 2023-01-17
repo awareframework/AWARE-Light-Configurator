@@ -491,6 +491,14 @@ export default function StudyInformation() {
                   {initDBResponse.msg}
                 </p>
               </Grid>
+              <Grid xs={12}>
+                <p className="explanation">
+                  Note: if INITIALISE DATABASE is failing despite correct root
+                  credentials, (1) make sure port 3306 is open and (2) if your
+                  DB enforces an SSL connection, temporarily turn it off while
+                  using the configurator.
+                </p>
+              </Grid>
             </Grid>
           </Box>
         </div>
