@@ -296,7 +296,11 @@ function FrequencyField(inputs) {
           }}
           style={{ width: "100%" }}
           onChange={(event) => {
-            updateStates(field.toString(), event.target.value, modeState);
+            updateStates(
+              field.toString(),
+              parseInt(event.target.value, 10),
+              modeState
+            );
           }}
         />
         <p className="schedule-description">{description}</p>
