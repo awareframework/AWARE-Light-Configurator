@@ -409,21 +409,21 @@ export default function StudyInformation() {
             required
           />
 
-          {/* <Grid */}
-          {/*  container */}
-          {/*  rowSpacing={1} */}
-          {/*  columnSpacing={{ xs: 1, sm: 2, md: 3 }} */}
-          {/* > */}
-          {/*  <Grid width="20%" /> */}
-          {/*  <Grid width="80%"> */}
-          {/*    <CustomizedCheckbox */}
-          {/*      recoilState={studyFormStudyInformationState} */}
-          {/*      field="config_without_password" */}
-          {/*      label="No password in JSON file" */}
-          {/*    /> */}
-          {/*    <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p> */}
-          {/*  </Grid> */}
-          {/* </Grid> */}
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            <Grid width="20%" />
+            <Grid width="80%">
+              <CustomizedCheckbox
+                recoilState={databaseInformationState}
+                field="config_without_password"
+                label="No password in JSON file"
+              />
+              <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
+            </Grid>
+          </Grid>
 
           <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
             <Grid
