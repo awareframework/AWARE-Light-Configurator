@@ -931,6 +931,7 @@ export default function SensorData() {
             defaultNum={30}
             description="How often the data is synchronised with the webservices (min)?"
             field="offload_frequency"
+            studyField={sensorData.offload_frequency}
             modeState="sensor"
           />
 
@@ -1010,6 +1011,7 @@ export default function SensorData() {
             inputLabel="maximum number of trying over wifi"
             defaultNum={30}
             description="Fallback to 3G syncing after specified number of hours trying over WiFi."
+            studyField={sensorData.fallback_network}
             field="fallback_network"
             modeState="sensor"
           />
@@ -1043,6 +1045,7 @@ export default function SensorData() {
             defaultNum={60}
             description="How frequently to check for new study config (min)?"
             field="config_update_freq"
+            studyField={sensorData.config_update_freq}
             modeState="sensor"
           />
 

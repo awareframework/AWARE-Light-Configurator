@@ -238,39 +238,6 @@ export default function StudyInformation() {
     );
   }
 
-  function alertDBConnection() {
-    return (
-      <div>
-        <Dialog
-          open={open}
-          onClose={validationClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">Test Connection</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please press the test connection button to verify the input
-              database information is correct.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={validationClose} autoFocus>
-              Cancel
-            </Button>
-            <Button
-              onClick={() => {
-                validationClose();
-                navigateTo("/study/questions");
-              }}
-            >
-              Skip Verification
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  }
 
   function alertDBConnectionFailed() {
     return (
@@ -313,9 +280,6 @@ export default function StudyInformation() {
     if (!validation) {
       return alertDialog();
     }
-    // if (!testConnectResponse) {
-    //   return alertDBConnection();
-    // }
     if (!isDbConnected) {
       return alertDBConnectionFailed();
     }
@@ -520,6 +484,14 @@ export default function StudyInformation() {
                   {initDBResponse.msg}
                 </p>
               </Grid>
+              <Grid xs={12}>
+                <p className="explanation">
+                  Note: if INITIALISE DATABASE is failing despite correct root
+                  credentials, (1) make sure port 3306 is open and (2) if your
+                  DB enforces an SSL connection, temporarily turn it off while
+                  using the configurator.
+                </p>
+              </Grid>
             </Grid>
           </Box>
         </div>
@@ -580,7 +552,6 @@ export default function StudyInformation() {
               >
                 NEXT STEP: QUESTIONS
               </Button>
-              {console.log(isDbConnected)}
               {nextPage()}
             </Grid>
           </Grid>

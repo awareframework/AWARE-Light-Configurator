@@ -227,8 +227,8 @@ export default function Main() {
           "config_without_password" in databaseInfo &&
           databaseInfo.config_without_password
         ),
-        rootUsername: "-",
-        rootPassword: "-",
+        rootUsername: "",
+        rootPassword: "",
       },
       createdAt: createTime,
       updatedAt: date,
@@ -297,7 +297,7 @@ export default function Main() {
         },
         {
           setting: "frequency_clean_old_data",
-          value: sensorData.clean_data_freq,
+          value: sensorData.clean_data_freq ? sensorData.clean_data_freq : 0,
         },
         {
           setting: "webservice_silent",
