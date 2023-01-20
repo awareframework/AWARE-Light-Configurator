@@ -46,7 +46,7 @@ const EXPLANATION2 =
 const EXPLANATION3 =
   "If it is your first time setting up a study, please provide your database's ROOT credentials and click the INITIALISE DATABASE button to setup the tables and a user with INSERT only privilege for this database.";
 const NO_PASSWORD_EXPLANATION =
-  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study. You need to provide the password again if you undo the clicking.";
+  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study.";
 export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
@@ -76,6 +76,13 @@ export default function StudyInformation() {
   const validationClose = () => {
     setOpen(false);
     setBlankFields((oldArray) => []);
+  };
+
+  const updateFormByField = (fieldName, value) => {
+    setdbInformation({
+      ...dbInformation,
+      [fieldName]: value,
+    });
   };
 
   const [validation, setValidation] = React.useState(true);
@@ -176,6 +183,7 @@ export default function StudyInformation() {
   };
 
   function alertDialog() {
+    // console.log(blankFields);
     return (
       <div>
         <Dialog
@@ -238,40 +246,6 @@ export default function StudyInformation() {
     );
   }
 
-  function alertDBConnection() {
-    return (
-      <div>
-        <Dialog
-          open={open}
-          onClose={validationClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">Test Connection</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please press the test connection button to verify the input
-              database information is correct.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={validationClose} autoFocus>
-              Cancel
-            </Button>
-            <Button
-              onClick={() => {
-                validationClose();
-                navigateTo("/study/questions");
-              }}
-            >
-              Skip Verification
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  }
-
   function alertDBConnectionFailed() {
     return (
       <div>
@@ -313,9 +287,6 @@ export default function StudyInformation() {
     if (!validation) {
       return alertDialog();
     }
-    // if (!testConnectResponse) {
-    //   return alertDBConnection();
-    // }
     if (!isDbConnected) {
       return alertDBConnectionFailed();
     }
@@ -546,6 +517,8 @@ export default function StudyInformation() {
                 onClick={() => {
                   validationOn();
                   validate(checkValidation());
+                  // testDBConnection();
+                  // console.log(checkValidation());
 
                   if (checkValidation() && isDbConnected) {
                     navigateTo("/study/questions");
@@ -585,10 +558,10 @@ export default function StudyInformation() {
                     }
                   }
                 }}
+                // disabled={!checkValidation()}
               >
                 NEXT STEP: QUESTIONS
               </Button>
-              {console.log(isDbConnected)}
               {nextPage()}
             </Grid>
           </Grid>
