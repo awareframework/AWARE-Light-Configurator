@@ -857,4 +857,4 @@ CREATE TABLE IF NOT EXISTS `screentext` (
     `event_type` int(11) DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
