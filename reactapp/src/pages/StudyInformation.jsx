@@ -373,7 +373,7 @@ export default function StudyInformation() {
           </p>
 
           <Field
-            fieldName="Host / Server IP"
+            fieldName="Host Server IP/URL"
             recoilState={databaseInformationState}
             field="database_host"
             inputLabel="Host"
