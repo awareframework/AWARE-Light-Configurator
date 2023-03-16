@@ -360,9 +360,9 @@ export default function StudyInformation() {
             1) Create a new database
             <br />
             <br />
-            2) Provide your database name you just created, a username for an
-            INSERT-only account that will be created, and the password for the
-            account to be created.
+            2) Provide the name of the database you just created, a username for
+            an INSERT-only account that will be created, and the password for
+            the account to be created.
             <br />
             <br />
             3) Fill in the root username and password of your database.
@@ -411,52 +411,6 @@ export default function StudyInformation() {
             type="password"
             required
           />
-
-          {/* <Grid */}
-          {/*  container */}
-          {/*  rowSpacing={1} */}
-          {/*  columnSpacing={{ xs: 1, sm: 2, md: 3 }} */}
-          {/* > */}
-          {/*  <Grid width="20%" /> */}
-          {/*  <Grid width="80%"> */}
-          {/*    <CustomizedCheckbox */}
-          {/*      recoilState={studyFormStudyInformationState} */}
-          {/*      field="config_without_password" */}
-          {/*      label="No password in JSON file" */}
-          {/*    /> */}
-          {/*    <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p> */}
-          {/*  </Grid> */}
-          {/* </Grid> */}
-
-          {/* <Box sx={{ width: "100%" }} mt={5} marginBottom={2}> */}
-          {/*  <Grid */}
-          {/*    container */}
-          {/*    rowSpacing={1} */}
-          {/*    columnSpacing={{ xs: 1, sm: 2, md: 23 }} */}
-          {/*  > */}
-          {/*    <Grid xs={6}> */}
-          {/*      <Button */}
-          {/*        color="main" */}
-          {/*        variant="contained" */}
-          {/*        onClick={() => { */}
-          {/*          setIsLoading(true); */}
-          {/*          testDBConnection(); */}
-          {/*        }} */}
-          {/*      > */}
-          {/*        TEST CONNECTION */}
-          {/*      </Button> */}
-          {/*    </Grid> */}
-          {/*    <Grid xs={12}> */}
-          {/*      <p */}
-          {/*        className={ */}
-          {/*          testConnectResponse.isSuccess ? "success" : "error" */}
-          {/*        } */}
-          {/*      > */}
-          {/*        {testConnectResponse.msg} */}
-          {/*      </p> */}
-          {/*    </Grid> */}
-          {/*  </Grid> */}
-          {/* </Box> */}
           <p />
           <Field
             fieldName="Root username"
