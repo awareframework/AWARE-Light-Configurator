@@ -471,11 +471,7 @@ export default function QuestionComponent(input) {
             "esm_expiration_threshold",
             questions[questionIndex].esm_expiration_threshold,
             "",
-            "Specify the maximum time the participant has to answer the question\n" +
-              "            (in seconds), use 0 for unlimited answer time. If an expiration time\n" +
-              "            higher than zero seconds is used, the questionnaire will be shown as\n" +
-              "            a pop-up. If the expiration time is zero, the questionnaire will be\n" +
-              "            delivered as a notification."
+            "Specify the maximum time the participant has to answer the question (in seconds), use 0 for unlimited answer time."
           )}
         </Box>
       </div>

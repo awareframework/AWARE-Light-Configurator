@@ -357,15 +357,18 @@ export default function StudyInformation() {
             account by the following initialisation process:
             <br />
             <br />
-            1) Provide your database name, a username for an INSERT-only account
-            that will be created, and the password for the account to be
-            created.
+            1) Create a new database
             <br />
             <br />
-            2) Fill in the root username and password of your database.
+            2) Provide the name of the database you just created, a username for
+            an INSERT-only account that will be created, and the password for
+            the account to be created.
             <br />
             <br />
-            3) Press the INITIALIZE DATABASE button.
+            3) Fill in the root username and password of your database.
+            <br />
+            <br />
+            4) Press the INITIALIZE DATABASE button.
             <br />
             <br />
             The TEST CONNECTION button can then be used to test that the
@@ -408,52 +411,6 @@ export default function StudyInformation() {
             type="password"
             required
           />
-
-          {/* <Grid */}
-          {/*  container */}
-          {/*  rowSpacing={1} */}
-          {/*  columnSpacing={{ xs: 1, sm: 2, md: 3 }} */}
-          {/* > */}
-          {/*  <Grid width="20%" /> */}
-          {/*  <Grid width="80%"> */}
-          {/*    <CustomizedCheckbox */}
-          {/*      recoilState={studyFormStudyInformationState} */}
-          {/*      field="config_without_password" */}
-          {/*      label="No password in JSON file" */}
-          {/*    /> */}
-          {/*    <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p> */}
-          {/*  </Grid> */}
-          {/* </Grid> */}
-
-          <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 23 }}
-            >
-              <Grid xs={6}>
-                <Button
-                  color="main"
-                  variant="contained"
-                  onClick={() => {
-                    setIsLoading(true);
-                    testDBConnection();
-                  }}
-                >
-                  TEST CONNECTION
-                </Button>
-              </Grid>
-              <Grid xs={12}>
-                <p
-                  className={
-                    testConnectResponse.isSuccess ? "success" : "error"
-                  }
-                >
-                  {testConnectResponse.msg}
-                </p>
-              </Grid>
-            </Grid>
-          </Box>
           <p />
           <Field
             fieldName="Root username"
@@ -472,9 +429,9 @@ export default function StudyInformation() {
             <Grid
               container
               rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 23 }}
+              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
             >
-              <Grid xs={6}>
+              <Grid xs={4}>
                 <Button
                   color="main"
                   variant="contained"
@@ -486,6 +443,24 @@ export default function StudyInformation() {
                   INITIALIZE DATABASE
                 </Button>
               </Grid>
+              <Grid xs={4}>
+                <Button
+                  color="main"
+                  variant="contained"
+                  onClick={() => {
+                    setIsLoading(true);
+                    testDBConnection();
+                  }}
+                >
+                  TEST CONNECTION
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 23 }}
+            >
               <Grid xs={12}>
                 <p className={initDBResponse.isSuccess ? "success" : "error"}>
                   {initDBResponse.msg}
@@ -497,6 +472,15 @@ export default function StudyInformation() {
                   credentials, (1) make sure port 3306 is open and (2) if your
                   DB enforces an SSL connection, temporarily turn it off while
                   using the configurator.
+                </p>
+              </Grid>
+              <Grid xs={12}>
+                <p
+                  className={
+                    testConnectResponse.isSuccess ? "success" : "error"
+                  }
+                >
+                  {testConnectResponse.msg}
                 </p>
               </Grid>
             </Grid>
