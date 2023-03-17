@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `keyboard` (
   `is_password` int(11) DEFAULT '-1',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `light` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
