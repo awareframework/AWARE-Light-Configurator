@@ -109,7 +109,14 @@ export default function Field(inputs) {
           value={getValue()}
           type={type || "text"}
           onChange={(event) => {
-            updateFormByField(field.toString(), event.target.value);
+            if (type === "number") {
+              updateFormByField(
+                field.toString(),
+                parseInt(event.target.value, 10)
+              );
+            } else {
+              updateFormByField(field.toString(), event.target.value);
+            }
             if (recoilState === databaseInformationState) {
               setIsDbConnected(false);
             }
