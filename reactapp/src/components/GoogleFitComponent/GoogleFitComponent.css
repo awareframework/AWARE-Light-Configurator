@@ -1,0 +1,44 @@
+.field_name {
+    font-size: 1rem;
+    color: black;
+}
+
+.google_fit_vertical_layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.explanation {
+    font-size: 1rem;
+}
+/*.schedule_title {*/
+/*    margin-top: 1rem;*/
+/*    margin-bottom: 0.5rem;*/
+/*    font-size: 1.5rem;*/
+/*    color: black;*/
+/*}*/
+
+/*.schedule_field_name {*/
+/*    font-size: 1rem;*/
+/*    color: black;*/
+/*}*/
+
+
+/*.question_border {*/
+/*    border: 2px outset #666464;*/
+/*    box-shadow: 3px 3px 5px gray;*/
+/*    border-radius: 5px;*/
+/*    padding: 0 1rem;*/
+/*    margin-top: 1rem;*/
+/*}*/
+
+/*.schedule_horizontal_layout {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.schedule-description {*/
+/*    width: 600px;*/
+/*}*/
