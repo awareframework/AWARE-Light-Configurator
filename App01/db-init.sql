@@ -846,3 +846,13 @@ CREATE TABLE IF NOT EXISTS `wifi` (
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `googlefit_steps` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `step_count` int(11) DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

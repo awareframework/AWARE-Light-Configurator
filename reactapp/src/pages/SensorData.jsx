@@ -1238,11 +1238,11 @@ export default function SensorData() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  navigateTo("/study/overview");
+                  navigateTo("/study/google_fit_data");
                   console.log(sensorData);
                 }}
               >
-                NEXT STEP: OVERVIEW
+                NEXT STEP: GOOGLE FIT
               </Button>
             </Grid>
           </Grid>

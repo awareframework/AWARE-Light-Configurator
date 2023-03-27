@@ -37,6 +37,81 @@ export const sensorDataState = atom({
   default: {},
 });
 
+export const GoogleFitDataState = atom({
+  key: "GoogleFitDataState",
+  default: {},
+});
+
+export const StepState = atom({
+  key: "StepState",
+  default: {},
+});
+
+export const DistanceState = atom({
+  key: "DistanceState",
+  default: {},
+});
+
+export const SegmentState = atom({
+  key: "SegmentState",
+  default: {},
+});
+
+export const SampleState = atom({
+  key: "SampleState",
+  default: {},
+});
+
+export const CalorieState = atom({
+  key: "CalorieState",
+  default: {},
+});
+
+export const HeartRateState = atom({
+  key: "HeartRateState",
+  default: {},
+});
+
+export const WeightState = atom({
+  key: "WeightState",
+  default: {},
+});
+
+export const BodyFatPercentageState = atom({
+  key: "BodyFatPercentageState",
+  default: {},
+});
+
+export const BodyMassIndexState = atom({
+  key: "BodyMassIndexState",
+  default: {},
+});
+
+export const LocationState = atom({
+  key: "LocationState",
+  default: {},
+});
+
+export const NutritionState = atom({
+  key: "NutritionState",
+  default: {},
+});
+
+export const BloodGlucoseState = atom({
+  key: "BloodGlucoseState",
+  default: {},
+});
+
+export const BloodPressureState = atom({
+  key: "BloodPressureState",
+  default: {},
+});
+
+export const OxygenSaturationState = atom({
+  key: "OxygenSaturationState",
+  default: {},
+});
+
 export const databaseInformationState = atom({
   key: "databaseDataState",
   default: {},

@@ -10,6 +10,7 @@ import ScheduleConfiguration from "./pages/ScheduleConfiguration";
 import SensorData from "./pages/SensorData";
 import Upload from "./pages/Upload";
 import CustomizedDialog from "./components/Dialog/CustomizedDialog";
+import GoogleFitData from "./pages/GoogleFitData";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             element={<ScheduleConfiguration />}
           />
           <Route path="/study/sensor_data" element={<SensorData />} />
+          <Route path="/study/google_fit_data" element={<GoogleFitData />} />
           <Route path="/study/overview" element={<Overview />} />
         </Route>
         <Route path="/upload" element={<Upload />} />

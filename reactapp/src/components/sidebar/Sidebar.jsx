@@ -28,6 +28,12 @@ const sidebarNavItems = [
     section: "sensor_data",
   },
   {
+    display: "Google Fit data",
+    icon: <i className="bx bx-user" />,
+    to: "/study/google_fit_data",
+    section: "google_fit_data",
+  },
+  {
     display: "Overview",
     icon: <i className="bx bx-receipt" />,
     to: "/study/overview",
