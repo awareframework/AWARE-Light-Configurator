@@ -1,35 +1,53 @@
 import React from "react";
-import "./GoogleFitComponent.css";
+import "./Granularity.css";
+import { Radio, RadioGroup, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import Grid from "@mui/material/Unstable_Grid2";
-import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
+  DateTimePicker,
+  LocalizationProvider,
+  StaticDateTimePicker,
+} from "@mui/x-date-pickers";
+import {
+  accelerometerState,
+  applicationSensorState,
+  barometerState,
   BloodGlucoseState,
   BloodPressureState,
+  bluetoothState,
   BodyFatPercentageState,
   BodyMassIndexState,
   CalorieState,
+  communicationSensorState,
   DistanceState,
-  GoogleFitDataState,
+  gravityState,
+  gyroscopeState,
   HeartRateState,
+  lightState,
+  linearAccelerometerState,
+  locationsState,
+  magnetometerState,
+  networkState,
   NutritionState,
   OxygenSaturationState,
+  processorState,
+  proximityState,
+  rotationState,
   SampleState,
+  screenSensorState,
   SegmentState,
+  sensorDataState,
   StepState,
+  temperatureState,
+  timezoneState,
   WeightState,
+  wifiState,
 } from "../../functions/atom";
 
-export default function GoogleFitComponent(inputs) {
-  const [googleFitData, setGoogleFitData] = useRecoilState(GoogleFitDataState);
-  const updateGoogleFitData = (fieldName, value) => {
-    setGoogleFitData({
-      ...googleFitData,
-      [fieldName]: value,
-    });
-  };
-
+function Granularity(inputs) {
   // Activity
   const [activityStepData, setActivityStepData] = useRecoilState(StepState);
   const updateActivityStepData = (fieldName, value) => {
@@ -146,10 +164,6 @@ export default function GoogleFitComponent(inputs) {
   };
 
   function updateStates(fieldName, value, mode) {
-    if (mode === "google_fit") {
-      updateGoogleFitData(fieldName, value);
-    }
-
     if (mode === "step") {
       updateActivityStepData(fieldName, value);
     } else if (mode === "distance") {
@@ -164,7 +178,7 @@ export default function GoogleFitComponent(inputs) {
       updateActivityHeartRate(fieldName, value);
     } else if (mode === "weight") {
       updateWeightData(fieldName, value);
-    } else if (mode === "body_fat_percentage") {
+    } else if (mode === "body_fat") {
       updateBodyFatPercentageData(fieldName, value);
     } else if (mode === "bmi") {
       updateBmiData(fieldName, value);
@@ -179,27 +193,50 @@ export default function GoogleFitComponent(inputs) {
     }
   }
 
-  const { name, description, stateField, field, modeState } = inputs;
+  const { title, description, field, studyField, modeState } = inputs;
 
   return (
-    <div className="google_fit_vertical_layout">
+    <div className="sensor_vertical_layout">
       <Grid>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={stateField || false}
-              onChange={(_, checked) => {
-                updateStates(field.toString(), checked, modeState);
-                console.log(stateField, modeState);
-              }}
-            />
-          }
-          label={name}
-        />
+        <p className="field_name" mb={10}>
+          {title}
+        </p>
       </Grid>
-      <Grid>
-        <p className="explanation">{description}</p>
+      <Grid marginTop={1}>
+        <RadioGroup
+          aria-labelledby="clean_data_freq"
+          name="clean_data_freq"
+          value={studyField || "day"}
+          row
+        >
+          <FormControlLabel
+            value="day"
+            control={<Radio />}
+            label="Day"
+            onClick={(_, checked) => {
+              updateStates(field.toString(), "day", modeState);
+            }}
+          />
+          <FormControlLabel
+            value="hour"
+            control={<Radio />}
+            label="Hour"
+            onClick={(_, checked) => {
+              updateStates(field.toString(), "hour", modeState);
+            }}
+          />
+          <FormControlLabel
+            value="minute"
+            control={<Radio />}
+            label="Minute"
+            onClick={(_, checked) => {
+              updateStates(field.toString(), "minute", modeState);
+            }}
+          />
+        </RadioGroup>
+        <p className="schedule-description">{description}</p>
       </Grid>
     </div>
   );
 }
+export default Granularity;

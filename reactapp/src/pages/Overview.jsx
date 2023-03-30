@@ -22,28 +22,42 @@ import {
   accelerometerState,
   applicationSensorState,
   barometerState,
+  BloodGlucoseState,
+  BloodPressureState,
   bluetoothState,
+  BodyFatPercentageState,
+  BodyMassIndexState,
+  CalorieState,
   communicationSensorState,
   createTimeState,
   databaseConnectionState,
   databaseInformationState,
+  DistanceState,
+  GoogleFitDataState,
   gravityState,
   gyroscopeState,
+  HeartRateState,
   lightState,
   linearAccelerometerState,
   locationsState,
   magnetometerState,
   networkState,
+  NutritionState,
+  OxygenSaturationState,
   proximityState,
   rotationState,
+  SampleState,
   screenSensorState,
+  SegmentState,
   sensorDataState,
+  StepState,
   studyFormQuestionsState,
   studyFormScheduleConfigurationState,
   studyFormStudyInformationState,
   studyIdState,
   temperatureState,
   timezoneState,
+  WeightState,
   wifiState,
 } from "../functions/atom";
 import {
@@ -92,6 +106,20 @@ export default function Main() {
   const communicationData = useRecoilValue(communicationSensorState);
   const studyId = useRecoilValue(studyIdState);
   const createTime = useRecoilValue(createTimeState);
+  const googleFitData = useRecoilValue(GoogleFitDataState);
+  const googleFitStepData = useRecoilValue(StepState);
+  const googleFitDistanceData = useRecoilValue(DistanceState);
+  const googleFitSegmentData = useRecoilValue(SegmentState);
+  const googleFitSampleData = useRecoilValue(SampleState);
+  const googleFitCalorieData = useRecoilValue(CalorieState);
+  const googleFitHeartRateData = useRecoilValue(HeartRateState);
+  const googleFitweightData = useRecoilValue(WeightState);
+  const googleFitbodyFatPercentageData = useRecoilValue(BodyFatPercentageState);
+  const googleFitbmiData = useRecoilValue(BodyMassIndexState);
+  const googleFitnutrientData = useRecoilValue(NutritionState);
+  const googleFitbloodGlucoseData = useRecoilValue(BloodGlucoseState);
+  const googleFitbloodPressureData = useRecoilValue(BloodPressureState);
+  const googleFitoxygenSaturationData = useRecoilValue(OxygenSaturationState);
   const [result, setResult] = useState({});
   const date = new Date().toJSON();
 
@@ -211,6 +239,71 @@ export default function Main() {
       </div>
     );
   });
+
+  const googleFitSettings = [
+    { setting: "google_fit_step", value: googleFitData.step },
+    { setting: "google_fit_distance", value: googleFitData.distance },
+    { setting: "google_fit_segment", value: googleFitData.segment },
+    { setting: "google_fit_sample", value: googleFitData.sample },
+    { setting: "google_fit_calorie", value: googleFitData.calorie },
+    { setting: "google_fit_heart_rate", value: googleFitData.heart_rate },
+    { setting: "google_fit_weight", value: googleFitData.weight },
+    {
+      setting: "google_fit_body_fat_percentage",
+      value: googleFitData.body_fat_percentage,
+    },
+    { setting: "google_fit_bmi", value: googleFitData.bmi },
+    { setting: "google_fit_nutrition", value: googleFitData.nutrition },
+    { setting: "google_fit_blood_glucose", value: googleFitData.blood_glucose },
+    {
+      setting: "google_fit_blood_pressure",
+      value: googleFitData.blood_pressure,
+    },
+    {
+      setting: "google_fit_oxygen_saturation",
+      value: googleFitData.oxygen_saturation,
+    },
+    { setting: "google_fit_step_setting", value: googleFitStepData },
+    { setting: "google_fit_distance_setting", value: googleFitDistanceData },
+    { setting: "google_fit_segment_setting", value: googleFitSegmentData },
+    { setting: "google_fit_sample_setting", value: googleFitSampleData },
+    { setting: "google_fit_calorie_setting", value: googleFitCalorieData },
+    { setting: "google_fit_heart_rate_setting", value: googleFitHeartRateData },
+    { setting: "google_fit_weight_setting", value: googleFitweightData },
+    {
+      setting: "google_fit_body_fat_percentage_setting",
+      value: googleFitbodyFatPercentageData,
+    },
+    { setting: "google_fit_bmi_setting", value: googleFitbmiData },
+    { setting: "google_fit_nutrition_setting", value: googleFitnutrientData },
+    {
+      setting: "google_fit_blood_glucose_setting",
+      value: googleFitbloodGlucoseData,
+    },
+    {
+      setting: "google_fit_blood_pressure_setting",
+      value: googleFitbloodPressureData,
+    },
+    {
+      setting: "google_fit_oxygen_saturation_setting",
+      value: googleFitoxygenSaturationData,
+    },
+  ];
+
+  const googleFitOutputTemp = googleFitSettings
+    .filter((setting) => Boolean(setting.value))
+    .map((setting) => ({ setting: setting.setting, value: setting.value }));
+
+  const filteredOutput = googleFitOutputTemp.filter((output) => {
+    return !(
+      typeof output.value === "object" && Object.keys(output.value).length === 0
+    );
+  });
+
+  const googleFitOutput = [
+    { setting: "google_fit_step_setting", value: googleFitStepData || false },
+    ...filteredOutput,
+  ];
 
   useEffect(() => {
     const newResult = {
@@ -753,6 +846,7 @@ export default function Main() {
         { setting: "status_esm", value: true },
         { setting: "status_webservice", value: true },
       ],
+      googlefit: filteredOutput,
     };
     setResult(newResult);
   }, []);

@@ -1,0 +1,12 @@
+.field_name {
+    font-size: 1rem;
+    color: black;
+}
+
+.schedule-description {
+    width: 600px;
+}
+
+.MuiDateTimePicker-root {
+  width: 400px;
+}

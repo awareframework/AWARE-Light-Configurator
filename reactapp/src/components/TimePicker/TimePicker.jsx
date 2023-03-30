@@ -1,35 +1,53 @@
 import React from "react";
-import "./GoogleFitComponent.css";
+import "./TimePicker.css";
+import { Radio, RadioGroup, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import Grid from "@mui/material/Unstable_Grid2";
-import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
+  DateTimePicker,
+  LocalizationProvider,
+  StaticDateTimePicker,
+} from "@mui/x-date-pickers";
+import {
+  accelerometerState,
+  applicationSensorState,
+  barometerState,
   BloodGlucoseState,
   BloodPressureState,
+  bluetoothState,
   BodyFatPercentageState,
   BodyMassIndexState,
   CalorieState,
+  communicationSensorState,
   DistanceState,
-  GoogleFitDataState,
+  gravityState,
+  gyroscopeState,
   HeartRateState,
+  lightState,
+  linearAccelerometerState,
+  locationsState,
+  magnetometerState,
+  networkState,
   NutritionState,
   OxygenSaturationState,
+  processorState,
+  proximityState,
+  rotationState,
   SampleState,
+  screenSensorState,
   SegmentState,
+  sensorDataState,
   StepState,
+  temperatureState,
+  timezoneState,
   WeightState,
+  wifiState,
 } from "../../functions/atom";
 
-export default function GoogleFitComponent(inputs) {
-  const [googleFitData, setGoogleFitData] = useRecoilState(GoogleFitDataState);
-  const updateGoogleFitData = (fieldName, value) => {
-    setGoogleFitData({
-      ...googleFitData,
-      [fieldName]: value,
-    });
-  };
-
+function TimePicker(inputs) {
   // Activity
   const [activityStepData, setActivityStepData] = useRecoilState(StepState);
   const updateActivityStepData = (fieldName, value) => {
@@ -146,10 +164,6 @@ export default function GoogleFitComponent(inputs) {
   };
 
   function updateStates(fieldName, value, mode) {
-    if (mode === "google_fit") {
-      updateGoogleFitData(fieldName, value);
-    }
-
     if (mode === "step") {
       updateActivityStepData(fieldName, value);
     } else if (mode === "distance") {
@@ -164,7 +178,7 @@ export default function GoogleFitComponent(inputs) {
       updateActivityHeartRate(fieldName, value);
     } else if (mode === "weight") {
       updateWeightData(fieldName, value);
-    } else if (mode === "body_fat_percentage") {
+    } else if (mode === "body_fat") {
       updateBodyFatPercentageData(fieldName, value);
     } else if (mode === "bmi") {
       updateBmiData(fieldName, value);
@@ -179,27 +193,47 @@ export default function GoogleFitComponent(inputs) {
     }
   }
 
-  const { name, description, stateField, field, modeState } = inputs;
+  const {
+    id,
+    title,
+    inputLabel,
+    defaultNum,
+    description,
+    field,
+    studyField,
+    modeState,
+  } = inputs;
 
   return (
-    <div className="google_fit_vertical_layout">
+    <div className="sensor_vertical_layout">
       <Grid>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={stateField || false}
-              onChange={(_, checked) => {
-                updateStates(field.toString(), checked, modeState);
-                console.log(stateField, modeState);
-              }}
-            />
-          }
-          label={name}
-        />
+        <p className="field_name" mb={10}>
+          {title}
+        </p>
       </Grid>
-      <Grid>
-        <p className="explanation">{description}</p>
+      <Grid marginTop={1}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateTimePicker
+            id={id}
+            label={inputLabel}
+            // value={studyField || null}
+            onChange={(event) => {
+              const value = event ? event.toString() : null;
+              console.log("value:", value);
+              updateStates(field.toString(), value, modeState);
+            }}
+            renderInput={(props) => {
+              // Format the input value as a string in the format "YYYY-MM-DDTHH:mm:ss.sssZ"
+              const stringValue =
+                // eslint-disable-next-line react/prop-types
+                (props.value && props.value.toISOString()) || "";
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              return <TextField {...props} value={stringValue} />;
+            }}
+          />
+        </LocalizationProvider>
       </Grid>
     </div>
   );
 }
+export default TimePicker;
