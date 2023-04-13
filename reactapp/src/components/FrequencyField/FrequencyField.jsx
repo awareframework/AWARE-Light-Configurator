@@ -11,6 +11,7 @@ import {
   barometerState,
   bluetoothState,
   communicationSensorState,
+  GoogleFitDataState,
   gravityState,
   gyroscopeState,
   lightState,
@@ -33,6 +34,15 @@ function FrequencyField(inputs) {
   const updateSensorData = (fieldName, value) => {
     setsensorData({
       ...sensorData,
+      [fieldName]: value,
+    });
+  };
+
+  // Google fit data
+  const [googleFitData, setGoogleFitData] = useRecoilState(GoogleFitDataState);
+  const updateGoogleFitData = (fieldName, value) => {
+    setGoogleFitData({
+      ...googleFitData,
       [fieldName]: value,
     });
   };
@@ -265,6 +275,9 @@ function FrequencyField(inputs) {
     if (mode === "wifi") {
       updateWifiData(fieldName, value);
     }
+    if (mode === "google_fit") {
+      updateGoogleFitData(fieldName, value);
+    }
   }
 
   const {
@@ -303,7 +316,9 @@ function FrequencyField(inputs) {
             );
           }}
         />
-        <p className="schedule-description">{description}</p>
+        <p className="schedule-description" style={{ width: "100%" }}>
+          {description}
+        </p>
       </Grid>
     </div>
   );

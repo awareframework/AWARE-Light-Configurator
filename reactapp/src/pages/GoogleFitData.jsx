@@ -5,116 +5,36 @@ import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { Button, Radio, RadioGroup, ThemeProvider } from "@mui/material";
-// import { DateTimePicker } from "@mui/x-date-pickers";
-import {
-  LocalizationProvider,
-  StaticDateTimePicker,
-} from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import customisedTheme from "../functions/theme";
-import SensorComponent from "../components/SensorComponent/SensorComponent";
-import {
-  BloodGlucoseState,
-  BloodPressureState,
-  BodyFatPercentageState,
-  BodyMassIndexState,
-  CalorieState,
-  DistanceState,
-  GoogleFitDataState,
-  HeartRateState,
-  NutritionState,
-  OxygenSaturationState,
-  SampleState,
-  SegmentState,
-  StepState,
-  WeightState,
-} from "../functions/atom";
+import { GoogleFitDataState } from "../functions/atom";
 import GoogleFitComponent from "../components/GoogleFitComponent/GoogleFitComponent";
-import TimePicker from "../components/TimePicker/TimePicker";
-import Granularity from "../components/Granularity/Granularity";
+import FrequencyField from "../components/FrequencyField/FrequencyField";
 
 export default function GoogleFitData() {
   const navigateTo = useNavigate();
 
   const [googleFitData, setGoogleFitData] = useRecoilState(GoogleFitDataState);
-  const [activityStepData, setActivityStepData] = useRecoilState(StepState);
-  const [activityDistanceData, setDistanceActivity] =
-    useRecoilState(DistanceState);
-  const [activitySegmentData, setSegmentActivity] =
-    useRecoilState(SegmentState);
-  const [activitySampleData, setSampleActivity] = useRecoilState(SampleState);
-  const [activityCalorieData, setCalorieActivity] =
-    useRecoilState(CalorieState);
-  const [activityHeartRateData, setHeartRateActivity] =
-    useRecoilState(HeartRateState);
-  const [weightData, setWeightData] = useRecoilState(WeightState);
-  const [bodyFatPercentageData, setBodyFatPercentageData] = useRecoilState(
-    BodyFatPercentageState
-  );
-  const [bmiData, setBmiData] = useRecoilState(BodyMassIndexState);
-  const [nutrientData, setNutrientData] = useRecoilState(NutritionState);
-  const [bloodGlucoseData, setBloodGlucoseData] =
-    useRecoilState(BloodGlucoseState);
-  const [bloodPressureData, setBloodPressureData] =
-    useRecoilState(BloodPressureState);
-  const [oxygenSaturationData, setOxygenSaturationData] = useRecoilState(
-    OxygenSaturationState
-  );
 
-  function googleFitSetting(data, mode) {
-    return (
-      <div>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid width="10%" />
-          <Grid width="90%">
-            <Granularity
-              id={mode}
-              title="Set the data granularity to define the level of segmentation for Google Fit data collection."
-              description="Setting the data granularity to hour will provide more detailed data segments for analysis, whereas setting it to day or minute will provide less granular data segments, depending on the research question and level of detail required for analysis."
-              studyField={data.granularity}
-              field="granularity"
-              modeState={mode}
-            />
-
-            <div style={{ display: "inline-block" }}>
-              <TimePicker
-                id={mode}
-                title="Set start for Fit tracking time"
-                description="Fallback to 3G syncing after specified number of hours trying over WiFi."
-                studyField={data.start_time}
-                field="start_time"
-                modeState={mode}
-              />
-            </div>
-
-            <div style={{ display: "inline-block" }}>
-              <TimePicker
-                id={mode}
-                title="Set end for Fit tracking time"
-                description="Fallback to 3G syncing after specified number of hours trying over WiFi."
-                studyField={data.end_time}
-                field="end_time"
-                modeState={mode}
-              />
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  }
+  const updateGoogleFitData = (fieldName, value) => {
+    setGoogleFitData({
+      ...googleFitData,
+      [fieldName]: value,
+    });
+  };
 
   // eslint-disable-next-line react/no-unstable-nested-components
-  function GoogleFitSetting() {
+  function GoogleFitSensors() {
     return (
       <div className="border">
-        <p className="title">Google Fit data setting</p>
+        <p className="title">Google Fit Data Type</p>
         <p className="explanation">
-          Collect sensor data from the participants' phone during your study.
-          Some sensors require specific permissions to be enabled on the phone.
-          These are automatically requested when the study is joined. Keep in
-          mind that the collection of multiple sensors at high frequency can
-          decrease battery life of the phone.
+          Please select the data types that you would like to include in your
+          study. Some data types require specific permissions to be enabled on
+          the phone. These will be requested when the study is joined and when
+          the button of retrieving the data is clicked.
         </p>
+
         <GoogleFitComponent
           name="Step"
           description="Aggregated step count."
@@ -122,12 +42,6 @@ export default function GoogleFitData() {
           field="step"
           modeState="google_fit"
         />
-
-        {googleFitData.step ? (
-          googleFitSetting(activityStepData, "step")
-        ) : (
-          <div />
-        )}
 
         <GoogleFitComponent
           name="Distance"
@@ -137,12 +51,6 @@ export default function GoogleFitData() {
           modeState="google_fit"
         />
 
-        {googleFitData.distance ? (
-          googleFitSetting(activityDistanceData, "distance")
-        ) : (
-          <div />
-        )}
-
         <GoogleFitComponent
           name="Activity Time"
           description="A continuous segment of physical activity, such as walking or running, without indicating any specific intensity level. For example, it could represent a 30-minute segment of walking, regardless of whether the walking was leisurely or brisk."
@@ -150,12 +58,6 @@ export default function GoogleFitData() {
           field="segment"
           modeState="google_fit"
         />
-
-        {googleFitData.segment ? (
-          googleFitSetting(activitySegmentData, "segment")
-        ) : (
-          <div />
-        )}
 
         <GoogleFitComponent
           name="Activity Type"
@@ -165,12 +67,6 @@ export default function GoogleFitData() {
           modeState="google_fit"
         />
 
-        {googleFitData.sample ? (
-          googleFitSetting(activitySampleData, "sample")
-        ) : (
-          <div />
-        )}
-
         <GoogleFitComponent
           name="Calorie"
           description="The amount of energy in kilocalories (kcal) a person has burned during physical activity."
@@ -178,12 +74,6 @@ export default function GoogleFitData() {
           field="calorie"
           modeState="google_fit"
         />
-
-        {googleFitData.calorie ? (
-          googleFitSetting(activityCalorieData, "calorie")
-        ) : (
-          <div />
-        )}
 
         <GoogleFitComponent
           name="Heart Rate"
@@ -193,12 +83,6 @@ export default function GoogleFitData() {
           modeState="google_fit"
         />
 
-        {googleFitData.heart_rate ? (
-          googleFitSetting(activityHeartRateData, "heart_rate")
-        ) : (
-          <div />
-        )}
-
         <GoogleFitComponent
           name="Weight"
           description="The data representing a person's body weight in kilograms (kg)." // TODO
@@ -206,12 +90,6 @@ export default function GoogleFitData() {
           field="weight"
           modeState="google_fit"
         />
-
-        {googleFitData.weight ? (
-          googleFitSetting(weightData, "weight")
-        ) : (
-          <div />
-        )}
 
         <GoogleFitComponent
           name="Body fat percentage"
@@ -221,12 +99,6 @@ export default function GoogleFitData() {
           modeState="google_fit"
         />
 
-        {googleFitData.body_fat_percentage ? (
-          googleFitSetting(bodyFatPercentageData, "body_fat_percentage")
-        ) : (
-          <div />
-        )}
-
         <GoogleFitComponent
           name="Body Mass Index (BMI)"
           description="A person's body mass index, a measure of body fat based on height and weight in kilograms per meter squared (kg/m²)"
@@ -234,8 +106,6 @@ export default function GoogleFitData() {
           field="bmi"
           modeState="google_fit"
         />
-
-        {googleFitData.bmi ? googleFitSetting(bmiData, "bmi") : <div />}
 
         <GoogleFitComponent
           name="Nutrition"
@@ -245,12 +115,6 @@ export default function GoogleFitData() {
           modeState="google_fit"
         />
 
-        {googleFitData.nutrition ? (
-          googleFitSetting(nutrientData, "nutrition")
-        ) : (
-          <div />
-        )}
-
         <GoogleFitComponent
           name="Blood glucose"
           description="A person's blood glucose level, typically measured in milligrams per deciliter (mg/dL)."
@@ -258,12 +122,6 @@ export default function GoogleFitData() {
           field="blood_glucose"
           modeState="google_fit"
         />
-
-        {googleFitData.blood_glucose ? (
-          googleFitSetting(bloodGlucoseData, "blood_glucose")
-        ) : (
-          <div />
-        )}
 
         <GoogleFitComponent
           name="Blood pressure"
@@ -273,12 +131,6 @@ export default function GoogleFitData() {
           modeState="google_fit"
         />
 
-        {googleFitData.blood_pressure ? (
-          googleFitSetting(bloodPressureData, "blood_pressure")
-        ) : (
-          <div />
-        )}
-
         <GoogleFitComponent
           name="Oxygen Saturation"
           description="A person's oxygen saturation level, typically measured as a percentage of the maximum amount of oxygen that the blood can carry."
@@ -286,12 +138,91 @@ export default function GoogleFitData() {
           field="oxygen_saturation"
           modeState="google_fit"
         />
+      </div>
+    );
+  }
 
-        {googleFitData.oxygen_saturation ? (
-          googleFitSetting(oxygenSaturationData, "oxygen_saturation")
-        ) : (
-          <div />
-        )}
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function GoogleFitSetting() {
+    return (
+      <div className="border">
+        <p className="title">Setting for Google Fit data</p>
+        <p className="explanation">
+          Collect google fit data from the participants' phone during the study.
+        </p>
+        <div className="sensor_vertical_layout">
+          <Grid>
+            <p className="field_name" mb={10}>
+              Set the frequency to define the level of segmentation for Google
+              Fit data collection.
+            </p>
+          </Grid>
+          <Grid marginTop={1}>
+            <RadioGroup
+              aria-labelledby="granularity"
+              name="granularity"
+              value={googleFitData.granularity || "minute"}
+              row
+            >
+              <FormControlLabel
+                value="day"
+                control={<Radio />}
+                label="Day"
+                onClick={(_, checked) => {
+                  updateGoogleFitData("granularity", "day");
+                }}
+              />
+              <FormControlLabel
+                value="hour"
+                control={<Radio />}
+                label="Hour"
+                onClick={(_, checked) => {
+                  updateGoogleFitData("granularity", "hour");
+                }}
+              />
+              <FormControlLabel
+                value="minute"
+                control={<Radio />}
+                label="Minute"
+                onClick={(_, checked) => {
+                  updateGoogleFitData("granularity", "minute");
+                }}
+              />
+            </RadioGroup>
+            <p className="explanation">
+              Please be advised that once a higher level of data collection has
+              been selected, it cannot be changed to a lower level. Thus,
+              selecting a time interval of day/hour for data collection may
+              result in a decrease in the level of detail available for analysis
+              as compared to collecting data at a minute-level granularity. We
+              highly recommend that you proceed with caution when making your
+              selection in order to avoid any potential negative impacts on the
+              accuracy and quality of the data collected.
+            </p>
+          </Grid>
+        </div>
+
+        <FrequencyField
+          id="prestudy_retrieve_period"
+          title="Pre-study data collection period"
+          inputLabel=""
+          defaultNum={0}
+          description="The number of days for which the Google Fit data will be retrieved prior to the start of the study. Please set this field to 0 if not requiring any pre-study google fit data collection."
+          field="prestudy_retrieve_period"
+          studyField={googleFitData.prestudy_retrieve_period}
+          modeState="google_fit"
+        />
+
+        <FrequencyField
+          id="retrieval_period"
+          title="Retrieve period"
+          inputLabel=""
+          defaultNum={0}
+          description="The number of days for which the Google Fit data will be retrieved upon clicking the designated button. Please set this field to 0 if not requiring any google fit data collection during the study."
+          field="retrieval_period"
+          studyField={googleFitData.retrieval_period}
+          modeState="google_fit"
+        />
       </div>
     );
   }
@@ -318,7 +249,8 @@ export default function GoogleFitData() {
           />
         </div>
 
-        {googleFitData.extract_data ? GoogleFitSetting() : <div />}
+        {googleFitData.extract_data ? GoogleFitSetting(googleFitData) : <div />}
+        {googleFitData.extract_data ? GoogleFitSensors() : <div />}
 
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>
           <Grid
@@ -331,8 +263,8 @@ export default function GoogleFitData() {
                 color="main"
                 variant="contained"
                 onClick={() => {
-                  // navigateTo("/study/sensor_data");
-                  console.log(activityStepData);
+                  navigateTo("/study/sensor_data");
+                  console.log(googleFitData);
                 }}
               >
                 BACK
