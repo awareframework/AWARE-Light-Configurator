@@ -25,6 +25,7 @@ export default function Field(inputs) {
     description, // optional feature
     required, // optional feature
     type, // optional feature, adjust different input type, e.g. password, number... all types can be found here: https://www.w3schools.com/html/html_form_input_types.asp
+    defaultNum, // optional feature, default number
   } = inputs;
 
   const [isError, setIsError] = useState(false);
@@ -106,7 +107,7 @@ export default function Field(inputs) {
           label={inputLabel}
           variant="outlined"
           style={{ width: "100%" }}
-          value={getValue()}
+          value={getValue() || (defaultNum && defaultNum.toString())}
           type={type || "text"}
           onChange={(event) => {
             if (type === "number") {
