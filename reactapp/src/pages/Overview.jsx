@@ -364,6 +364,12 @@ export default function Main() {
             : false,
         },
         {
+          setting: "mask_notification",
+          value: applicationSensor.mask_notification
+            ? applicationSensor.mask_notification
+            : false,
+        },
+        {
           setting: "mask_keyboard",
           value: applicationSensor.mask_keyboard
             ? applicationSensor.mask_keyboard
