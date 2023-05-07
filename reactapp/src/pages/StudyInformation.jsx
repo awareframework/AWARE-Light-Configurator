@@ -411,6 +411,23 @@ export default function StudyInformation() {
             type="password"
             required
           />
+
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            <Grid width="20%" />
+            <Grid width="80%">
+              <CustomizedCheckbox
+                recoilState={databaseInformationState}
+                field="config_without_password"
+                label="No password in JSON file"
+              />
+              <p style={{ fontSize: "1 rem" }}>{NO_PASSWORD_EXPLANATION}</p>
+            </Grid>
+          </Grid>
+
           <p />
           <Field
             fieldName="Root username"
@@ -431,7 +448,7 @@ export default function StudyInformation() {
               rowSpacing={1}
               columnSpacing={{ xs: 1, sm: 1, md: 1 }}
             >
-              <Grid xs={4}>
+              <Grid xs={3}>
                 <Button
                   color="main"
                   variant="contained"
@@ -443,7 +460,7 @@ export default function StudyInformation() {
                   INITIALIZE DATABASE
                 </Button>
               </Grid>
-              <Grid xs={4}>
+              <Grid xs={3}>
                 <Button
                   color="main"
                   variant="contained"
