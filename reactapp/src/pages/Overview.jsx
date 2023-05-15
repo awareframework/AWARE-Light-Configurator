@@ -216,17 +216,17 @@ export default function Main() {
 
   const googleFitSettings = [
     {
-      setting: "granularity",
+      setting: "google_fit_granularity",
       value: googleFitData.granularity ? googleFitData.granularity : "minute",
     },
     {
-      setting: "prestudy_retrieve_period",
+      setting: "google_fit_prestudy_retrieve_period",
       value: googleFitData.prestudy_retrieve_period
         ? googleFitData.prestudy_retrieve_period
         : 0,
     },
     {
-      setting: "retrieval_period",
+      setting: "google_fit_retrieval_period",
       value: googleFitData.retrieval_period
         ? googleFitData.retrieval_period
         : 0,
