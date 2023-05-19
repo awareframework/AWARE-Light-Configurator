@@ -105,7 +105,7 @@ export default function SensorData() {
     return (
       <div>
         <p className="field_name" mb={10}>
-          Include or exclude specific package to study *
+          Include or exclude specific packages to track
         </p>
         <Grid marginTop={2}>
           <RadioGroup
@@ -145,13 +145,14 @@ export default function SensorData() {
           fieldName="Package names"
           recoilState={applicationSensorState}
           field="package_names"
-          inputLabel="Package names from google store"
+          inputLabel="Package names from the Google Play Store"
         />
 
         <Grid>
           <p className="explanation">
-            You may leave the field blank if default is selected. Please list
-            the package names separated by comma or space.
+            You can leave the field blank if 'Default track all packages' is
+            selected. Please list the package names, separated by a comma or
+            space."
             <br />
             Example 1: com.phone.aware com.twitter.android
             <br />
@@ -231,7 +232,7 @@ export default function SensorData() {
 
           <SensorComponent
             sensorName="Text tracker"
-            sensorDescription="Log text on the screen. By default all information shown on the screen will be recorded."
+            sensorDescription="Log text displayed on the screen. By default, all information except password fields will be recorded."
             stateField={applicationSensor.status_screentext}
             field="status_screentext"
             modeState="application"
