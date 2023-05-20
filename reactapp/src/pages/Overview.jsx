@@ -218,8 +218,17 @@ export default function Main() {
       study_info: studyInformation,
       database: {
         ...databaseInfo,
-        rootUsername: "",
-        rootPassword: "",
+        database_password:
+          "config_without_password" in databaseInfo &&
+          databaseInfo.config_without_password
+            ? "-"
+            : databaseInfo.database_password,
+        config_without_password: !!(
+          "config_without_password" in databaseInfo &&
+          databaseInfo.config_without_password
+        ),
+        rootUsername: "-",
+        rootPassword: "-",
       },
       createdAt: createTime,
       updatedAt: date,
@@ -355,6 +364,12 @@ export default function Main() {
             : false,
         },
         {
+          setting: "mask_notification",
+          value: applicationSensor.mask_notification
+            ? applicationSensor.mask_notification
+            : false,
+        },
+        {
           setting: "mask_keyboard",
           value: applicationSensor.mask_keyboard
             ? applicationSensor.mask_keyboard
@@ -365,6 +380,24 @@ export default function Main() {
           value: applicationSensor.mask_touch_text
             ? applicationSensor.mask_touch_text
             : false,
+        },
+        {
+          setting: "status_screentext",
+          value: applicationSensor.status_screentext
+            ? applicationSensor.status_screentext
+            : false,
+        },
+        {
+          setting: "package_specification",
+          value: applicationSensor.package_specification
+            ? applicationSensor.package_specification
+            : "2",
+        },
+        {
+          setting: "package_names",
+          value: applicationSensor.package_names
+            ? applicationSensor.package_names
+            : "",
         },
 
         // battery
@@ -1021,6 +1054,7 @@ export default function Main() {
                   color="main"
                   variant="contained"
                   onClick={() => {
+                    console.log(databaseInfo);
                     validationOn();
 
                     const validility =
