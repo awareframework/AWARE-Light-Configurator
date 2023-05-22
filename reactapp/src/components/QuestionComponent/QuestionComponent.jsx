@@ -116,6 +116,28 @@ export default function QuestionComponent(input) {
     );
   }
 
+  function requiredQuestionNumberField(
+    fieldName,
+    field,
+    globalQuestionField,
+    questionLabel,
+    description,
+    defaultNum
+  ) {
+    return (
+      <Field
+        fieldName={fieldName}
+        recoilState={studyFormQuestionsState}
+        index={questionIndex}
+        field={field}
+        defaultNum={defaultNum}
+        inputLabel={questionLabel}
+        description={description}
+        type="number"
+      />
+    );
+  }
+
   // checkboxes
   function optionsLayout(index, groupFieldName) {
     return (
@@ -459,19 +481,21 @@ export default function QuestionComponent(input) {
             </Grid>
           </Grid>
 
-          {questionNumberField(
+          {requiredQuestionNumberField(
             "Notification timeout",
             "esm_notification_timeout",
             questions[questionIndex].esm_notification_timeout,
             "",
-            "Dismiss the notification after the specified time (in seconds)."
+            "Dismiss the notification after the specified time (in seconds).",
+            600
           )}
-          {questionNumberField(
+          {requiredQuestionNumberField(
             "Expiration time",
             "esm_expiration_threshold",
             questions[questionIndex].esm_expiration_threshold,
             "",
-            "Specify the maximum time the participant has to answer the question (in seconds), use 0 for unlimited answer time."
+            "Specify the maximum time the participant has to answer the question (in seconds), use 0 for unlimited answer time.",
+            600
           )}
         </Box>
       </div>

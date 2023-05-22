@@ -24,6 +24,7 @@ import {
   rotationState,
   screenSensorState,
   sensorDataState,
+  studyFormStudyInformationState,
   temperatureState,
   timezoneState,
   wifiState,
@@ -31,6 +32,7 @@ import {
 import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
 import customisedTheme from "../functions/theme";
+import Field from "../components/Field/Field";
 
 export default function SensorData() {
   const navigateTo = useNavigate();
@@ -47,6 +49,14 @@ export default function SensorData() {
   const [applicationSensor, setapplicationSensor] = useRecoilState(
     applicationSensorState
   );
+
+  const updateApplicationSensorData = (fieldName, value) => {
+    setapplicationSensor({
+      ...applicationSensor,
+      [fieldName]: value,
+    });
+  };
+
   const [screenData, setscreenData] = useRecoilState(screenSensorState);
 
   const [communicationData, setcommunicationData] = useRecoilState(
@@ -89,6 +99,70 @@ export default function SensorData() {
   const [proximityData, setProximityData] = useRecoilState(proximityState);
 
   const [wifiData, setWifiData] = useRecoilState(wifiState);
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function TextReader() {
+    return (
+      <div>
+        <p className="field_name" mb={10}>
+          Include or exclude specific package to study *
+        </p>
+        <Grid marginTop={2}>
+          <RadioGroup
+            aria-labelledby="package_specification"
+            name="package_specification"
+            value={applicationSensor.package_specification || "2"}
+            row
+          >
+            <FormControlLabel
+              value="0"
+              control={<Radio />}
+              label="Inclusive packages"
+              onClick={(_, checked) => {
+                updateApplicationSensorData("package_specification", "0");
+              }}
+            />
+            <FormControlLabel
+              value="1"
+              control={<Radio />}
+              label="Exclusive packages"
+              onClick={(_, checked) => {
+                updateApplicationSensorData("package_specification", "1");
+              }}
+            />
+            <FormControlLabel
+              value="2"
+              control={<Radio />}
+              label="Default track all packages"
+              onClick={(_, checked) => {
+                updateApplicationSensorData("package_specification", "2");
+              }}
+            />
+          </RadioGroup>
+        </Grid>
+
+        <Field
+          fieldName="Package names"
+          recoilState={applicationSensorState}
+          field="package_names"
+          inputLabel="Package names from google store"
+        />
+
+        <Grid>
+          <p className="explanation">
+            You may leave the field blank if default is selected. Please list
+            the package names separated by comma or space.
+            <br />
+            Example 1: com.phone.aware com.twitter.android
+            <br />
+            Example 2: com.phone.aware,com.twitter.android
+            <br />
+            Example 3: com.phone.aware, com.twitter.android
+          </p>
+        </Grid>
+      </div>
+    );
+  }
 
   // eslint-disable-next-line react/no-unstable-nested-components
   function SensorApplicationSubContent() {
@@ -140,12 +214,30 @@ export default function SensorData() {
           />
 
           <SensorComponent
+            sensorName="Mask notification content"
+            sensorDescription="Convert the notification messages into a irreversible code by applying a hash function"
+            stateField={applicationSensor.mask_notification}
+            field="mask_notification"
+            modeState="application"
+          />
+
+          <SensorComponent
             sensorName="Mask touch text"
             sensorDescription="Swaps all alphanumeric characters by A, a, and 1"
             stateField={applicationSensor.mask_touch_text}
             field="mask_touch_text"
             modeState="application"
           />
+
+          <SensorComponent
+            sensorName="Text tracker"
+            sensorDescription="Log text on the screen. By default all information shown on the screen will be recorded."
+            stateField={applicationSensor.status_screentext}
+            field="status_screentext"
+            modeState="application"
+          />
+
+          {applicationSensor.status_screentext ? TextReader() : <div />}
         </Grid>
       </Grid>
     );
@@ -177,7 +269,7 @@ export default function SensorData() {
         <Grid width="70%">
           <SensorComponent
             sensorName="Communication events"
-            sensorDescription="Activate or deactivate high-level context of users’ communication usage"
+            sensorDescription="Activate or deactivate high-level context of users’ communication usage."
             stateField={communicationData.events}
             field="events"
             modeState="communication"
@@ -863,7 +955,6 @@ export default function SensorData() {
                 name="clean_data_freq"
                 value={sensorData.clean_data_freq || "0"}
                 row
-                // todo: add this to the overview and upload page.
               >
                 <FormControlLabel
                   value="0"
