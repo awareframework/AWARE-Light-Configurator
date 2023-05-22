@@ -170,6 +170,18 @@ export default function Main() {
     return <div />;
   }
 
+  // eslint-disable-next-line consistent-return
+  function displayGoogleFitData(field, name) {
+    if (field in googleFitData) {
+      return (
+        <Grid width="100%" ml="10%" mt="3%">
+          <div>{name}</div>
+        </Grid>
+      );
+    }
+    return <div />;
+  }
+
   const questionList = questions.map((question, idx) => {
     return (
       <div>
@@ -245,7 +257,7 @@ export default function Main() {
     },
     {
       setting: "google_fit_sample",
-      value: googleFitData.sample ? googleFitData.sample : false,
+      value: googleFitData.speed ? googleFitData.speed : false,
     },
     {
       setting: "google_fit_calorie",
@@ -267,7 +279,7 @@ export default function Main() {
     },
     {
       setting: "google_fit_bmi",
-      value: googleFitData.bmi ? googleFitData.bmi : false,
+      value: googleFitData.hydration ? googleFitData.hydration : false,
     },
     {
       setting: "google_fit_nutrition",
@@ -275,19 +287,11 @@ export default function Main() {
     },
     {
       setting: "google_fit_blood_glucose",
-      value: googleFitData.blood_glucose ? googleFitData.blood_glucose : false,
+      value: googleFitData.power ? googleFitData.power : false,
     },
     {
       setting: "google_fit_blood_pressure",
-      value: googleFitData.blood_pressure
-        ? googleFitData.blood_pressure
-        : false,
-    },
-    {
-      setting: "google_fit_oxygen_saturation",
-      value: googleFitData.oxygen_saturation
-        ? googleFitData.oxygen_saturation
-        : false,
+      value: googleFitData.bmr ? googleFitData.bmr : false,
     },
   ];
 
@@ -1118,6 +1122,42 @@ export default function Main() {
                 }}
               >
                 EDIT SENSOR DATA
+              </Button>
+            </Grid>
+          </div>
+
+          <div className="border">
+            <Grid width={250} ml={5} mt={3}>
+              <p className="title">Sensor data</p>
+            </Grid>
+
+            {displayGoogleFitData("step", "Step")}
+            {displayGoogleFitData("distance", "Distance")}
+            {displayGoogleFitData("segment", "Activity time")}
+            {displayGoogleFitData("speed", "Speed")}
+            {displayGoogleFitData("calorie", "Calorie")}
+            {displayGoogleFitData("heart_rate", "Heart rate")}
+            {displayGoogleFitData("weight", "Weight")}
+            {displayGoogleFitData("body_fat_percentage", "Body fat percentage")}
+            {displayGoogleFitData("hydration", "Hydration")}
+            {displayGoogleFitData("nutrition", "Nutrition")}
+            {displayGoogleFitData("power", "Power")}
+            {displayGoogleFitData("bmr", "Basal metabolic rate (BMR)")}
+
+            <Grid
+              container
+              justifyContent="flex-end"
+              marginBottom={3}
+              marginRight={2}
+            >
+              <Button
+                color="main"
+                variant="contained"
+                onClick={() => {
+                  navigateTo("/study/google_fit_data");
+                }}
+              >
+                EDIT GOOGLE FIT DATA
               </Button>
             </Grid>
           </div>

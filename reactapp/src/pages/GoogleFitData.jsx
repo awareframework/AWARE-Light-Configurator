@@ -52,7 +52,7 @@ export default function GoogleFitData() {
         />
 
         <GoogleFitComponent
-          name="Activity Time"
+          name="Activity time"
           description="A continuous segment of physical activity, such as walking or running, without indicating any specific intensity level. For example, it could represent a 30-minute segment of walking, regardless of whether the walking was leisurely or brisk."
           stateField={googleFitData.segment}
           field="segment"
@@ -60,10 +60,10 @@ export default function GoogleFitData() {
         />
 
         <GoogleFitComponent
-          name="Activity Type"
-          description="A single instance of a physical activity with an associated intensity level. For example, it could represent a single instance of walking with a moderate intensity level, as opposed to a segment of walking without any information about intensity."
-          stateField={googleFitData.sample}
-          field="sample"
+          name="Speed"
+          description="A measure of how fast an object or person is moving, typically measured in units of distance traveled per unit of time"
+          stateField={googleFitData.speed}
+          field="speed"
           modeState="google_fit"
         />
 
@@ -76,7 +76,7 @@ export default function GoogleFitData() {
         />
 
         <GoogleFitComponent
-          name="Heart Rate"
+          name="Heart rate"
           description="The data representing the number of heartbeats per minute (BPM) of a person's heart."
           stateField={googleFitData.heart_rate}
           field="heart_rate"
@@ -100,10 +100,10 @@ export default function GoogleFitData() {
         />
 
         <GoogleFitComponent
-          name="Body Mass Index (BMI)"
-          description="A person's body mass index, a measure of body fat based on height and weight in kilograms per meter squared (kg/m²)"
-          stateField={googleFitData.bmi}
-          field="bmi"
+          name="Hydration"
+          description="The measurement of water intake or the monitoring of fluid levels in the body"
+          stateField={googleFitData.hydration}
+          field="hydration"
           modeState="google_fit"
         />
 
@@ -116,26 +116,18 @@ export default function GoogleFitData() {
         />
 
         <GoogleFitComponent
-          name="Blood glucose"
-          description="A person's blood glucose level, typically measured in milligrams per deciliter (mg/dL)."
-          stateField={googleFitData.blood_glucose}
-          field="blood_glucose"
+          name="Power"
+          description="Power, measured in watts (W), is a physical quantity that represents the rate at which work is done or energy is transferred."
+          stateField={googleFitData.power}
+          field="power"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
-          name="Blood pressure"
-          description="A person's blood pressure reading, typically measured as two numbers: systolic pressure (the higher number) and diastolic pressure (the lower number) in millimeters of mercury (mmHg)" // TODO
-          stateField={googleFitData.blood_pressure}
-          field="blood_pressure"
-          modeState="google_fit"
-        />
-
-        <GoogleFitComponent
-          name="Oxygen Saturation"
-          description="A person's oxygen saturation level, typically measured as a percentage of the maximum amount of oxygen that the blood can carry."
-          stateField={googleFitData.oxygen_saturation}
-          field="oxygen_saturation"
+          name="Basal metabolic rate (BMR)"
+          description="The number of calories that an individual's body needs to perform basic functions while at rest"
+          stateField={googleFitData.bmr}
+          field="bmr"
           modeState="google_fit"
         />
       </div>

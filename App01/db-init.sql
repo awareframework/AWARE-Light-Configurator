@@ -847,15 +847,6 @@ CREATE TABLE IF NOT EXISTS `wifi` (
   KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `googlefit_steps` (
-    `_id` int(11) NOT NULL AUTO_INCREMENT,
-    `device_id` varchar(150) DEFAULT '',
-    `start_timestamp` double DEFAULT '0',
-    `end_timestamp` double DEFAULT '0',
-    `step_count` int(11) DEFAULT '0',
-    PRIMARY KEY (`_id`),
-    KEY `time_device` (`start_timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `screentext` (
     `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -868,3 +859,125 @@ CREATE TABLE IF NOT EXISTS `screentext` (
     PRIMARY KEY (`_id`),
     KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `google_fit_steps` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `steps` int(11) DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_distance` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `distance` int(11) DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_activity` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `activity` text,
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_speed` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `average` double DEFAULT '0',
+    `max` double DEFAULT '0',
+    `min` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_calories` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `calories` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_heart_rate` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `bpm` int(11) DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_weight` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `weight` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_body_fat` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `percentage` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_hydration` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `hydration` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_nutrition` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `nutrients` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_power` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `watts` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `google_fit_bmr` (
+    `_id` int(11) NOT NULL AUTO_INCREMENT,
+    `device_id` varchar(150) DEFAULT '',
+    `start_timestamp` double DEFAULT '0',
+    `end_timestamp` double DEFAULT '0',
+    `bmr` double DEFAULT '0',
+    PRIMARY KEY (`_id`),
+    KEY `time_device` (`start_timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
