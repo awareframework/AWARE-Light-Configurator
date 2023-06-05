@@ -228,70 +228,98 @@ export default function Main() {
 
   const googleFitSettings = [
     {
+      setting: "extract_data",
+      value: googleFitData.extract_data ? googleFitData.extract_data : false,
+    },
+    {
       setting: "google_fit_granularity",
-      value: googleFitData.granularity ? googleFitData.granularity : "minute",
+      value: googleFitData.google_fit_granularity
+        ? googleFitData.google_fit_granularity
+        : "minute",
     },
     {
       setting: "google_fit_prestudy_retrieve_period",
-      value: googleFitData.prestudy_retrieve_period
-        ? googleFitData.prestudy_retrieve_period
+      value: googleFitData.google_fit_prestudy_retrieve_period
+        ? googleFitData.google_fit_prestudy_retrieve_period
         : 0,
     },
     {
       setting: "google_fit_retrieval_period",
-      value: googleFitData.retrieval_period
-        ? googleFitData.retrieval_period
+      value: googleFitData.google_fit_retrieval_period
+        ? googleFitData.google_fit_retrieval_period
         : 0,
     },
     {
       setting: "google_fit_step",
-      value: googleFitData.step ? googleFitData.step : false,
-    },
-    {
-      setting: "google_fit_distance",
-      value: googleFitData.distance ? googleFitData.distance : false,
-    },
-    {
-      setting: "google_fit_segment",
-      value: googleFitData.segment ? googleFitData.segment : false,
-    },
-    {
-      setting: "google_fit_sample",
-      value: googleFitData.speed ? googleFitData.speed : false,
-    },
-    {
-      setting: "google_fit_calorie",
-      value: googleFitData.calorie ? googleFitData.calorie : false,
-    },
-    {
-      setting: "google_fit_heart_rate",
-      value: googleFitData.heart_rate ? googleFitData.heart_rate : false,
-    },
-    {
-      setting: "google_fit_weight",
-      value: googleFitData.weight ? googleFitData.weight : false,
-    },
-    {
-      setting: "google_fit_body_fat_percentage",
-      value: googleFitData.body_fat_percentage
-        ? googleFitData.body_fat_percentage
+      value: googleFitData.google_fit_step
+        ? googleFitData.google_fit_step
         : false,
     },
     {
-      setting: "google_fit_bmi",
-      value: googleFitData.hydration ? googleFitData.hydration : false,
+      setting: "google_fit_distance",
+      value: googleFitData.google_fit_distance
+        ? googleFitData.google_fit_distance
+        : false,
+    },
+    {
+      setting: "google_fit_segment",
+      value: googleFitData.google_fit_segment
+        ? googleFitData.google_fit_segment
+        : false,
+    },
+    {
+      setting: "google_fit_speed",
+      value: googleFitData.google_fit_speed
+        ? googleFitData.google_fit_speed
+        : false,
+    },
+    {
+      setting: "google_fit_calorie",
+      value: googleFitData.google_fit_calorie
+        ? googleFitData.google_fit_calorie
+        : false,
+    },
+    {
+      setting: "google_fit_heart_rate",
+      value: googleFitData.google_fit_heart_rate
+        ? googleFitData.google_fit_heart_rate
+        : false,
+    },
+    {
+      setting: "google_fit_weight",
+      value: googleFitData.google_fit_weight
+        ? googleFitData.google_fit_weight
+        : false,
+    },
+    {
+      setting: "google_fit_body_fat_percentage",
+      value: googleFitData.google_fit_body_fat_percentage
+        ? googleFitData.google_fit_body_fat_percentage
+        : false,
+    },
+    {
+      setting: "google_fit_hydration",
+      value: googleFitData.google_fit_hydration
+        ? googleFitData.google_fit_hydration
+        : false,
     },
     {
       setting: "google_fit_nutrition",
-      value: googleFitData.nutrition ? googleFitData.nutrition : false,
+      value: googleFitData.google_fit_nutrition
+        ? googleFitData.google_fit_nutrition
+        : false,
     },
     {
-      setting: "google_fit_blood_glucose",
-      value: googleFitData.power ? googleFitData.power : false,
+      setting: "google_fit_power",
+      value: googleFitData.google_fit_power
+        ? googleFitData.google_fit_power
+        : false,
     },
     {
-      setting: "google_fit_blood_pressure",
-      value: googleFitData.bmr ? googleFitData.bmr : false,
+      setting: "google_fit_bmr",
+      value: googleFitData.google_fit_bmr
+        ? googleFitData.google_fit_bmr
+        : false,
     },
   ];
 

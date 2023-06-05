@@ -38,96 +38,96 @@ export default function GoogleFitData() {
         <GoogleFitComponent
           name="Step"
           description="Aggregated step count."
-          stateField={googleFitData.step}
-          field="step"
+          stateField={googleFitData.google_fit_step}
+          field="google_fit_step"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Distance"
           description="Aggregated distance in meters."
-          stateField={googleFitData.distance}
-          field="distance"
+          stateField={googleFitData.google_fit_distance}
+          field="google_fit_distance"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Activity time"
           description="A continuous segment of physical activity, such as walking or running, without indicating any specific intensity level. For example, it could represent a 30-minute segment of walking, regardless of whether the walking was leisurely or brisk."
-          stateField={googleFitData.segment}
-          field="segment"
+          stateField={googleFitData.google_fit_segment}
+          field="google_fit_segment"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Speed"
           description="A measure of how fast an object or person is moving, typically measured in units of distance traveled per unit of time"
-          stateField={googleFitData.speed}
-          field="speed"
+          stateField={googleFitData.google_fit_speed}
+          field="google_fit_speed"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Calorie"
           description="The amount of energy in kilocalories (kcal) a person has burned during physical activity."
-          stateField={googleFitData.calorie}
-          field="calorie"
+          stateField={googleFitData.google_fit_calorie}
+          field="google_fit_calorie"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Heart rate"
           description="The data representing the number of heartbeats per minute (BPM) of a person's heart."
-          stateField={googleFitData.heart_rate}
-          field="heart_rate"
+          stateField={googleFitData.google_fit_heart_rate}
+          field="google_fit_heart_rate"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Weight"
           description="The data representing a person's body weight in kilograms (kg)." // TODO
-          stateField={googleFitData.weight}
-          field="weight"
+          stateField={googleFitData.google_fit_weight}
+          field="google_fit_weight"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Body fat percentage"
           description="The percentage of body fat a person has."
-          stateField={googleFitData.body_fat_percentage}
-          field="body_fat_percentage"
+          stateField={googleFitData.google_fit_body_fat_percentage}
+          field="google_fit_body_fat_percentage"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Hydration"
           description="The measurement of water intake or the monitoring of fluid levels in the body"
-          stateField={googleFitData.hydration}
-          field="hydration"
+          stateField={googleFitData.google_fit_hydration}
+          field="google_fit_hydration"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Nutrition"
           description="Information about the nutrients (such as calories, protein, or fat) in a food or drink item."
-          stateField={googleFitData.nutrition}
-          field="nutrition"
+          stateField={googleFitData.google_fit_nutrition}
+          field="google_fit_nutrition"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Power"
           description="Power, measured in watts (W), is a physical quantity that represents the rate at which work is done or energy is transferred."
-          stateField={googleFitData.power}
-          field="power"
+          stateField={googleFitData.google_fit_power}
+          field="google_fit_power"
           modeState="google_fit"
         />
 
         <GoogleFitComponent
           name="Basal metabolic rate (BMR)"
           description="The number of calories that an individual's body needs to perform basic functions while at rest"
-          stateField={googleFitData.bmr}
-          field="bmr"
+          stateField={googleFitData.google_fit_bmr}
+          field="google_fit_bmr"
           modeState="google_fit"
         />
       </div>
@@ -151,9 +151,9 @@ export default function GoogleFitData() {
           </Grid>
           <Grid marginTop={1}>
             <RadioGroup
-              aria-labelledby="granularity"
-              name="granularity"
-              value={googleFitData.granularity || "minute"}
+              aria-labelledby="google_fit_granularity"
+              name="google_fit_granularity"
+              value={googleFitData.google_fit_granularity || "minute"}
               row
             >
               <FormControlLabel
@@ -161,7 +161,7 @@ export default function GoogleFitData() {
                 control={<Radio />}
                 label="Day"
                 onClick={(_, checked) => {
-                  updateGoogleFitData("granularity", "day");
+                  updateGoogleFitData("google_fit_granularity", "day");
                 }}
               />
               <FormControlLabel
@@ -169,7 +169,7 @@ export default function GoogleFitData() {
                 control={<Radio />}
                 label="Hour"
                 onClick={(_, checked) => {
-                  updateGoogleFitData("granularity", "hour");
+                  updateGoogleFitData("google_fit_granularity", "hour");
                 }}
               />
               <FormControlLabel
@@ -177,7 +177,7 @@ export default function GoogleFitData() {
                 control={<Radio />}
                 label="Minute"
                 onClick={(_, checked) => {
-                  updateGoogleFitData("granularity", "minute");
+                  updateGoogleFitData("google_fit_granularity", "minute");
                 }}
               />
             </RadioGroup>
@@ -200,8 +200,8 @@ export default function GoogleFitData() {
           inputLabel=""
           defaultNum={0}
           description="The number of days for which the Google Fit data will be retrieved prior to the start of the study. Please set this field to 0 if not requiring any pre-study google fit data collection."
-          field="prestudy_retrieve_period"
-          studyField={googleFitData.prestudy_retrieve_period}
+          field="google_fit_prestudy_retrieve_period"
+          studyField={googleFitData.google_fit_prestudy_retrieve_period}
           modeState="google_fit"
         />
 
@@ -211,8 +211,8 @@ export default function GoogleFitData() {
           inputLabel=""
           defaultNum={0}
           description="The number of days for which the Google Fit data will be retrieved upon clicking the designated button. Please set this field to 0 if not requiring any google fit data collection during the study."
-          field="retrieval_period"
-          studyField={googleFitData.retrieval_period}
+          field="google_fit_retrieval_period"
+          studyField={googleFitData.google_fit_retrieval_period}
           modeState="google_fit"
         />
       </div>

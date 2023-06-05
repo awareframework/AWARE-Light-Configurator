@@ -14,6 +14,7 @@ import {
   createTimeState,
   databaseConnectionState,
   databaseInformationState,
+  GoogleFitDataState,
   gravityState,
   gyroscopeState,
   lightState,
@@ -78,6 +79,7 @@ export default function Upload() {
   const setWifiData = useSetRecoilState(wifiState);
   const setTimezoneData = useSetRecoilState(timezoneState);
   const setCommunicationData = useSetRecoilState(communicationSensorState);
+  const setGoogleFitData = useSetRecoilState(GoogleFitDataState);
 
   const getData = (file) => {
     fetch(file, {
@@ -488,6 +490,65 @@ export default function Upload() {
     setWifiData(wifiData);
     setTimezoneData(timezoneData);
     setCommunicationData(communicationData);
+
+    // Google fit information part
+    const googleFitData = {};
+    for (let i = 0; i < jsonValue.googlefit.length; i += 1) {
+      const { setting, value } = jsonValue.googlefit[i];
+      console.log(setting, value);
+      switch (setting) {
+        case "extract_data":
+          googleFitData.extract_data = value;
+          break;
+        case "google_fit_granularity":
+          googleFitData.google_fit_granularity = value;
+          break;
+        case "google_fit_prestudy_retrieve_period":
+          googleFitData.google_fit_prestudy_retrieve_period = value;
+          break;
+        case "google_fit_retrieval_period":
+          googleFitData.google_fit_retrieval_period = value;
+          break;
+        case "google_fit_step":
+          googleFitData.google_fit_step = value;
+          break;
+        case "google_fit_distance":
+          googleFitData.google_fit_distance = value;
+          break;
+        case "google_fit_segment":
+          googleFitData.google_fit_segment = value;
+          break;
+        case "google_fit_speed":
+          googleFitData.google_fit_speed = value;
+          break;
+        case "google_fit_calorie":
+          googleFitData.google_fit_calorie = value;
+          break;
+        case "google_fit_heart_rate":
+          googleFitData.google_fit_heart_rate = value;
+          break;
+        case "google_fit_weight":
+          googleFitData.google_fit_weight = value;
+          break;
+        case "google_fit_body_fat_percentage":
+          googleFitData.google_fit_body_fat_percentage = value;
+          break;
+        case "google_fit_hydration":
+          googleFitData.google_fit_hydration = value;
+          break;
+        case "google_fit_nutrition":
+          googleFitData.google_fit_nutrition = value;
+          break;
+        case "google_fit_power":
+          googleFitData.google_fit_power = value;
+          break;
+        case "google_fit_bmr":
+          googleFitData.google_fit_bmr = value;
+          break;
+        default:
+      }
+    }
+    setGoogleFitData(googleFitData);
 
     navigateTo("/study/study_information");
   };
