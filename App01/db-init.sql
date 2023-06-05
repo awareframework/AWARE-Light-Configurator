@@ -917,7 +917,8 @@ CREATE TABLE IF NOT EXISTS `google_fit_heart_rate` (
     `device_id` varchar(150) DEFAULT '',
     `start_timestamp` double DEFAULT '0',
     `end_timestamp` double DEFAULT '0',
-    `bpm` int(11) DEFAULT '0',
+    `min` int(11) DEFAULT '0',
+    `max` int(11) DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`start_timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -927,7 +928,8 @@ CREATE TABLE IF NOT EXISTS `google_fit_weight` (
     `device_id` varchar(150) DEFAULT '',
     `start_timestamp` double DEFAULT '0',
     `end_timestamp` double DEFAULT '0',
-    `weight` double DEFAULT '0',
+    `min` double DEFAULT '0',
+    `max` double DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`start_timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -937,7 +939,8 @@ CREATE TABLE IF NOT EXISTS `google_fit_body_fat` (
     `device_id` varchar(150) DEFAULT '',
     `start_timestamp` double DEFAULT '0',
     `end_timestamp` double DEFAULT '0',
-    `percentage` double DEFAULT '0',
+    `min` double DEFAULT '0',
+    `max` double DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`start_timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -947,7 +950,7 @@ CREATE TABLE IF NOT EXISTS `google_fit_hydration` (
     `device_id` varchar(150) DEFAULT '',
     `start_timestamp` double DEFAULT '0',
     `end_timestamp` double DEFAULT '0',
-    `hydration` double DEFAULT '0',
+    `volume` double DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`start_timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -957,7 +960,8 @@ CREATE TABLE IF NOT EXISTS `google_fit_nutrition` (
     `device_id` varchar(150) DEFAULT '',
     `start_timestamp` double DEFAULT '0',
     `end_timestamp` double DEFAULT '0',
-    `nutrients` double DEFAULT '0',
+    `nutrients` text,
+    `meal_type` text,
     PRIMARY KEY (`_id`),
     KEY `time_device` (`start_timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -967,7 +971,8 @@ CREATE TABLE IF NOT EXISTS `google_fit_power` (
     `device_id` varchar(150) DEFAULT '',
     `start_timestamp` double DEFAULT '0',
     `end_timestamp` double DEFAULT '0',
-    `watts` double DEFAULT '0',
+    `min` double DEFAULT '0',
+    `max` double DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`start_timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -977,7 +982,8 @@ CREATE TABLE IF NOT EXISTS `google_fit_bmr` (
     `device_id` varchar(150) DEFAULT '',
     `start_timestamp` double DEFAULT '0',
     `end_timestamp` double DEFAULT '0',
-    `bmr` double DEFAULT '0',
+    `min` double DEFAULT '0',
+    `max` double DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`start_timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
