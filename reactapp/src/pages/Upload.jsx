@@ -244,8 +244,14 @@ export default function Upload() {
         case "mask_keyboard":
           applicationSensor.mask_keyboard = value;
           break;
+        case "mask_notification":
+          applicationSensor.mask_notification = value;
+          break;
         case "mask_touch_text":
           applicationSensor.mask_touch_text = value;
+          break;
+        case "status_screentext":
+          applicationSensor.status_screentext = value;
           break;
         case "status_battery":
           sensorData.sensor_battery = value;
