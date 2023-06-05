@@ -442,8 +442,8 @@ export default function Main() {
           value: sensorData.sensor_screen ? sensorData.sensor_screen : false,
         },
         {
-          setting: "status_touch",
-          value: screenData.touch ? screenData.touch : false,
+          setting: "sensor_touch",
+          value: screenData.sensor_touch ? screenData.sensor_touch : false,
         },
 
         // telephony
