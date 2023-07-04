@@ -853,7 +853,8 @@ CREATE TABLE IF NOT EXISTS `screentext` (
     `device_id` varchar(150) DEFAULT '',
     `class_name` varchar(150) DEFAULT '',
     `package_name` varchar(150) DEFAULT '',
-    `text` text,    `user_action` int(11) DEFAULT '0',
+    `text` longtext,
+    `user_action` int(11) DEFAULT '0',
     `event_type` int(11) DEFAULT '0',
     PRIMARY KEY (`_id`),
     KEY `time_device` (`timestamp`,`device_id`)
