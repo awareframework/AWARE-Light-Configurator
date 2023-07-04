@@ -253,6 +253,12 @@ export default function Upload() {
         case "status_screentext":
           applicationSensor.status_screentext = value;
           break;
+        case "package_specification":
+          applicationSensor.package_specification = value;
+          break;
+        case "package_names":
+          applicationSensor.package_names = value;
+          break;
         case "status_battery":
           sensorData.sensor_battery = value;
           break;
