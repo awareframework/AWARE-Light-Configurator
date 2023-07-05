@@ -331,16 +331,16 @@ export default function ScheduleComponent(input) {
                   control={<Radio onClick={changeType(SET_SCHEDULES)} />}
                   label="Set schedules"
                 />
-                {/* <FormControlLabel */}
-                {/*  value={RANDOM_TRIGGERS} */}
-                {/*  control={<Radio onClick={changeType(RANDOM_TRIGGERS)} />} */}
-                {/*  label="Random triggers" */}
-                {/* /> */}
-                {/* <FormControlLabel */}
-                {/*  value={REPEAT_INTERVALS} */}
-                {/*  control={<Radio onClick={changeType(REPEAT_INTERVALS)} />} */}
-                {/*  label="Repeat intervals" */}
-                {/* /> */}
+                <FormControlLabel
+                  value={RANDOM_TRIGGERS}
+                  control={<Radio onClick={changeType(RANDOM_TRIGGERS)} />}
+                  label="Random triggers"
+                />
+                <FormControlLabel
+                  value={REPEAT_INTERVALS}
+                  control={<Radio onClick={changeType(REPEAT_INTERVALS)} />}
+                  label="Repeat intervals"
+                />
               </RadioGroup>
             </Grid>
           </Grid>
