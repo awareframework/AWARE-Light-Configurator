@@ -188,7 +188,7 @@ export default function ScheduleComponent(input) {
       <div>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid width="20%">
-            <p className="schedule_field_name">Number</p>
+            <p className="schedule_field_name">Start time</p>
           </Grid>
           <Grid width="80%">
             <Select
@@ -202,7 +202,7 @@ export default function ScheduleComponent(input) {
           </Grid>
 
           <Grid width="20%">
-            <p className="schedule_field_name">Last hour</p>
+            <p className="schedule_field_name">End time</p>
           </Grid>
           <Grid width="80%">
             <Select
@@ -331,16 +331,16 @@ export default function ScheduleComponent(input) {
                   control={<Radio onClick={changeType(SET_SCHEDULES)} />}
                   label="Set schedules"
                 />
-                {/* <FormControlLabel */}
-                {/*  value={RANDOM_TRIGGERS} */}
-                {/*  control={<Radio onClick={changeType(RANDOM_TRIGGERS)} />} */}
-                {/*  label="Random triggers" */}
-                {/* /> */}
-                {/* <FormControlLabel */}
-                {/*  value={REPEAT_INTERVALS} */}
-                {/*  control={<Radio onClick={changeType(REPEAT_INTERVALS)} />} */}
-                {/*  label="Repeat intervals" */}
-                {/* /> */}
+                <FormControlLabel
+                  value={RANDOM_TRIGGERS}
+                  control={<Radio onClick={changeType(RANDOM_TRIGGERS)} />}
+                  label="Random triggers"
+                />
+                <FormControlLabel
+                  value={REPEAT_INTERVALS}
+                  control={<Radio onClick={changeType(REPEAT_INTERVALS)} />}
+                  label="Repeat intervals"
+                />
               </RadioGroup>
             </Grid>
           </Grid>

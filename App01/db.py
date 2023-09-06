@@ -2,19 +2,23 @@ import re
 
 import pymysql
 import logging
-
+import ssl
 logger = logging.getLogger(__name__)
 
 
 def connect(ip, port, database, username, password):
     try:
         port = int(port)
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.VerifyMode.CERT_NONE
         db = pymysql.connect(host=ip,
                              user=username,
                              password=password,
                              database=database,
                              port=port,
-                             charset='utf8')
+                             charset='utf8',
+                             ssl=ctx)
         logger.info("Created database connection to " + str(database))
         return db
     except Exception as e:
