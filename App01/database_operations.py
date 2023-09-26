@@ -34,6 +34,7 @@ def initialize_database(request):
         password = json_dict.get('password', None)
         root_username = json_dict.get('root_username', None)
         root_password = json_dict.get('root_password', None)
+        require_ssl = json_dict.get('require_ssl', None)
 
-        result = init_database(ip, port, database, root_username, root_password, username, password)
+        result = init_database(ip, port, database, root_username, root_password, username, password, require_ssl)
         return HttpResponse(json.dumps(result))
