@@ -48,7 +48,7 @@ const EXPLANATION3 =
 const NO_PASSWORD_EXPLANATION =
   "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study.";
 const SSL_SETTING_EXPLANATION =
-  "By clicking this checkbox, you are selecting to let the insert-only account we are about to create require SSL.";
+  "By clicking this checkbox, you are selecting to let the insert-only account we are about to create require SSL. If the database setting has been changed, you need to use SQL command lines to change the privileges for your insert-only user. This field will be written into the generated JSON file as a reference but will not be used when you are updating the JSON file.";
 
 export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
