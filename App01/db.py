@@ -81,7 +81,7 @@ def check_root_privileges(ip, port, database, username, password):
         cursor = db.cursor()
         cursor.execute('SHOW GRANTS FOR CURRENT_USER')
         privileges = str(cursor.fetchall())
-        logger.info('User privileges: ', privileges)
+        logger.info('User privileges: %s', privileges)
         cursor.close()
 
         if re.search('ALL', privileges) is not None:
