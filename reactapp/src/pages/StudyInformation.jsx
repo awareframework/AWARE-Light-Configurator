@@ -460,13 +460,14 @@ export default function StudyInformation() {
               <p style={{ fontSize: "1 rem" }}>{SSL_SETTING_EXPLANATION}</p>
             </Grid>
           </Grid>
-          <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
+          <Box sx={{ width: "100%", margin: "0 auto" }}>
             <Grid
               container
+              justifyContent="center"
               rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+              columnSpacing={{ xs: 1, sm: 4, md: 6 }}
             >
-              <Grid xs={3}>
+              <Grid>
                 <Button
                   color="main"
                   variant="contained"
@@ -478,7 +479,7 @@ export default function StudyInformation() {
                   INITIALIZE DATABASE
                 </Button>
               </Grid>
-              <Grid xs={3}>
+              <Grid>
                 <Button
                   color="main"
                   variant="contained"
