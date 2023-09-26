@@ -47,6 +47,9 @@ const EXPLANATION3 =
   "If it is your first time setting up a study, please provide your database's ROOT credentials and click the INITIALISE DATABASE button to setup the tables and a user with INSERT only privilege for this database.";
 const NO_PASSWORD_EXPLANATION =
   "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study.";
+const SSL_SETTING_EXPLANATION =
+  "By clicking this checkbox, you are selecting to let the insert-only account we are about to create require SSL. If the database setting has been changed, you need to use SQL command lines to change the privileges for your insert-only user. This field will be written into the generated JSON file as a reference but will not be used when you are updating the JSON file.";
+
 export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
@@ -103,6 +106,7 @@ export default function StudyInformation() {
         password: dbInformation.database_password,
         root_username: dbInformation.rootUsername,
         root_password: dbInformation.rootPassword,
+        require_ssl: dbInformation.require_ssl,
       },
     })
       .then((r) => {
@@ -441,14 +445,29 @@ export default function StudyInformation() {
             field="rootPassword"
             inputLabel="Root password"
           />
-
-          <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            <Grid width="20%" />
+            <Grid width="80%">
+              <CustomizedCheckbox
+                recoilState={databaseInformationState}
+                field="require_ssl"
+                label="Require SSL connection for database"
+              />
+              <p style={{ fontSize: "1 rem" }}>{SSL_SETTING_EXPLANATION}</p>
+            </Grid>
+          </Grid>
+          <Box sx={{ width: "100%", margin: "0 auto" }}>
             <Grid
               container
+              justifyContent="center"
               rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+              columnSpacing={{ xs: 1, sm: 4, md: 6 }}
             >
-              <Grid xs={3}>
+              <Grid>
                 <Button
                   color="main"
                   variant="contained"
@@ -460,7 +479,7 @@ export default function StudyInformation() {
                   INITIALIZE DATABASE
                 </Button>
               </Grid>
-              <Grid xs={3}>
+              <Grid>
                 <Button
                   color="main"
                   variant="contained"

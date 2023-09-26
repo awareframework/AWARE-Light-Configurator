@@ -227,6 +227,9 @@ export default function Main() {
           "config_without_password" in databaseInfo &&
           databaseInfo.config_without_password
         ),
+        require_ssl: !!(
+          "require_ssl" in databaseInfo && databaseInfo.require_ssl
+        ),
         rootUsername: "-",
         rootPassword: "-",
       },

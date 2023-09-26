@@ -81,7 +81,7 @@ def check_root_privileges(ip, port, database, username, password):
         cursor = db.cursor()
         cursor.execute('SHOW GRANTS FOR CURRENT_USER')
         privileges = str(cursor.fetchall())
-        logger.info('User privileges: ', privileges)
+        logger.info('User privileges: %s', privileges)
         cursor.close()
 
         if re.search('ALL', privileges) is not None:
@@ -119,7 +119,7 @@ def batchSqlExecute(cursor, sql_queries):
         cursor.execute(each + ";")
 
 
-def init_database(ip, port, database, root_username, root_password, insert_username, insert_password):
+def init_database(ip, port, database, root_username, root_password, insert_username, insert_password, require_ssl):
     res = check_root_privileges(ip, port, database, root_username, root_password)
     if not res['success']:
         return res
@@ -139,13 +139,23 @@ def init_database(ip, port, database, root_username, root_password, insert_usern
         return res
 
     try:
-        createUserSql = """
-            CREATE USER IF NOT EXISTS '{insertUsername}'@'localhost' IDENTIFIED BY '{insertPassword}';
-            CREATE USER IF NOT EXISTS '{insertUsername}'@'%' IDENTIFIED BY '{insertPassword}';
-            GRANT INSERT ON {database}.* TO '{insertUsername}'@'localhost';
-            GRANT INSERT ON {database}.* TO '{insertUsername}'@'%';
-            flush privileges;"""\
-            .format(insertUsername=insert_username, insertPassword=insert_password, database=database)
+        if require_ssl:
+            createUserSql = """
+                CREATE USER IF NOT EXISTS '{insertUsername}'@'localhost' IDENTIFIED BY '{insertPassword}';
+                CREATE USER IF NOT EXISTS '{insertUsername}'@'%' IDENTIFIED BY '{insertPassword}';
+                GRANT INSERT ON {database}.* TO '{insertUsername}'@'localhost';
+                GRANT INSERT ON {database}.* TO '{insertUsername}'@'%';
+                ALTER USER '{insertUsername}'@'%' REQUIRE SSL;
+             flush privileges;"""\
+                .format(insertUsername=insert_username, insertPassword=insert_password, database=database)
+        else:
+            createUserSql = """
+                CREATE USER IF NOT EXISTS '{insertUsername}'@'localhost' IDENTIFIED BY '{insertPassword}';
+                CREATE USER IF NOT EXISTS '{insertUsername}'@'%' IDENTIFIED BY '{insertPassword}';
+                GRANT INSERT ON {database}.* TO '{insertUsername}'@'localhost';
+                GRANT INSERT ON {database}.* TO '{insertUsername}'@'%';
+                flush privileges;""" \
+                .format(insertUsername=insert_username, insertPassword=insert_password, database=database)
         logger.info(createUserSql)
 
         cursor = db.cursor()
