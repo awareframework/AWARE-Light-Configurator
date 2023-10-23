@@ -31,7 +31,7 @@ const EXPLANATION1 =
 
 const TITLE2 = "Database Configuration";
 const NO_PASSWORD_EXPLANATION =
-  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study.";
+  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study participants who will then input it manually into AWARE-Light when they sign up to the study.";
 
 export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
