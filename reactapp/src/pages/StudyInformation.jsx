@@ -30,23 +30,9 @@ const EXPLANATION1 =
   "Basic information of the study. This information will be presented to participants upon joining your study.";
 
 const TITLE2 = "Database Configuration";
-const EXPLANATION2 =
-  "\n" +
-  "\n" +
-  "\n" +
-  "\n" +
-  "\n" +
-  "\n" +
-  "\n" +
-  "\n" +
-  "\n\n" +
-  "Press the TEST CONNECTION button.\n" +
-  "\n" +
-  "As long as the connection builds and succeeds, your database for AWARE is set up!";
-const EXPLANATION3 =
-  "If it is your first time setting up a study, please provide your database's ROOT credentials and click the INITIALISE DATABASE button to setup the tables and a user with INSERT only privilege for this database.";
 const NO_PASSWORD_EXPLANATION =
-  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study users who will then input it manually into AWARE-Light when they sign up to the study.";
+  "By clicking this checkbox, you are selecting to not include the MySQL INSERT-only user password in the JSON study config file used by AWARE-Light. You will instead provide the password to study participants who will then input it manually into AWARE-Light when they sign up to the study.";
+
 export default function StudyInformation() {
   const [studyInformation, setStudyInformation] = useRecoilState(
     studyFormStudyInformationState
@@ -103,6 +89,7 @@ export default function StudyInformation() {
         password: dbInformation.database_password,
         root_username: dbInformation.rootUsername,
         root_password: dbInformation.rootPassword,
+        require_ssl: dbInformation.require_ssl,
       },
     })
       .then((r) => {
@@ -441,14 +428,46 @@ export default function StudyInformation() {
             field="rootPassword"
             inputLabel="Root password"
           />
-
-          <Box sx={{ width: "100%" }} mt={5} marginBottom={2}>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            <Grid width="20%" />
+            <Grid width="80%">
+              <CustomizedCheckbox
+                recoilState={databaseInformationState}
+                field="require_ssl"
+                label="Require SSL connection for database"
+              />
+              <p style={{ fontSize: "1rem" }}>
+                By clicking this checkbox, your INSERT-only user will be created
+                such that your server will accept incoming connections from your
+                INSERT-only user ONLY if they use SSL/TLS encryption. See &nbsp;
+                <a
+                  href="https://dev.mysql.com/doc/refman/8.0/en/using-encrypted-connections.html#mandatory-encrypted-connections"
+                  target="_blank"
+                  style={{ fontStyle: "italic" }}
+                  rel="noreferrer"
+                >
+                  SSL/TLS encryption
+                </a>{" "}
+                for more information on managing SSL/TLS in MySQL. Please note
+                that if you are using this Configurator to edit an existing
+                study, checking/unchecking this option will have no effect, and
+                any further changes to the INSERT-only user will need to be made
+                directly via MySQL.
+              </p>
+            </Grid>
+          </Grid>
+          <Box sx={{ width: "100%", margin: "0 auto" }}>
             <Grid
               container
+              justifyContent="center"
               rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+              columnSpacing={{ xs: 1, sm: 4, md: 6 }}
             >
-              <Grid xs={3}>
+              <Grid>
                 <Button
                   color="main"
                   variant="contained"
@@ -460,7 +479,7 @@ export default function StudyInformation() {
                   INITIALIZE DATABASE
                 </Button>
               </Grid>
-              <Grid xs={3}>
+              <Grid>
                 <Button
                   color="main"
                   variant="contained"
