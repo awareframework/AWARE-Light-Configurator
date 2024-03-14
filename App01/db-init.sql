@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `accelerometer` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `applications_crashes` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `applications_crashes` (
   `is_system_app` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `applications_foreground` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `applications_foreground` (
   `is_system_app` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `applications_history` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `applications_history` (
   `is_system_app` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `applications_notifications` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `applications_notifications` (
   `flags` int(11) DEFAULT '-1',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `aware_device` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `aware_device` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `aware_log` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `aware_log` (
   `log_message` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `aware_studies` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `aware_studies` (
   `study_compliance` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `barometer` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `barometer` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `battery` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `battery` (
   `battery_technology` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `battery_charges` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `battery_charges` (
   `double_end_timestamp` double DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `battery_discharges` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `battery_discharges` (
   `double_end_timestamp` double DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `bluetooth` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `bluetooth` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `calls` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `calls` (
   `trace` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `cdma` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `cdma` (
   `evdo_snr` int(11) DEFAULT '-1',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `esms` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `esms` (
   `esm_trigger` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `fitbit_data` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `fitbit_data` (
   `fitbit_data` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `fitbit_devices` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `fitbit_devices` (
   `fitbit_last_sync` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `fused_geofences` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `fused_geofences` (
   `double_radius` double DEFAULT NULL,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `fused_geofences_data` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `fused_geofences_data` (
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `gravity` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -279,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `gravity` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `gsm` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `gsm` (
   `bit_error_rate` int(11) DEFAULT '-1',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `gsm_neighbor` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `gsm_neighbor` (
   `signal_strength` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `gyroscope` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -317,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `gyroscope` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `installations` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `installations` (
   `version_code` int(11) DEFAULT '-1',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `keyboard` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `keyboard` (
   `is_password` int(11) DEFAULT '-1',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4mb4;
 
 CREATE TABLE IF NOT EXISTS `light` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -353,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `light` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `linear_accelerometer` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -366,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `linear_accelerometer` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `locations` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `magnetometer` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -395,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `magnetometer` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `messages` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `trace` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `mqtt_history` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
@@ -414,7 +414,7 @@ CREATE TABLE IF NOT EXISTS `mqtt_history` (
   `message` text NOT NULL,
   `receivers` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `network` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `network` (
   `network_state` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `network_traffic` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -438,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `network_traffic` (
   `double_sent_packets` double DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `plugin_ambient_noise` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -452,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `plugin_ambient_noise` (
   `blob_raw` blob,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `plugin_contacts` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -465,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `plugin_contacts` (
   `sync_date` double DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `plugin_device_usage` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -475,7 +475,7 @@ CREATE TABLE IF NOT EXISTS `plugin_device_usage` (
   `double_elapsed_device_off` double DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `plugin_google_activity_recognition` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -487,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `plugin_google_activity_recognition` (
   `activities` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `plugin_google_login` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -499,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `plugin_google_login` (
   `blob_picture` blob,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `plugin_openweather` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -523,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `plugin_openweather` (
   `weather_description` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `plugin_studentlife_audio_android` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -537,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `plugin_studentlife_audio_android` (
   `double_convo_end` double DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `proximity` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -548,7 +548,7 @@ CREATE TABLE IF NOT EXISTS `proximity` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rotation` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -562,7 +562,7 @@ CREATE TABLE IF NOT EXISTS `rotation` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rotation_edited` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -576,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `rotation_edited` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `screen` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -585,7 +585,7 @@ CREATE TABLE IF NOT EXISTS `screen` (
   `screen_status` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_accelerometer` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -601,7 +601,7 @@ CREATE TABLE IF NOT EXISTS `sensor_accelerometer` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_barometer` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -617,7 +617,7 @@ CREATE TABLE IF NOT EXISTS `sensor_barometer` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_bluetooth` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -627,7 +627,7 @@ CREATE TABLE IF NOT EXISTS `sensor_bluetooth` (
   `bt_name` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_gravity` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -643,7 +643,7 @@ CREATE TABLE IF NOT EXISTS `sensor_gravity` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_gyroscope` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -659,7 +659,7 @@ CREATE TABLE IF NOT EXISTS `sensor_gyroscope` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_light` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -675,7 +675,7 @@ CREATE TABLE IF NOT EXISTS `sensor_light` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_linear_accelerometer` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -691,7 +691,7 @@ CREATE TABLE IF NOT EXISTS `sensor_linear_accelerometer` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_magnetometer` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -707,7 +707,7 @@ CREATE TABLE IF NOT EXISTS `sensor_magnetometer` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_proximity` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -723,7 +723,7 @@ CREATE TABLE IF NOT EXISTS `sensor_proximity` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_rotation` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -739,7 +739,7 @@ CREATE TABLE IF NOT EXISTS `sensor_rotation` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_temperature` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -755,7 +755,7 @@ CREATE TABLE IF NOT EXISTS `sensor_temperature` (
   `sensor_version` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensor_wifi` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -766,7 +766,7 @@ CREATE TABLE IF NOT EXISTS `sensor_wifi` (
   `bssid` varchar(255) DEFAULT '',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `significant` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -775,7 +775,7 @@ CREATE TABLE IF NOT EXISTS `significant` (
   `is_moving` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `telephony` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -797,7 +797,7 @@ CREATE TABLE IF NOT EXISTS `telephony` (
   `subscriber_id` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `temperature` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -808,7 +808,7 @@ CREATE TABLE IF NOT EXISTS `temperature` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `timezone` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -817,7 +817,7 @@ CREATE TABLE IF NOT EXISTS `timezone` (
   `timezone` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `touch` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -831,7 +831,7 @@ CREATE TABLE IF NOT EXISTS `touch` (
   `scroll_to_index` int(11) DEFAULT '-1',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `wifi` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -845,7 +845,7 @@ CREATE TABLE IF NOT EXISTS `wifi` (
   `label` text,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `screentext` (
     `_id` int(11) NOT NULL AUTO_INCREMENT,
