@@ -445,7 +445,7 @@ export default function Main() {
           value: sensorData.sensor_screen ? sensorData.sensor_screen : false,
         },
         {
-          setting: "sensor_touch",
+          setting: "status_touch",
           value: screenData.sensor_touch ? screenData.sensor_touch : false,
         },
 
