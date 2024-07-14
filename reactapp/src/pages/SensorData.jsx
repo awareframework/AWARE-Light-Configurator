@@ -28,6 +28,7 @@ import {
   temperatureState,
   timezoneState,
   wifiState,
+  screenshotSensorState,
 } from "../functions/atom";
 import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
@@ -99,6 +100,10 @@ export default function SensorData() {
   const [proximityData, setProximityData] = useRecoilState(proximityState);
 
   const [wifiData, setWifiData] = useRecoilState(wifiState);
+
+  const [screenshotData, setScreenshotData] = useRecoilState(
+    screenshotSensorState
+  );
 
   // eslint-disable-next-line react/no-unstable-nested-components
   function TextReader() {
@@ -238,24 +243,6 @@ export default function SensorData() {
           />
 
           {applicationSensor.status_screentext ? TextReader() : <div />}
-        </Grid>
-      </Grid>
-    );
-  }
-
-  // eslint-disable-next-line react/no-unstable-nested-components
-  function SensorScreenSubContent() {
-    return (
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid width="10%" />
-        <Grid width="70%">
-          <SensorComponent
-            sensorName="Touch"
-            sensorDescription="Logs clicks, long-clicks and scroll up/down events."
-            stateField={screenData.sensor_touch}
-            field="sensor_touch"
-            modeState="screen"
-          />
         </Grid>
       </Grid>
     );
@@ -901,6 +888,62 @@ export default function SensorData() {
     );
   }
 
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function SensorScreenSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <SensorComponent
+            sensorName="Touch"
+            sensorDescription="Logs clicks, long-clicks and scroll up/down events."
+            stateField={screenData.sensor_touch}
+            field="sensor_touch"
+            modeState="screen"
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function SensorScreenshotSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="capture_time_interval"
+            title="Capture Time Interval"
+            inputLabel="Time interval between screenshots (seconds)"
+            defaultNum={5}
+            description="Time interval between each screenshot capture in seconds."
+            field="capture_time_interval"
+            studyField={screenshotData.capture_time_interval}
+            modeState="screenshot"
+          />
+          <FrequencyField
+            id="compress_rate"
+            title="Compression Rate"
+            inputLabel="Compression rate for screenshots"
+            defaultNum={20}
+            description="Compression rate for the screenshots (1-100)."
+            field="compress_rate"
+            studyField={screenshotData.compress_rate}
+            modeState="screenshot"
+          />
+          <SensorComponent
+            sensorName="Local Storage"
+            sensorDescription="Enable or disable local storage of screenshots."
+            stateField={screenshotData.status_screenshot_local_storage}
+            field="status_screenshot_local_storage"
+            modeState="screenshot"
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+
   return (
     <ThemeProvider theme={customisedTheme}>
       <div className="main_vertical_layout">
@@ -1119,6 +1162,19 @@ export default function SensorData() {
             modeState="sensor"
           />
           {sensorData.sensor_screen ? SensorScreenSubContent() : <div />}
+
+          <SensorComponent
+            sensorName="Screenshot"
+            sensorDescription="Smartphone screenshot capture;"
+            stateField={sensorData.sensor_screenshot}
+            field="sensor_screenshot"
+            modeState="sensor"
+          />
+          {sensorData.sensor_screenshot ? (
+            SensorScreenshotSubContent()
+          ) : (
+            <div />
+          )}
 
           <SensorComponent
             sensorName="Telephony"
