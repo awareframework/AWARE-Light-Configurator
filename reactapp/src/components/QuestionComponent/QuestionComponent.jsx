@@ -21,7 +21,7 @@ const MULTIPLE_CHOICE = 3;
 const LIKERT_SCALE = 4;
 const QUICK_ANSWER = 5;
 const SCALE = 6;
-const NUMERIC = 7;
+const NUMERIC = 9;
 
 const TYPE_MAP = {
   1: "Free Text",
@@ -30,7 +30,7 @@ const TYPE_MAP = {
   4: "Likert Scale",
   5: "Quick Answer",
   6: "Scale",
-  7: "Numeric",
+  9: "Numeric",
 };
 
 export default function QuestionComponent(input) {
