@@ -864,7 +864,7 @@ CREATE TABLE IF NOT EXISTS `screenshot` (
      `_id` bigint NOT NULL AUTO_INCREMENT,
     `timestamp` double DEFAULT '0',
     `device_id` varchar(150) DEFAULT '',
-    `image_data` blob,
+    `image_data` longblob,
     PRIMARY KEY (`_id`),
     KEY `time_device` (`timestamp`, `device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
