@@ -927,14 +927,14 @@ export default function SensorData() {
             title="Compression Rate"
             inputLabel="Compression rate for screenshots"
             defaultNum={20}
-            description="Compression rate for the screenshots (1-100)."
+            description="Compression rate for the screenshots (1-100). 1 meaning compress for small size, 100 meaning compress for max quality. On default, a compression rate of 20 offers a good balance between quality and storage cost (average 60kb/per screenshot on testing device like Pixel 8)."
             field="compress_rate"
             studyField={screenshotData.compress_rate}
             modeState="screenshot"
           />
           <SensorComponent
             sensorName="Local Storage"
-            sensorDescription="Enable or disable local storage of screenshots."
+            sensorDescription="Choose whether to sync the screenshot data with a remote database or simply save the screenshot images in the folder located at /download/aware-light/screenshot/."
             stateField={screenshotData.status_screenshot_local_storage}
             field="status_screenshot_local_storage"
             modeState="screenshot"
