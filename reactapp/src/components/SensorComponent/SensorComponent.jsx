@@ -27,6 +27,7 @@ import {
   temperatureState,
   timezoneState,
   wifiState,
+  screenshotSensorState,
 } from "../../functions/atom";
 
 export default function SensorComponent(inputs) {
@@ -121,6 +122,16 @@ export default function SensorComponent(inputs) {
   const updateLightData = (fieldName, value) => {
     setLightData({
       ...lightData,
+      [fieldName]: value,
+    });
+  };
+
+  const [screenshotData, setScreenshotData] = useRecoilState(
+    screenshotSensorState
+  );
+  const updateScreenshotData = (fieldName, value) => {
+    setScreenshotData({
+      ...screenshotData,
       [fieldName]: value,
     });
   };
@@ -265,6 +276,9 @@ export default function SensorComponent(inputs) {
     }
     if (mode === "wifi") {
       updateWifiData(fieldName, value);
+    }
+    if (mode === "screenshot") {
+      updateScreenshotData(fieldName, value);
     }
   }
 

@@ -32,6 +32,7 @@ import {
   temperatureState,
   timezoneState,
   wifiState,
+  screenshotSensorState,
 } from "../functions/atom";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
@@ -78,7 +79,7 @@ export default function Upload() {
   const setWifiData = useSetRecoilState(wifiState);
   const setTimezoneData = useSetRecoilState(timezoneState);
   const setCommunicationData = useSetRecoilState(communicationSensorState);
-
+  const setScreenshotData = useSetRecoilState(screenshotSensorState);
   const getData = (file) => {
     fetch(file, {
       headers: {
@@ -189,6 +190,7 @@ export default function Upload() {
     const wifiData = {};
     const timezoneData = {};
     const communicationData = {};
+    const screenshotData = {};
 
     for (let i = 0; i < jsonValue.sensors.length; i += 1) {
       const { setting, value } = jsonValue.sensors[i];
@@ -472,6 +474,19 @@ export default function Upload() {
         case "status_webservice":
           // default value
           break;
+        case "status_screenshot":
+          sensorData.sensor_screenshot = value;
+          break;
+        case "capture_time_interval":
+          screenshotData.capture_time_interval = value;
+          break;
+        case "compress_rate":
+          screenshotData.compress_rate = value;
+          break;
+        case "status_screenshot_local_storage":
+          screenshotData.status_screenshot_local_storage = value;
+          break;
+
         default:
       }
     }
@@ -494,7 +509,7 @@ export default function Upload() {
     setWifiData(wifiData);
     setTimezoneData(timezoneData);
     setCommunicationData(communicationData);
-
+    setScreenshotData(screenshotData);
     navigateTo("/study/study_information");
   };
   function readInputFile(file) {

@@ -45,6 +45,7 @@ import {
   temperatureState,
   timezoneState,
   wifiState,
+  screenshotSensorState,
 } from "../functions/atom";
 import {
   RANDOM_TRIGGERS,
@@ -94,6 +95,7 @@ export default function Main() {
   const createTime = useRecoilValue(createTimeState);
   const [result, setResult] = useState({});
   const date = new Date().toJSON();
+  const screenshotData = useRecoilValue(screenshotSensorState);
 
   const checkStudyInformationValidation = () => {
     return (
@@ -159,6 +161,7 @@ export default function Main() {
   // eslint-disable-next-line consistent-return
   function displaySensors(sensor, sensorName) {
     if (sensor in sensorData) {
+      console.log(sensor);
       return (
         <Grid width="100%" ml="10%" mt="3%">
           <div>{sensorName}</div>
@@ -448,7 +451,6 @@ export default function Main() {
           setting: "status_touch",
           value: screenData.sensor_touch ? screenData.sensor_touch : false,
         },
-
         // telephony
         {
           setting: "status_telephony",
@@ -784,6 +786,31 @@ export default function Main() {
           setting: "frequency_wifi",
           value: wifiData.frequency_wifi ? wifiData.frequency_wifi : 60,
         },
+        // screenshot
+        {
+          setting: "status_screenshot",
+          value: sensorData.sensor_screenshot
+            ? sensorData.sensor_screenshot
+            : false,
+        },
+        {
+          setting: "capture_time_interval",
+          value: screenshotData.capture_time_interval
+            ? screenshotData.capture_time_interval
+            : 5,
+        },
+        {
+          setting: "compress_rate",
+          value: screenshotData.compress_rate
+            ? screenshotData.compress_rate
+            : 20,
+        },
+        {
+          setting: "status_screenshot_local_storage",
+          value: screenshotData.status_screenshot_local_storage
+            ? screenshotData.status_screenshot_local_storage
+            : false,
+        },
 
         // default sensors
         { setting: "status_esm", value: true },
@@ -996,6 +1023,7 @@ export default function Main() {
             {displaySensors("sensor_processor", "Processor")}
             {displaySensors("sensor_installation", "Installation")}
             {displaySensors("sensor_screen", "Screen")}
+            {displaySensors("sensor_screenshot", "Screenshot")}
             {displaySensors("sensor_telephony", "Telephony")}
             {displaySensors("sensor_timezone", "Timezone")}
 
