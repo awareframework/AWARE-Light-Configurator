@@ -451,7 +451,6 @@ export default function Main() {
           setting: "status_touch",
           value: screenData.sensor_touch ? screenData.sensor_touch : false,
         },
-
         // telephony
         {
           setting: "status_telephony",
@@ -1024,6 +1023,7 @@ export default function Main() {
             {displaySensors("sensor_processor", "Processor")}
             {displaySensors("sensor_installation", "Installation")}
             {displaySensors("sensor_screen", "Screen")}
+            {displaySensors("sensor_screenshot", "Screenshot")}
             {displaySensors("sensor_telephony", "Telephony")}
             {displaySensors("sensor_timezone", "Timezone")}
 
