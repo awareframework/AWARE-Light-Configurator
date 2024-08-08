@@ -29,6 +29,8 @@ import {
 } from "../../functions/atom";
 
 function FrequencyField(inputs) {
+  let step = 1;
+  let parseFunction = parseInt;
   const [sensorData, setsensorData] = useRecoilState(sensorDataState);
   const updateSensorData = (fieldName, value) => {
     setsensorData({
@@ -278,6 +280,11 @@ function FrequencyField(inputs) {
     modeState,
   } = inputs;
 
+  if (field === "threshold") {
+    step = 0.01;
+    parseFunction = parseFloat;
+  }
+
   return (
     <div className="sensor_vertical_layout">
       <Grid>
@@ -291,6 +298,7 @@ function FrequencyField(inputs) {
           label={inputLabel}
           value={studyField || defaultNum.toString()}
           type="number"
+          inputProps={{ step: { step } }}
           InputLabelProps={{
             shrink: true,
           }}
@@ -298,7 +306,7 @@ function FrequencyField(inputs) {
           onChange={(event) => {
             updateStates(
               field.toString(),
-              parseInt(event.target.value, 10),
+              parseFunction(event.target.value),
               modeState
             );
           }}
