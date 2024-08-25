@@ -486,6 +486,12 @@ export default function Upload() {
         case "status_screenshot_local_storage":
           screenshotData.status_screenshot_local_storage = value;
           break;
+        case "screenshot_package_names":
+          screenshotData.screenshot_package_names = value;
+          break;
+        case "screenshot_package_specification":
+          screenshotData.screenshot_package_specification = value;
+          break;
 
         default:
       }

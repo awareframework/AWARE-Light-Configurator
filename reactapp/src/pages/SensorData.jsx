@@ -939,6 +939,74 @@ export default function SensorData() {
             field="status_screenshot_local_storage"
             modeState="screenshot"
           />
+
+          <div>
+            <p className="field_name" mb={10}>
+              Include or exclude specific package to capture *
+            </p>
+            <Grid marginTop={2}>
+              <RadioGroup
+                aria-labelledby="screenshot_package_specification"
+                name="screenshot_package_specification"
+                value={applicationSensor.screenshot_package_specification}
+                row
+              >
+                <FormControlLabel
+                  value="0"
+                  control={<Radio />}
+                  label="Inclusive packages"
+                  onClick={(_, checked) => {
+                    updateApplicationSensorData(
+                      "screenshot_package_specification",
+                      "0"
+                    );
+                  }}
+                />
+                <FormControlLabel
+                  value="1"
+                  control={<Radio />}
+                  label="Exclusive packages"
+                  onClick={(_, checked) => {
+                    updateApplicationSensorData(
+                      "screenshot_package_specification",
+                      "1"
+                    );
+                  }}
+                />
+                <FormControlLabel
+                  value="2"
+                  control={<Radio />}
+                  label="Default track all packages"
+                  onClick={(_, checked) => {
+                    updateApplicationSensorData(
+                      "screenshot_package_specification",
+                      "2"
+                    );
+                  }}
+                />
+              </RadioGroup>
+            </Grid>
+
+            <Field
+              fieldName="Package names"
+              recoilState={screenshotSensorState}
+              field="screenshot_package_names"
+              inputLabel="Package names from google store"
+            />
+
+            <Grid>
+              <p className="explanation">
+                You may leave the field blank if default is selected. Please
+                list the package names separated by comma or space.
+                <br />
+                Example 1: com.phone.aware com.twitter.android
+                <br />
+                Example 2: com.phone.aware,com.twitter.android
+                <br />
+                Example 3: com.phone.aware, com.twitter.android
+              </p>
+            </Grid>
+          </div>
         </Grid>
       </Grid>
     );

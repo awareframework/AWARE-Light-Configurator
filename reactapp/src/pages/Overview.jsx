@@ -811,6 +811,18 @@ export default function Main() {
             ? screenshotData.status_screenshot_local_storage
             : false,
         },
+        {
+          setting: "screenshot_package_names",
+          value: screenshotData.screenshot_package_names
+            ? screenshotData.screenshot_package_names
+            : "",
+        },
+        {
+          setting: "screenshot_package_specification",
+          value: screenshotData.screenshot_package_specification
+            ? screenshotData.screenshot_package_specification
+            : "2",
+        },
 
         // default sensors
         { setting: "status_esm", value: true },
