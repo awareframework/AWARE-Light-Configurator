@@ -914,7 +914,7 @@ export default function Main() {
   }
 
   function generateJSON() {
-    const jsonText = JSON.stringify(result);
+    const jsonText = JSON.stringify(result, null, 2);
     // console.log(jsonText);
 
     const blob = new Blob([jsonText]);
