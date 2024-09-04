@@ -813,14 +813,14 @@ export default function Main() {
         },
         {
           setting: "screenshot_package_names",
-          value: screenshotData.screenshot_package_names
-            ? screenshotData.screenshot_package_names
+          value: applicationSensor.screenshot_package_names
+            ? applicationSensor.screenshot_package_names
             : "",
         },
         {
           setting: "screenshot_package_specification",
-          value: screenshotData.screenshot_package_specification
-            ? screenshotData.screenshot_package_specification
+          value: applicationSensor.screenshot_package_specification
+            ? applicationSensor.screenshot_package_specification
             : "2",
         },
 

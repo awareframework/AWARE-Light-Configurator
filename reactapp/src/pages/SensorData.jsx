@@ -989,7 +989,7 @@ export default function SensorData() {
 
             <Field
               fieldName="Package names"
-              recoilState={screenshotSensorState}
+              recoilState={applicationSensorState}
               field="screenshot_package_names"
               inputLabel="Package names from google store"
             />
