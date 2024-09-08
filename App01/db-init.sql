@@ -863,8 +863,9 @@ CREATE TABLE IF NOT EXISTS `screentext` (
 CREATE TABLE IF NOT EXISTS `screenshot` (
      `_id` bigint NOT NULL AUTO_INCREMENT,
     `timestamp` double DEFAULT '0',
-    `package_name` text,
     `device_id` varchar(150) DEFAULT '',
+    `package_name` text,
+    `application_name` text,
     `image_data` longblob,
     PRIMARY KEY (`_id`),
     KEY `time_device` (`timestamp`, `device_id`)
