@@ -245,6 +245,9 @@ export default function Main() {
         const newSchedule = {};
         newSchedule.title = schedule.title;
         newSchedule.type = schedule.type;
+        newSchedule.esm_replace = schedule.esm_replace
+          ? schedule.esm_replace
+          : false;
         newSchedule.questions = [];
         for (const key in schedule.questions) {
           const isSelected = schedule.questions[key];
