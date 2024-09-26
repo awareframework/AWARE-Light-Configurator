@@ -126,6 +126,7 @@ export default function Upload() {
         const newSchedule = {};
         newSchedule.title = schedule.title;
         newSchedule.type = schedule.type;
+        newSchedule.esm_keep = schedule.esm_keep;
         newSchedule.questions = {};
         for (let i = 0; i < jsonValue.questions.length; i += 1) {
           const question = jsonValue.questions[i];

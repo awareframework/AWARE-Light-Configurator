@@ -245,6 +245,7 @@ export default function Main() {
         const newSchedule = {};
         newSchedule.title = schedule.title;
         newSchedule.type = schedule.type;
+        newSchedule.esm_kepp = schedule.esm_keep ? schedule.esm_keep : false;
         newSchedule.questions = [];
         for (const key in schedule.questions) {
           const isSelected = schedule.questions[key];
