@@ -21,6 +21,9 @@ def test_connection(request):
 
         result = check_insert_privileges(ip, port, database, username, password)
         return HttpResponse(json.dumps(result))
+    else:
+        logger.error("Invalid request method")
+        return HttpResponse(json.dumps({"status": "error", "message": "Invalid request method"}))
 
 
 def initialize_database(request):
@@ -37,4 +40,8 @@ def initialize_database(request):
         require_ssl = json_dict.get('require_ssl', None)
 
         result = init_database(ip, port, database, root_username, root_password, username, password, require_ssl)
+        logger.info(f"Initialize database result: {result}")
         return HttpResponse(json.dumps(result))
+    else:
+        logger.error("Invalid request method")
+        return HttpResponse(json.dumps({"status": "error", "message": "Invalid request method"}))

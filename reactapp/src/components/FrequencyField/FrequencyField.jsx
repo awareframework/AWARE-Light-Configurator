@@ -27,6 +27,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  pluginSensorState,
 } from "../../functions/atom";
 
 function FrequencyField(inputs) {
@@ -204,9 +205,19 @@ function FrequencyField(inputs) {
   const [screenshotData, setScreenshotData] = useRecoilState(
     screenshotSensorState
   );
+
+  const [pluginData, setPluginData] = useRecoilState(pluginSensorState);
+
   const updateScreenshotData = (fieldName, value) => {
     setScreenshotData({
       ...screenshotData,
+      [fieldName]: value,
+    });
+  };
+
+  const updatePluginData = (fieldName, value) => {
+    setPluginData({
+      ...pluginData,
       [fieldName]: value,
     });
   };
@@ -276,9 +287,11 @@ function FrequencyField(inputs) {
     if (mode === "wifi") {
       updateWifiData(fieldName, value);
     }
-
     if (mode === "screenshot") {
       updateScreenshotData(fieldName, value);
+    }
+    if (mode === "plugin") {
+      updatePluginData(fieldName, value);
     }
   }
 

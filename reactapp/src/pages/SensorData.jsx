@@ -4,7 +4,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Button, Radio, RadioGroup, ThemeProvider } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Radio,
+  RadioGroup,
+  ThemeProvider,
+} from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   accelerometerState,
@@ -29,6 +35,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  pluginSensorState,
 } from "../functions/atom";
 import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
@@ -105,6 +112,7 @@ export default function SensorData() {
     screenshotSensorState
   );
 
+  const [pluginData, setPluginData] = useRecoilState(pluginSensorState);
   // eslint-disable-next-line react/no-unstable-nested-components
   function TextReader() {
     return (
@@ -934,7 +942,7 @@ export default function SensorData() {
           />
           <SensorComponent
             sensorName="Local Storage"
-            sensorDescription="Choose whether to sync the screenshot data with a remote database or simply save the screenshot images in the folder located at /download/aware-light/screenshot/."
+            sensorDescription="Choose whether to save screenshot images locally in addition to syncing with the remote database. Screenshots are always synced to the remote database. If local storage is enabled, screenshots will also be saved in the folder located at /download/aware-light/screenshot/ on your device."
             stateField={screenshotData.status_screenshot_local_storage}
             field="status_screenshot_local_storage"
             modeState="screenshot"
@@ -1007,6 +1015,67 @@ export default function SensorData() {
               </p>
             </Grid>
           </div>
+        </Grid>
+      </Grid>
+    );
+  }
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function PluginAmbientNoiseSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="frequency_plugin_ambient_noise"
+            title="Sampling Frequency"
+            inputLabel="How frequently to sample the microphone (minutes)"
+            defaultNum={5}
+            description="Frequency of ambient noise sampling in minutes."
+            field="frequency_plugin_ambient_noise"
+            studyField={pluginData.frequency_plugin_ambient_noise}
+            modeState="plugin"
+          />
+          <FrequencyField
+            id="plugin_ambient_noise_sample_size"
+            title="Sample Size"
+            inputLabel="Duration of each sample (seconds)"
+            defaultNum={30}
+            description="Duration of each ambient noise sample in seconds."
+            field="plugin_ambient_noise_sample_size"
+            studyField={pluginData.plugin_ambient_noise_sample_size}
+            modeState="plugin"
+          />
+          <FrequencyField
+            id="plugin_ambient_noise_silence_threshold"
+            title="Silence Threshold"
+            inputLabel="Silence threshold (dB)"
+            defaultNum={50}
+            description="Threshold for considering ambient noise as silence (in dB)."
+            field="plugin_ambient_noise_silence_threshold"
+            studyField={pluginData.plugin_ambient_noise_silence_threshold}
+            modeState="plugin"
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function PluginOpenWeatherSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="plugin_openweather_frequency"
+            title="Update Frequency"
+            inputLabel="How often to fetch weather data (minutes)"
+            defaultNum={30}
+            description="Frequency of weather data updates in minutes."
+            field="plugin_openweather_frequency"
+            studyField={pluginData.plugin_openweather_frequency}
+            modeState="plugin"
+          />
         </Grid>
       </Grid>
     );
@@ -1428,6 +1497,35 @@ export default function SensorData() {
           />
 
           {sensorData.sensor_wifi ? SensorWifiSubContent() : <div />}
+        </div>
+
+        <div className="border">
+          <p className="title">Plugin</p>
+          <SensorComponent
+            sensorName="Ambient Noise Plugin"
+            sensorDescription="Ambient noise sampling plugin for smartphones"
+            stateField={sensorData.status_plugin_ambient_noise}
+            field="status_plugin_ambient_noise"
+            modeState="sensor"
+          />
+          {sensorData.status_plugin_ambient_noise ? (
+            PluginAmbientNoiseSubContent()
+          ) : (
+            <div />
+          )}
+
+          <SensorComponent
+            sensorName="OpenWeather Plugin"
+            sensorDescription="Fetch local weather data using OpenWeather API"
+            stateField={sensorData.status_plugin_openweather}
+            field="status_plugin_openweather"
+            modeState="sensor"
+          />
+          {sensorData.status_plugin_openweather ? (
+            PluginOpenWeatherSubContent()
+          ) : (
+            <div />
+          )}
         </div>
 
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>

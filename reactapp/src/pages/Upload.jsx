@@ -33,6 +33,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  pluginSensorState,
 } from "../functions/atom";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
@@ -80,6 +81,7 @@ export default function Upload() {
   const setTimezoneData = useSetRecoilState(timezoneState);
   const setCommunicationData = useSetRecoilState(communicationSensorState);
   const setScreenshotData = useSetRecoilState(screenshotSensorState);
+  const setPluginData = useSetRecoilState(pluginSensorState);
   const getData = (file) => {
     fetch(file, {
       headers: {
@@ -191,6 +193,7 @@ export default function Upload() {
     const timezoneData = {};
     const communicationData = {};
     const screenshotData = {};
+    const pluginData = {};
 
     for (let i = 0; i < jsonValue.sensors.length; i += 1) {
       const { setting, value } = jsonValue.sensors[i];
@@ -492,6 +495,24 @@ export default function Upload() {
         case "screenshot_package_specification":
           applicationSensor.screenshot_package_specification = value;
           break;
+        case "status_plugin_ambient_noise":
+          sensorData.status_plugin_ambient_noise = value;
+          break;
+        case "frequency_plugin_ambient_noise":
+          pluginData.frequency_plugin_ambient_noise = value;
+          break;
+        case "plugin_ambient_noise_sample_size":
+          pluginData.plugin_ambient_noise_sample_size = value;
+          break;
+        case "plugin_ambient_noise_silence_threshold":
+          pluginData.plugin_ambient_noise_silence_threshold = value;
+          break;
+        case "status_plugin_openweather":
+          sensorData.status_plugin_openweather = value;
+          break;
+        case "plugin_openweather_frequency":
+          pluginData.plugin_openweather_frequency = value;
+          break;
 
         default:
       }
@@ -516,6 +537,7 @@ export default function Upload() {
     setTimezoneData(timezoneData);
     setCommunicationData(communicationData);
     setScreenshotData(screenshotData);
+    setPluginData(pluginData);
     navigateTo("/study/study_information");
   };
   function readInputFile(file) {

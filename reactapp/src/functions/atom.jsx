@@ -68,6 +68,11 @@ export const screenshotSensorState = atom({
   default: {},
 });
 
+export const pluginSensorState = atom({
+  key: "pluginSensorState",
+  default: {},
+});
+
 // Hardware Sensor SubFields:
 
 export const accelerometerState = atom({
