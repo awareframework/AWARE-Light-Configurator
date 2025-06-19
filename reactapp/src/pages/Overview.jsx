@@ -63,7 +63,8 @@ const TYPE_MAP = {
   4: "Likert Scale",
   5: "Quick Answer",
   6: "Scale",
-  7: "Numeric",
+  9: "Numeric",
+  10: "Web Link",
 };
 
 export default function Main() {
