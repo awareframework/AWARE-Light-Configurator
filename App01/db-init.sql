@@ -171,6 +171,7 @@ CREATE TABLE IF NOT EXISTS `bluetooth` (
   `bt_name` text,
   `bt_rssi` int(11) DEFAULT '0',
   `label` text,
+  `bt_status` int(11) DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
