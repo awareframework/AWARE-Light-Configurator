@@ -22,6 +22,7 @@ const LIKERT_SCALE = 4;
 const QUICK_ANSWER = 5;
 const SCALE = 6;
 const NUMERIC = 9;
+const WEB_LINK = 10;
 
 const TYPE_MAP = {
   1: "Free Text",
@@ -31,6 +32,7 @@ const TYPE_MAP = {
   5: "Quick Answer",
   6: "Scale",
   9: "Numeric",
+  10: "Web Link",
 };
 
 export default function QuestionComponent(input) {
@@ -348,6 +350,22 @@ export default function QuestionComponent(input) {
         </div>
       );
     }
+    if (questions[questionIndex].esm_type === WEB_LINK) {
+      return (
+        <div>
+          <p className="description" style={{ width: "100%" }}>
+            Displays a web link for participants to access. Enter the URL that
+            participants should visit.
+          </p>
+          {questionTextField(
+            "Web Link URL",
+            "esm_url",
+            questions[questionIndex].esm_url,
+            "Enter the complete URL (e.g., https://example.com)"
+          )}
+        </div>
+      );
+    }
     // if questions[questionNumber].esm_type === NUMERIC
     return (
       <p className="description" style={{ width: "100%" }}>
@@ -464,6 +482,14 @@ export default function QuestionComponent(input) {
                     }}
                   >
                     Numeric
+                  </MenuItem>
+                  <MenuItem
+                    value={WEB_LINK}
+                    onClick={(event) => {
+                      updateQuestion("esm_type", WEB_LINK);
+                    }}
+                  >
+                    Web Link
                   </MenuItem>
                 </Select>
               </FormControl>
