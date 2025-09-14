@@ -6,7 +6,7 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    margin: 0 15rem;
+/*    margin: 0 15rem; */
 }
 
 .main_horizontal_layout {
