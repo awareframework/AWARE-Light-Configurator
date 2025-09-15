@@ -250,8 +250,8 @@ export default function Upload() {
         case "mask_keyboard":
           applicationSensor.mask_keyboard = value;
           break;
-        case "mask_notification":
-          applicationSensor.mask_notification = value;
+        case "mask_notification_text":
+          applicationSensor.mask_notification_text = value;
           break;
         case "mask_touch_text":
           applicationSensor.mask_touch_text = value;

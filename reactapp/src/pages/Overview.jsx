@@ -376,9 +376,9 @@ export default function Main() {
             : false,
         },
         {
-          setting: "mask_notification",
-          value: applicationSensor.mask_notification
-            ? applicationSensor.mask_notification
+          setting: "mask_notification_text",
+          value: applicationSensor.mask_notification_text
+            ? applicationSensor.mask_notification_text
             : false,
         },
         {
