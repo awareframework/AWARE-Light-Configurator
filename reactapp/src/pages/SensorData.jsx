@@ -243,8 +243,8 @@ export default function SensorData() {
           <SensorComponent
             sensorName="Mask notification content"
             sensorDescription="Convert the notification messages into a irreversible code by applying a hash function"
-            stateField={applicationSensor.mask_notification}
-            field="mask_notification"
+            stateField={applicationSensor.mask_notification_text}
+            field="mask_notification_text"
             modeState="application"
           />
 
