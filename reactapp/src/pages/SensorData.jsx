@@ -970,7 +970,9 @@ export default function SensorData() {
               <RadioGroup
                 aria-labelledby="screenshot_package_specification"
                 name="screenshot_package_specification"
-                value={applicationSensor.screenshot_package_specification}
+                value={
+                  applicationSensor.screenshot_package_specification || "2"
+                }
                 row
               >
                 <FormControlLabel
@@ -1113,7 +1115,7 @@ export default function SensorData() {
             row
           >
             <FormControlLabel
-              value="0"
+              value="metric"
               control={<Radio />}
               label="Metric"
               onClick={(_, checked) => {
@@ -1124,7 +1126,7 @@ export default function SensorData() {
               }}
             />
             <FormControlLabel
-              value="1"
+              value="imperial"
               control={<Radio />}
               label="Imperial"
               onClick={(_, checked) => {
