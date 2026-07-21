@@ -304,7 +304,7 @@ export default function ScheduleComponent(input) {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid width="30%">
-              <p className="schedule_field_name">Carrying Quesitons</p>
+              <p className="schedule_field_name">Carrying Questions</p>
             </Grid>
             <Grid width="70%">
               <div className="schedule_vertical_layout">
@@ -316,7 +316,7 @@ export default function ScheduleComponent(input) {
                 />
                 <Grid width="100%">
                   <p style={{ width: "100%" }}>
-                    Carrying over any unanswered EMA questions to the next EMA
+                    Carry over any unanswered EMA questions to the next EMA
                     instance
                   </p>
                 </Grid>
